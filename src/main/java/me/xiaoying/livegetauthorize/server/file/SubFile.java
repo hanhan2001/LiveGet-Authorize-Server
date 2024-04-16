@@ -1,7 +1,7 @@
 package me.xiaoying.livegetauthorize.server.file;
 
-import me.xiaoying.livegetauthorize.configuration.YamlConfiguration;
-import me.xiaoying.livegetauthorize.utils.StringUtil;
+import me.xiaoying.livegetauthorize.core.configuration.YamlConfiguration;
+import me.xiaoying.livegetauthorize.server.utils.StringUtil;
 
 import java.io.File;
 import java.io.IOException;
