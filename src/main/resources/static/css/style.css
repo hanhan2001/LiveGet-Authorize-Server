@@ -1,0 +1,128 @@
+div[type="bar"] {
+	border-radius: 3px;
+	box-shadow: 0px 0px 5px #666666;
+}
+
+div[type="button"] {
+	border-radius: 3px;
+	background-color: transparent;
+	width: 25px;
+	height: 25px;
+	background-size: cover;
+	-webkit-user-select: none;
+	cursor: pointer;
+	transition: .2s;
+}
+
+div[type="button"]:hover {
+	background-color: #EFEFEF;
+}
+div[type="button"]:active {
+	background-color: #DDDDDD;
+}
+
+div[type="tools_button"] {
+	width: 40px;
+	height: 40px;
+	overflow: hidden;
+	transition: 0.2s;
+	border-radius: 3px;
+	position: relative;
+	cursor: pointer;
+	-webkit-user-select: none;
+}
+
+div[type="tools_button"]:hover {
+	width: 200px;
+	background-color: #EFEFEF;
+	box-shadow: 0px 0px 5px #666666;
+}
+
+div[type="tools_button"] .image {
+	height: 40px;
+	width: 40px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	position: absolute;
+}
+
+div[type="tools_button"] .image:after {
+	content: "";
+	display: inline-block;
+	position: absolute;
+	width: 2px;
+	border-radius: 3px;
+	height: 30px;
+	background-color: #BBBBBB;
+	top: 5px;
+	left: 50px;
+}
+
+div[type="tools_button"] .text {
+	position: absolute;
+	left: 60px;
+	white-space: nowrap;
+}
+
+div[type="tools_button"] .text .title {
+	font-size: 15px;
+	margin-top: 3px;
+}
+
+div[type="tools_button"] .text .description {
+	font-size: 10px;
+	margin-top: -3px;
+}
+
+div[type="tools_button"]:active {
+	width: 200px;
+	background-color: #DDDDDD;
+	box-shadow: 0px 0px 5px #666666;
+}
+
+div[type="href_button"] {
+	-webkit-user-select: none;
+	border-radius: 3px;
+	padding: 10px 50px 10px 50px;
+	transition: background-color 0.2s;
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+div[type="href_button"]:hover {
+	background-color: #DDDDDD;
+}
+
+div[type="href_button"]:active {
+	background-color: #BBBBBB;
+}
+
+div[type="shop_button"] {
+	border-radius: 3px;
+	padding: 5px 10px 5px 10px;
+	color: white;
+	margin-right: 5px;
+	cursor: pointer;
+	transition: all .2s;
+	-webkit-user-select: none;
+}
+
+/* 滚动条 */
+*::-webkit-scrollbar {
+	background-color: #EEEEEE;
+	width: 3px;
+	border-radius: 50px;
+}
+
+*::-webkit-scrollbar:hover {
+	width: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: #DDDDDD;
+	border-radius: 15px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+	background-color: #CCCCCC;
+}
