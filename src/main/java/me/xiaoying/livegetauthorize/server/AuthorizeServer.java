@@ -4,7 +4,9 @@ import me.xiaoying.livegetauthorize.core.command.CommandManager;
 import me.xiaoying.livegetauthorize.core.command.SimpleCommandManager;
 import me.xiaoying.livegetauthorize.core.plugin.PluginManager;
 import me.xiaoying.livegetauthorize.core.plugin.SimplePluginManager;
+import me.xiaoying.livegetauthorize.core.scheduler.Scheduler;
 import me.xiaoying.livegetauthorize.core.server.Server;
+import me.xiaoying.livegetauthorize.server.scheduler.ServerScheduler;
 import me.xiaoying.logger.LoggerFactory;
 
 /**
@@ -13,6 +15,7 @@ import me.xiaoying.logger.LoggerFactory;
 public class AuthorizeServer implements Server {
     private final PluginManager pluginManager = new SimplePluginManager(this);
     private final CommandManager commandManager = new SimpleCommandManager();
+    private final Scheduler scheduler = new ServerScheduler();
 
     @Override
     public String getName() {
@@ -27,6 +30,11 @@ public class AuthorizeServer implements Server {
     @Override
     public CommandManager getCommandManager() {
         return this.commandManager;
+    }
+
+    @Override
+    public Scheduler getScheduler() {
+        return this.scheduler;
     }
 
     @Override
