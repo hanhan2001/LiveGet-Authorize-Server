@@ -3,6 +3,7 @@ package me.xiaoying.livegetauthorize.server;
 import me.xiaoying.livegetauthorize.core.LACore;
 import me.xiaoying.livegetauthorize.core.server.Server;
 import me.xiaoying.livegetauthorize.server.file.FileService;
+import me.xiaoying.livegetauthorize.server.file.files.FileConfig;
 import me.xiaoying.livegetauthorize.server.listener.LoggerListener;
 import me.xiaoying.livegetauthorize.server.terminal.Terminal;
 import me.xiaoying.logger.event.EventHandle;
@@ -36,6 +37,7 @@ public class Application {
     // 初始化
     public static void initialize() {
         fileService = new FileService();
+        fileService.register("Config", new FileConfig());
 
         // Server
         server = new AuthorizeServer();
