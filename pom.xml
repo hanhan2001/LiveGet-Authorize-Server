@@ -35,6 +35,12 @@
             <artifactId>Logger</artifactId>
             <version>0.0.1</version>
         </dependency>
+        <!-- Core-->
+        <dependency>
+            <groupId>me.xiaoying</groupId>
+            <artifactId>LiveGet-Authorize-Core</artifactId>
+            <version>0.0.1</version>
+        </dependency>
         <!-- SpringBoot-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
