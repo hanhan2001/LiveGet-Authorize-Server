@@ -1,6 +1,7 @@
 package me.xiaoying.livegetauthorize.server;
 
 import me.xiaoying.livegetauthorize.core.LACore;
+import me.xiaoying.livegetauthorize.core.server.Server;
 import me.xiaoying.livegetauthorize.server.listener.LoggerListener;
 import me.xiaoying.livegetauthorize.server.terminal.Terminal;
 import me.xiaoying.logger.event.EventHandle;
@@ -14,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Application {
     private static Terminal terminal;
+    private static Server server;
 
     public static void main(String[] args) {
         LACore.getLogger().info("Initializing...");
@@ -29,6 +31,12 @@ public class Application {
         terminal.start();
         EventHandle.registerEvent(new LoggerListener());
 
+        // Server
+        server = new AuthorizeServer();
+        server.run();
+    }
 
+    public static Server getServer() {
+        return server;
     }
 }
