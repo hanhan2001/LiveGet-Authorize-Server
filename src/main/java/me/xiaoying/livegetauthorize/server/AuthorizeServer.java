@@ -33,11 +33,6 @@ public class AuthorizeServer implements Server {
 
     @Override
     public void run() {
-        File file = new File("./logs/latest.log");
-        if (!file.exists())
-            return;
-
-        new LoggerFactory().saveLog();
     }
 
     @Override
