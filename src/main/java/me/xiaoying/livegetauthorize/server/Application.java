@@ -21,6 +21,8 @@ public class Application {
 
     public static void main(String[] args) {
         LACore.getLogger().info("Initializing...");
+        initialize();
+
         SpringApplication springApplication = new SpringApplication(Application.class);
         springApplication.setBannerMode(Banner.Mode.OFF);
         springApplication.run();
@@ -32,7 +34,7 @@ public class Application {
     }
 
     // 初始化
-    public void initialize() {
+    public static void initialize() {
         fileService = new FileService();
 
         // Server
