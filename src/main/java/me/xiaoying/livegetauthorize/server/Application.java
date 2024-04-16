@@ -11,6 +11,8 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.File;
+
 /**
  * Application
  */
@@ -21,7 +23,7 @@ public class Application {
     private static FileService fileService;
 
     public static void main(String[] args) {
-        LACore.getLogger().info("Initializing...");
+        LACore.getLogger().info("Starting server...");
         initialize();
 
         SpringApplication springApplication = new SpringApplication(Application.class);
@@ -36,12 +38,21 @@ public class Application {
 
     // 初始化
     public static void initialize() {
+        LACore.getLogger().info("Initializing...");
         fileService = new FileService();
         fileService.register("Config", new FileConfig());
 
         // Server
         server = new AuthorizeServer();
         server.run();
+
+        // plugin
+        LACore.getLogger().info("Loading plugins...");
+        File plugins = new File("./plugins");
+        if (!plugins.exists()) plugins.mkdirs();
+        server.getPluginManager().loadPlugins(plugins);
+
+        LACore.setServer(server);
     }
 
     public static Server getServer() {
