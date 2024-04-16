@@ -27,6 +27,7 @@ public class Application {
         initialize();
 
         SpringApplication springApplication = new SpringApplication(Application.class);
+        springApplication.setLogStartupInfo(false);
         springApplication.setBannerMode(Banner.Mode.OFF);
         springApplication.run();
 
