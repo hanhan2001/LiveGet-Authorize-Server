@@ -2,6 +2,7 @@ package me.xiaoying.livegetauthorize.server;
 
 import me.xiaoying.livegetauthorize.core.LACore;
 import me.xiaoying.livegetauthorize.core.server.Server;
+import me.xiaoying.livegetauthorize.server.command.StopCommand;
 import me.xiaoying.livegetauthorize.server.file.FileService;
 import me.xiaoying.livegetauthorize.server.file.files.FileConfig;
 import me.xiaoying.livegetauthorize.server.listener.LoggerListener;
@@ -52,6 +53,7 @@ public class Application {
         File plugins = new File("./plugins");
         if (!plugins.exists()) plugins.mkdirs();
         server.getPluginManager().loadPlugins(plugins);
+        server.getCommandManager().registerCommand("stop", new StopCommand("stop"));
 
         LACore.setServer(server);
     }
