@@ -11,7 +11,7 @@ import me.xiaoying.logger.event.terminal.TerminalWantLogEvent;
 public class LoggerListener implements Listener {
     @EventHandler
     public void onLoggerWantLog(TerminalWantLogEvent event) {
-        System.out.println("\r");
+        System.out.print("\r");
     }
 
     @EventHandler
