@@ -7,8 +7,6 @@ import me.xiaoying.livegetauthorize.core.plugin.SimplePluginManager;
 import me.xiaoying.livegetauthorize.core.server.Server;
 import me.xiaoying.logger.LoggerFactory;
 
-import java.io.File;
-
 /**
  * Server Authorize
  */
