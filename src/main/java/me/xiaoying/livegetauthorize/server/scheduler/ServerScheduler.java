@@ -1,6 +1,5 @@
 package me.xiaoying.livegetauthorize.server.scheduler;
 
-import me.xiaoying.livegetauthorize.core.plugin.JavaPlugin;
 import me.xiaoying.livegetauthorize.core.plugin.Plugin;
 import me.xiaoying.livegetauthorize.core.scheduler.Scheduler;
 
