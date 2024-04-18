@@ -9,23 +9,24 @@ import java.util.Date;
  * User
  */
 public class ServerUser implements User {
-    private final long qq;
-    private final String uuid;
-    private final String ip;
+    private long qq;
+    private String email;
+    private long telephone;
+    private String uuid;
     private String password;
-    private Date registerTime = null;
-    private Date lastLoginTime = null;
+    private String ip;
+    private Date registerTime;
+    private Date lastLoginTime;
 
-    public ServerUser(long qq, String uuid) {
-        this(qq, uuid, "", "");
-        this.lastLoginTime = new Date();
-    }
-
-    public ServerUser(long qq, String uuid, String password, String ip) {
+    public ServerUser(long qq, String email, long telephone, String uuid, String password, String ip, Date registerTime, Date lastLoginTime) {
         this.qq = qq;
+        this.email = email;
+        this.telephone = telephone;
         this.uuid = uuid;
         this.password = password;
         this.ip = ip;
+        this.registerTime = registerTime;
+        this.lastLoginTime = lastLoginTime;
     }
 
     @Override
@@ -36,6 +37,24 @@ public class ServerUser implements User {
     @Override
     public long getQQ() {
         return this.qq;
+    }
+
+    @Override
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public long getTelephone() {
+        return this.telephone;
+    }
+
+    public void setTelephone(long telephone) {
+        this.telephone = telephone;
     }
 
     @Override
@@ -61,17 +80,5 @@ public class ServerUser implements User {
     @Override
     public Date getLastLoginTime() {
         return this.lastLoginTime;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setRegisterTime() {
-        this.setRegisterTime(new Date());
-    }
-
-    public void setRegisterTime(Date date) {
-        this.registerTime = date;
     }
 }
