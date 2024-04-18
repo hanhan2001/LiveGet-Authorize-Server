@@ -120,6 +120,64 @@
 	z-index: 10;
 }
 
+.content .display .display_box_login_login {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	-webkit-user-select: none;
+}
+
+.content .display .display_box_login_login .login,
+.content .display .display_box_login_register .register {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+}
+
+.content .display .display_box_login_login .login .box,
+.content .display .display_box_login_register .register .box {
+	width: 300px;
+	padding: 60px 0;
+	border-radius: 5px;
+	display: flex;
+	justify-content: center;
+	background-color: white;
+	overflow: hidden;
+}
+
+.content .display .display_box_login_login .login .box form,
+.content .display .display_box_login_register .register .box form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 80%;
+	height: 80%;
+}
+
+.content .display .display_box_login_login .login .box form h1,
+.content .display .display_box_login_register .register .box form h1 {
+	margin-bottom: 20px;
+}
+
+.content .display .display_box_login_login .login .box form input,
+.content .display .display_box_login_register .register .box form input {
+	margin-top: 30px;
+	height: 25px;
+}
+
+.content .display .display_box_login_login .login .box form input[type="submit"],
+.content .display .display_box_login_register .register .box form input[type="submit"] {
+	margin-top: 50px;
+	width: 93%;
+	color: white;
+	height: auto;
+}
+
+/*服务 附属*/
 .content .display .display_box_shop_subsidiary {
 	display: flex;
 	justify-content: center;

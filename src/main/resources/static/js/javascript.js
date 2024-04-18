@@ -23,6 +23,19 @@ window.onload = function(event) {
 		websocket.send(new MusicEndedMessage(musicID, music.src).toString());
 	}
 
+	// 分类 登录
+	let box_login = new Map();
+	let box_login_login = new DisplayBox(".content .display .display_box_login_login");
+	box_login_login.setLine(".content .display .display_hrefs .display_hrefs_login .line");
+	box_login_login.setButton(".content .display .display_hrefs .display_hrefs_login .display_box_login_login_button");
+	let box_login_register = new DisplayBox(".content .display .display_box_login_register");
+	box_login_register.setLine(".content .display .display_hrefs .display_hrefs_login .line");
+	box_login_register.setButton(".content .display .display_hrefs .display_hrefs_login .display_box_login_register_button");
+	box_login.set("login", box_login_login);
+	box_login.set("register", box_login_register);
+	let classification_login = new Classification(".content .display .display_hrefs .display_hrefs_login", box_login, "login");
+	classification_login.setLine(".content .display .display_hrefs .display_hrefs_login .line");
+
 	// 分类 概览
 	// 界面
 	let box_preview = new Map();
@@ -33,7 +46,7 @@ window.onload = function(event) {
 	// 分类
 	let classification_preview = new Classification(".content .display .display_hrefs .display_hrefs_preview", box_preview, "preview");
 	classification_preview.setLine(".content .display .display_hrefs .display_hrefs_preview .line");
-	classifications.set("preview", classification_preview);
+
 
 	// 分类 授权码
 	// 界面
@@ -75,6 +88,8 @@ window.onload = function(event) {
 	classification_set.setLine(".content .display .display_hrefs .display_hrefs_set .line");
 
 	// 存入分类
+	classifications.set("login", classification_login);
+	classifications.set("preview", classification_preview);
 	classifications.set("code", classification_code);
 	classifications.set("shop", classification_shop);
 	classifications.set("set", classification_set);
@@ -82,8 +97,9 @@ window.onload = function(event) {
 	// 默认打开
 	// openClassification("preview");
 	// openDisplayBox("preview", "preview");
-	openClassification("shop");
-	openDisplayBox("shop", "subsidiary");
+	// openClassification("shop");
+	// openDisplayBox("shop", "subsidiary");
+	openClassification("login")
 }
 
 /**

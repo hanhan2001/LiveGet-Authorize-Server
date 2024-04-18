@@ -107,6 +107,30 @@ div[type="shop_button"] {
 	-webkit-user-select: none;
 }
 
+input[class="input"] {
+	border: none;
+	background-color: transparent;
+	outline: none;
+	border-bottom: 1px solid #DDDDDD;
+}
+
+input[type="submit"] {
+	border: none;
+	padding: 10px 15px;
+	border-radius: 3px;
+	background-color: #999999;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+input[type="submit"]:hover {
+	background-color: #777777;
+}
+
+input[type="submit"]:active {
+	background-color: #555555;
+}
+
 /* 滚动条 */
 *::-webkit-scrollbar {
 	background-color: #EEEEEE;
