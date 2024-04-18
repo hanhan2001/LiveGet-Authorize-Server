@@ -43,6 +43,10 @@ public class FileConfig extends SubFile {
         FileConfigConstant.SETTING_DATA_MYSQL_RECONNECT_TIME = this.getInt(FileConfigConstant.SETTING_DATA_MYSQL_RECONNECT_TIME, "Setting.Data.Mysql.ReconnectTime");
         FileConfigConstant.SETTING_DATA_MYSQL_RECONNECT_DELAY = this.getInt(FileConfigConstant.SETTING_DATA_MYSQL_RECONNECT_DELAY, "Setting.Data.Mysql.ReconnectDelay");
 
+        FileConfigConstant.SETTING_JWT_KET_ID = this.getString(FileConfigConstant.SETTING_JWT_KET_ID, "Setting.Jwt.KeyId");
+        FileConfigConstant.SETTING_JWT_PUBLIC_KEY = this.getString(FileConfigConstant.SETTING_JWT_PUBLIC_KEY, "Setting.Jwt.PublicKey");
+        FileConfigConstant.SETTING_JWT_PRIVATE_KEY = this.getString(FileConfigConstant.SETTING_JWT_PRIVATE_KEY, "Setting.Jwt.PrivateKey");
+
         FileConfigConstant.SETTING_DATA_SQLITE_PATH = this.getString(FileConfigConstant.SETTING_DATA_SQLITE_PATH, "Setting.Data.Sqlite.Path");
         FileConfigConstant.SETTING_DATA_SQLITE_FILE = this.getString(FileConfigConstant.SETTING_DATA_SQLITE_FILE, "Setting.Data.Sqlite.File");
     }
