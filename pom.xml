@@ -41,6 +41,12 @@
             <artifactId>LiveGet-Authorize-Core</artifactId>
             <version>0.0.1</version>
         </dependency>
+        <!-- SqlFactory-->
+        <dependency>
+            <groupId>me.xiaoying</groupId>
+            <artifactId>SqlFactory</artifactId>
+            <version>0.0.2</version>
+        </dependency>
         <!-- SpringBoot-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
