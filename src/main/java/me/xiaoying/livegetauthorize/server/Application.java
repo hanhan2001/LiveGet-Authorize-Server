@@ -7,6 +7,7 @@ import me.xiaoying.livegetauthorize.server.file.FileService;
 import me.xiaoying.livegetauthorize.server.file.files.FileConfig;
 import me.xiaoying.livegetauthorize.server.listener.LoggerListener;
 import me.xiaoying.livegetauthorize.server.terminal.Terminal;
+import me.xiaoying.logger.LoggerFactory;
 import me.xiaoying.logger.event.EventHandle;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
@@ -24,6 +25,9 @@ public class Application {
     private static FileService fileService;
 
     public static void main(String[] args) {
+        // save latest log
+        if (new File("./logs/latest.log").exists()) new LoggerFactory().saveLog();
+
         LACore.getLogger().info("Starting server...");
         initialize();
 
