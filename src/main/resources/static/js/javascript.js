@@ -23,6 +23,22 @@ window.onload = function(event) {
 		websocket.send(new MusicEndedMessage(musicID, music.src).toString());
 	}
 
+	// 监听登录
+	const form = document.querySelector(".content .display .display_box_login_login .login .box .form");
+    form.onsubmit = function (e) {
+        e.preventDefault();
+        fetch(e.target.action, { method: e.target.method, body: new FormData(form) })
+            .then(res => res.text())
+            .then(res => {
+                console.log('后端返回内容', res);
+                alert('后端返回内容: ' + res)
+            })
+            .catch(() => {
+                console.error('请求出错');
+                alert('请求出错')
+            });
+    };
+
 	// 分类 登录
 	let box_login = new Map();
 	let box_login_login = new DisplayBox(".content .display .display_box_login_login");

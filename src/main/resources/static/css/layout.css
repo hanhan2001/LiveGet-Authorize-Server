@@ -139,7 +139,7 @@
 
 .content .display .display_box_login_login .login .box,
 .content .display .display_box_login_register .register .box {
-	width: 300px;
+	width: 270px;
 	padding: 60px 0;
 	border-radius: 5px;
 	display: flex;
@@ -167,6 +167,7 @@
 .content .display .display_box_login_register .register .box form input {
 	margin-top: 30px;
 	height: 25px;
+	width: 130px;
 }
 
 .content .display .display_box_login_login .login .box form input[type="submit"],
