@@ -2,6 +2,8 @@ package me.xiaoying.livegetauthorize.server.entity;
 
 import me.xiaoying.livegetauthorize.core.LACore;
 import me.xiaoying.livegetauthorize.core.entity.User;
+import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
+import me.xiaoying.livegetauthorize.server.utils.DateUtil;
 
 import java.util.Date;
 
@@ -17,6 +19,7 @@ public class ServerUser implements User {
     private String ip;
     private Date registerTime;
     private Date lastLoginTime;
+    private Date survival = new Date();
 
     public ServerUser(long qq, String email, long telephone, String uuid, String password, String ip, Date registerTime, Date lastLoginTime) {
         this.qq = qq;
@@ -80,5 +83,15 @@ public class ServerUser implements User {
     @Override
     public Date getLastLoginTime() {
         return this.lastLoginTime;
+    }
+
+    @Override
+    public boolean isSurvival() {
+        return DateUtil.getDateReduce(new Date(), this.survival) < FileConfigConstant.SETTING_DATA_CACHE_TIME;
+    }
+
+    @Override
+    public void updateSurvival() {
+        this.survival = new Date();
     }
 }
