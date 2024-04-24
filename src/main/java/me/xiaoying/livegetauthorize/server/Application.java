@@ -2,12 +2,14 @@ package me.xiaoying.livegetauthorize.server;
 
 import me.xiaoying.livegetauthorize.core.LACore;
 import me.xiaoying.livegetauthorize.core.server.Server;
+import me.xiaoying.livegetauthorize.server.command.JwtCommand;
 import me.xiaoying.livegetauthorize.server.command.StopCommand;
 import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
 import me.xiaoying.livegetauthorize.server.file.FileService;
 import me.xiaoying.livegetauthorize.server.file.files.FileConfig;
 import me.xiaoying.livegetauthorize.server.listener.LoggerListener;
 import me.xiaoying.livegetauthorize.server.terminal.Terminal;
+import me.xiaoying.livegetauthorize.server.user.UserService;
 import me.xiaoying.logger.LoggerFactory;
 import me.xiaoying.logger.event.EventHandle;
 import me.xiaoying.sql.MysqlFactory;
@@ -27,11 +29,9 @@ public class Application {
     private static Server server;
     private static Terminal terminal;
     private static FileService fileService;
+    private static UserService userService;
 
     public static void main(String[] args) {
-        // save latest log
-        if (new File("./logs/latest.log").exists()) new LoggerFactory().saveLog();
-
         LACore.getLogger().info("Starting server...");
         initialize();
 
@@ -49,8 +49,15 @@ public class Application {
     // 初始化
     public static void initialize() {
         LACore.getLogger().info("Initializing...");
+
+        // FileService
         fileService = new FileService();
         fileService.register("Config", new FileConfig());
+        fileService.fileAll();
+        fileService.initAll();
+
+        // UserService
+        userService = new UserService();
 
         // Server
         server = new AuthorizeServer();
@@ -62,6 +69,7 @@ public class Application {
         if (!plugins.exists()) plugins.mkdirs();
         server.getPluginManager().loadPlugins(plugins);
         server.getCommandManager().registerCommand("stop", new StopCommand("stop"));
+        server.getCommandManager().registerCommand("jwt", new JwtCommand("jwt", "create new jwt", "/jwt", null));
 
         LACore.setServer(server);
     }
@@ -72,6 +80,10 @@ public class Application {
 
     public static FileService getFileService() {
         return fileService;
+    }
+
+    public static UserService getUserService() {
+        return userService;
     }
 
     public static SqlFactory getSqlFactory() {
