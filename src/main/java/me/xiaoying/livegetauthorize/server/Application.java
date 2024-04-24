@@ -10,7 +10,6 @@ import me.xiaoying.livegetauthorize.server.file.files.FileConfig;
 import me.xiaoying.livegetauthorize.server.listener.LoggerListener;
 import me.xiaoying.livegetauthorize.server.terminal.Terminal;
 import me.xiaoying.livegetauthorize.server.user.UserService;
-import me.xiaoying.logger.LoggerFactory;
 import me.xiaoying.logger.event.EventHandle;
 import me.xiaoying.sql.MysqlFactory;
 import me.xiaoying.sql.SqlFactory;
