@@ -56,12 +56,13 @@ public class Application {
         fileService.fileAll();
         fileService.initAll();
 
-        // UserService
-        userService = new UserService();
-
         // Server
         server = new AuthorizeServer();
         server.run();
+        LACore.setServer(server);
+
+        // UserService
+        userService = new UserService();
 
         // plugin
         LACore.getLogger().info("Loading plugins...");
@@ -70,8 +71,6 @@ public class Application {
         server.getPluginManager().loadPlugins(plugins);
         server.getCommandManager().registerCommand("stop", new StopCommand("stop"));
         server.getCommandManager().registerCommand("jwt", new JwtCommand("jwt", "create new jwt", "/jwt", null));
-
-        LACore.setServer(server);
     }
 
     public static Server getServer() {
