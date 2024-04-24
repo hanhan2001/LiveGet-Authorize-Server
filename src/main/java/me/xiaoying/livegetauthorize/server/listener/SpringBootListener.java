@@ -16,6 +16,5 @@ public class SpringBootListener implements CommandLineRunner, DisposableBean {
 
     @Override
     public void destroy() throws Exception {
-        new LoggerFactory().saveLog();
     }
 }
