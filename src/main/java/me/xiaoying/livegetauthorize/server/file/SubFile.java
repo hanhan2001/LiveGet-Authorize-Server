@@ -1,5 +1,6 @@
 package me.xiaoying.livegetauthorize.server.file;
 
+import me.xiaoying.livegetauthorize.core.LACore;
 import me.xiaoying.livegetauthorize.core.configuration.YamlConfiguration;
 import me.xiaoying.livegetauthorize.server.utils.StringUtil;
 
@@ -46,7 +47,7 @@ public abstract class SubFile {
 
         try {
             if (outFile.exists() && !replace)
-                System.out.println("Could not save " + outFile.getName() + " to " + outFile + " because " + outFile.getName() + " already exists.");
+                LACore.getLogger().warn("Could not save " + outFile.getName() + " to " + outFile + " because " + outFile.getName() + " already exists.");
 
             OutputStream out = Files.newOutputStream(outFile.toPath());
             byte[] buf = new byte[in.available()];
