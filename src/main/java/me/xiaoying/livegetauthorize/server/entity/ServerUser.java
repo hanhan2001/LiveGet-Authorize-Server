@@ -21,6 +21,16 @@ public class ServerUser implements User {
     private Date lastLoginTime;
     private Date survival = new Date();
 
+    public ServerUser(long qq, String email, String uuid, String password, String ip, Date registerTime, Date lastLoginTime) {
+        this.qq = qq;
+        this.email = email;
+        this.uuid = uuid;
+        this.password = password;
+        this.ip = ip;
+        this.registerTime = registerTime;
+        this.lastLoginTime = lastLoginTime;
+    }
+
     public ServerUser(long qq, String email, long telephone, String uuid, String password, String ip, Date registerTime, Date lastLoginTime) {
         this.qq = qq;
         this.email = email;

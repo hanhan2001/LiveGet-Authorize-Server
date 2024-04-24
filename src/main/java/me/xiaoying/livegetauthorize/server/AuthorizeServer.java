@@ -56,6 +56,5 @@ public class AuthorizeServer implements Server {
 
     @Override
     public void stop() {
-        new LoggerFactory().saveLog();
     }
 }
