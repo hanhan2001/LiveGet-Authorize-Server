@@ -20,6 +20,7 @@ public class ServerUser implements User {
     private Date registerTime;
     private Date lastLoginTime;
     private Date survival = new Date();
+    private String token;
 
     public ServerUser(long qq, String email, String uuid, String password, String ip, Date registerTime, Date lastLoginTime) {
         this.qq = qq;
@@ -103,5 +104,15 @@ public class ServerUser implements User {
     @Override
     public void updateSurvival() {
         this.survival = new Date();
+    }
+
+    @Override
+    public String getToken() {
+        return this.token;
+    }
+
+    @Override
+    public void setToken(String s) {
+        this.token = s;
     }
 }
