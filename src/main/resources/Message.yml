@@ -1,0 +1,27 @@
+#-1 产生错误
+#101 无法找到对象
+#301 用户-密码错误
+#200 请求成功
+
+#账户信息
+Account:
+  #登录
+  Login: |-
+    {
+      "code": 200,
+      "account": "%account%",
+      "token": "%token%",
+      "message": "Login success."
+    }
+  #密码错误
+  PasswordInvalid: |-
+    {
+      "code": 301,
+      "message": "Password invalid."
+    }
+  #未找到用户
+  NotFound: |-
+    {
+      "code": 101,
+      "message": "can't find user."
+    }

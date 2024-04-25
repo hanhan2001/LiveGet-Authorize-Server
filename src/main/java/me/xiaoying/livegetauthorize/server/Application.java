@@ -7,6 +7,7 @@ import me.xiaoying.livegetauthorize.server.command.StopCommand;
 import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
 import me.xiaoying.livegetauthorize.server.file.FileService;
 import me.xiaoying.livegetauthorize.server.file.files.FileConfig;
+import me.xiaoying.livegetauthorize.server.file.files.FileMessage;
 import me.xiaoying.livegetauthorize.server.listener.LoggerListener;
 import me.xiaoying.livegetauthorize.server.terminal.Terminal;
 import me.xiaoying.livegetauthorize.server.user.UserService;
@@ -52,6 +53,7 @@ public class Application {
         // FileService
         fileService = new FileService();
         fileService.register("Config", new FileConfig());
+        fileService.register("Message", new FileMessage());
         fileService.fileAll();
         fileService.initAll();
 
