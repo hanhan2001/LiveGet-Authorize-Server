@@ -106,6 +106,11 @@ public class ServerUser implements User {
         this.survival = new Date();
     }
 
+    /**
+     * 此 Token 用于网页登录认证，非授权码 Token
+     *
+     * @return String
+     */
     @Override
     public String getToken() {
         return this.token;
