@@ -9,7 +9,6 @@ import me.xiaoying.livegetauthorize.core.scheduler.Scheduler;
 import me.xiaoying.livegetauthorize.core.server.Server;
 import me.xiaoying.livegetauthorize.server.permission.SimplePermissionManager;
 import me.xiaoying.livegetauthorize.server.scheduler.ServerScheduler;
-import me.xiaoying.logger.LoggerFactory;
 
 /**
  * Server Authorize
