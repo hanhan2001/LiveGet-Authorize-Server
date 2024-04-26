@@ -3,6 +3,7 @@ package me.xiaoying.livegetauthorize.server;
 import me.xiaoying.livegetauthorize.core.LACore;
 import me.xiaoying.livegetauthorize.core.server.Server;
 import me.xiaoying.livegetauthorize.server.command.JwtCommand;
+import me.xiaoying.livegetauthorize.server.command.ReloadCommand;
 import me.xiaoying.livegetauthorize.server.command.StopCommand;
 import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
 import me.xiaoying.livegetauthorize.server.file.FileService;
@@ -71,7 +72,17 @@ public class Application {
         if (!plugins.exists()) plugins.mkdirs();
         server.getPluginManager().loadPlugins(plugins);
         server.getCommandManager().registerCommand("stop", new StopCommand("stop"));
+        server.getCommandManager().registerCommand("reload", new ReloadCommand("reload", "Reload server", "/reload", null));
         server.getCommandManager().registerCommand("jwt", new JwtCommand("jwt", "create new jwt", "/jwt", null));
+    }
+
+    // 取消初始化
+    public static void unInitialize() {
+        LACore.getLogger().info("Disable plugins...");
+        server.getPluginManager().disablePlugins();
+
+        LACore.getLogger().info("Remove Server...");
+        LACore.setServer(null);
     }
 
     public static Server getServer() {
