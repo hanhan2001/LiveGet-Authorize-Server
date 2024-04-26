@@ -95,7 +95,7 @@ public class UserService {
         Insert insert = new Insert(ConstantCommon.TABLE_USER_INFO);
         Date date = new Date();
         String stringDate = DateUtil.dateToString(date, FileConfigConstant.SETTING_DATEFORMAT);
-        insert.insert(String.valueOf(qq), email, "0", password, uuid, "", stringDate, stringDate);
+        insert.insert(String.valueOf(qq), email, "", password, uuid, "", stringDate, stringDate);
         sqlFactory.sentence(insert).run();
         User user = new ServerUser(qq, email, uuid, password, "", date, date);
         this.knownQQUsers.put(qq, user);
