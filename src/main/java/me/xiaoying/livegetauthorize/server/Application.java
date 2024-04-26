@@ -82,7 +82,6 @@ public class Application {
         server.getPluginManager().disablePlugins();
 
         LACore.getLogger().info("Remove Server...");
-        LACore.setServer(null);
     }
 
     public static Server getServer() {
