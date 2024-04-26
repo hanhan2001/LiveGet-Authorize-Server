@@ -91,6 +91,10 @@ public class ServerUser implements User {
         return this.ip;
     }
 
+    public void setIP(String ip) {
+        this.ip = ip;
+    }
+
     @Override
     public Date getRegisterTime() {
         return this.registerTime;
