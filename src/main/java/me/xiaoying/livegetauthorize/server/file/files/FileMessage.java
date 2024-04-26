@@ -14,7 +14,7 @@ public class FileMessage extends SubFile {
 
     @Override
     public void newFile() {
-        if (this.message.exists()) saveResource(this.message.getName(), false);
+        if (!this.message.exists()) saveResource(this.message.getName(), false);
         this.setConfiguration(YamlConfiguration.loadConfiguration(this.message));
     }
 

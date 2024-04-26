@@ -14,7 +14,7 @@ public class FileConfig extends SubFile {
 
     @Override
     public void newFile() {
-        if (this.config.exists()) this.saveResource(this.config.getName(), false);
+        if (!this.config.exists()) this.saveResource(this.config.getName(), false);
         this.setConfiguration(YamlConfiguration.loadConfiguration(this.config));
     }
 
