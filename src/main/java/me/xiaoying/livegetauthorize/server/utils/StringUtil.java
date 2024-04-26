@@ -12,38 +12,50 @@ public class StringUtil {
      * null或者空字符串都会判定为true
      *
      * @param str 字符串
-     * @return 逻辑值
+     * @return Boolean
      */
     public static boolean isEmpty(String str) {
         return  str == null || str.length() == 0;
     }
 
     /**
-     * 字符串通配符 ? *<br>
-     * 避免出现无法使用 *, 替代使用 +
+     * 是否为 Integer
      *
-     * @param s1 规则
+     * @param str 字符串
+     * @return Boolean
+     */
+    public static boolean isInteger(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * 字符串通配符 ? *<br>
+     *
+     * @param s1 匹配规则
      * @param s2 匹配数据
      * @param c1 位置1
      * @param c2 位置2
      * @return Boolean
      */
-    public static boolean match(String s1, String s2, int c1, int c2) {
-        if (c1 == s1.length() && c2 == s2.length()) {
+    public static boolean wildcard(String s1, String s2, int c1, int c2) {
+        if (c1 == s1.length() && c2 == s2.length())
             return true;
-        }
-        if (c1 == s1.length() || c2 == s2.length()) {
+        if (c1 == s1.length() || c2 == s2.length())
             return false;
-        }
-        if (s1.charAt(c1) == '?') {
-            return match(s1, s2, c1 + 1, c2 + 1);
-        } else if (s1.charAt(c1) == '+') {
-            return match(s1, s2, c1 + 1, c2) || match(s1, s2, c1 + 1, c2 + 1) || match(s1, s2, c1, c2 + 1);
-        } else if (s1.charAt(c1) == s2.charAt(c2)) {
-            return match(s1, s2, c1 + 1, c2 + 1);
-        } else {
-            return false;
-        }
+
+        if (s1.charAt(c1) == '?')
+            return wildcard(s1, s2, c1 + 1, c2 + 1);
+        else if (s1.charAt(c1) == '*')
+            return wildcard(s1, s2, c1 + 1, c2) || wildcard(s1, s2, c1 + 1, c2 + 1) || wildcard(s1, s2, c1, c2 + 1);
+        else if (s1.charAt(c1) == s2.charAt(c2))
+            return wildcard(s1, s2, c1 + 1, c2 + 1);
+
+        return false;
     }
 
     /**
@@ -53,20 +65,10 @@ public class StringUtil {
      * @return 移除后的字符串
      */
     public static String removeStartingSpace(String original) {
-        while (original.startsWith(" "))
+        while (original.startsWith(" ")) {
             original = original.substring(1);
-
+        }
         return original;
-    }
-
-    /**
-     * 移除所有空格
-     *
-     * @param original 源字符串
-     * @return String
-     */
-    public static String removeAllSpace(String original) {
-        return original.replace(" ", "");
     }
 
     /**
@@ -120,10 +122,8 @@ public class StringUtil {
         StringBuilder stringBuilder = new StringBuilder();
         boolean isStartingSpace = true;
         for (String s : str) {
-            if (isStartingSpace && !s.equalsIgnoreCase(" "))
-                isStartingSpace = false;
-            if (isStartingSpace && s.equalsIgnoreCase(" "))
-                continue;
+            if (isStartingSpace && !s.equalsIgnoreCase(" ")) isStartingSpace = false;
+            if (isStartingSpace && s.equalsIgnoreCase(" ")) continue;
             stringBuilder.append(s);
         }
         return stringBuilder.toString();
@@ -143,6 +143,22 @@ public class StringUtil {
             else return size;
         }
         return 0;
+    }
+
+    /**
+     * 移除等于后的内容
+     *
+     * @param str 源内容
+     * @return 内容
+     */
+    public static String removeBehindEqual(String str) {
+        String[] strs = str.split("");
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String s : strs) {
+            if (s.equalsIgnoreCase("=")) break;
+            stringBuilder.append(s);
+        }
+        return stringBuilder.toString();
     }
 
     /**
@@ -187,8 +203,8 @@ public class StringUtil {
     /**
      * 获取字符串的某个字符个数
      *
-     * @param str     源内容
-     * @param key     计数字符
+     * @param str 源内容
+     * @param key 计数字符
      * @param capital 是否区分大小写
      * @return 个数
      */
@@ -227,8 +243,8 @@ public class StringUtil {
     /**
      * 大小写转换
      *
-     * @param str       源字符串
-     * @param index     字符串位数
+     * @param str 源字符串
+     * @param index 字符串位数
      * @param uppercase 设置大小写
      * @return 转换后字符串
      */
@@ -237,11 +253,10 @@ public class StringUtil {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < strings.length; i++) {
             if (i == index) {
-                if (uppercase) {
+                if (uppercase)
                     strings[i] = strings[i].toUpperCase();
-                } else {
+                else
                     strings[i] = strings[i].toLowerCase();
-                }
             }
             stringBuilder.append(strings[i]);
         }
