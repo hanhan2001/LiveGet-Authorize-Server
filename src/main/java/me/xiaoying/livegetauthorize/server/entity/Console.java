@@ -7,6 +7,11 @@ import me.xiaoying.livegetauthorize.core.command.CommandSender;
  */
 public class Console implements CommandSender {
     @Override
+    public String getName() {
+        return "Console";
+    }
+
+    @Override
     public boolean hasPermission(String s) {
         return true;
     }
