@@ -1,4 +1,5 @@
 #-1 产生错误
+#100 正常登录
 #101 无法找到对象
 #102 账户已存在
 #103 邮箱已绑定
@@ -10,7 +11,7 @@ Account:
   #登录
   Login: |-
     {
-      "code": 200,
+      "code": 100,
       "account": "%account%",
       "token": "%token%",
       "message": "Login success."
