@@ -72,15 +72,15 @@ public class UserService {
     }
 
     public User getUser(long qq) {
-        if (this.knownQQUsers.get(qq) == null)
-            return null;
+        if (this.knownQQUsers.get(qq) != null)
+            return this.knownQQUsers.get(qq);
 
         return this.findUser("qq", String.valueOf(qq));
     }
 
     public User getUser(String email) {
-        if (this.knownEmailUsers.get(email) == null)
-            return null;
+        if (this.knownEmailUsers.get(email) != null)
+            return this.knownEmailUsers.get(email);
 
         return this.findUser("email", email);
     }
