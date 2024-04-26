@@ -26,6 +26,7 @@ import java.util.*;
 public class UserService {
     private final Map<Long, User> knownQQUsers = new HashMap<>();
     private final Map<String, User> knownEmailUsers = new HashMap<>();
+    private final Map<String, User> loginUser = new HashMap<>();
 
     public UserService() {
         // 初始化用户表
@@ -47,6 +48,7 @@ public class UserService {
         LACore.getServer().getScheduler().scheduleSyncRepeatingTask(null, () -> {
             Iterator<User> iterator = this.knownQQUsers.values().iterator();
             Iterator<User> iteratorEmail = this.knownEmailUsers.values().iterator();
+            Iterator<User> iteratorLogin = this.loginUser.values().iterator();
             User user;
             while (iterator.hasNext() && (user = iterator.next()) != null) {
                 if (user.isSurvival())
@@ -59,6 +61,12 @@ public class UserService {
                     continue;
 
                 iteratorEmail.remove();
+            }
+            while (iteratorLogin.hasNext() && (user = iteratorLogin.next()) != null) {
+                if (user.isSurvival())
+                    continue;
+
+                iterator.remove();
             }
         }, 0L, 2L);
     }
@@ -144,5 +152,13 @@ public class UserService {
         else
             this.knownEmailUsers.put(value, user);
         return user;
+    }
+
+    public User getLoginUser(String token) {
+        return this.loginUser.get(token);
+    }
+
+    public void setLoginUser(String token, User user) {
+        this.loginUser.put(token, user);
     }
 }
