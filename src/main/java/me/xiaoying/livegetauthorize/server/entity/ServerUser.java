@@ -44,6 +44,11 @@ public class ServerUser implements User {
     }
 
     @Override
+    public String getName() {
+        return String.valueOf(this.qq);
+    }
+
+    @Override
     public boolean hasPermission(String s) {
         return LACore.getServer().getPermissionManager().hasPermission(this, s);
     }
