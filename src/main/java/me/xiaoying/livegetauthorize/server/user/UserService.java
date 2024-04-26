@@ -93,10 +93,11 @@ public class UserService {
         SqlFactory sqlFactory = Application.getSqlFactory();
         String uuid = new DecimalFormat("000000000").format(sqlFactory.getTotalRecord(ConstantCommon.TABLE_USER_INFO));
         Insert insert = new Insert(ConstantCommon.TABLE_USER_INFO);
-        String date = DateUtil.dateToString(new Date(), FileConfigConstant.SETTING_DATEFORMAT);
-        insert.insert(String.valueOf(qq), email, "0", password, uuid, "", date, date);
-        sqlFactory.sentence(insert);
-        User user = new ServerUser(qq, email, uuid, password, "", DateUtil.stringToDate(date, FileConfigConstant.SETTING_DATEFORMAT), DateUtil.stringToDate(date, FileConfigConstant.SETTING_DATEFORMAT));
+        Date date = new Date();
+        String stringDate = DateUtil.dateToString(date, FileConfigConstant.SETTING_DATEFORMAT);
+        insert.insert(String.valueOf(qq), email, "0", password, uuid, "", stringDate, stringDate);
+        sqlFactory.sentence(insert).run();
+        User user = new ServerUser(qq, email, uuid, password, "", date, date);
         this.knownQQUsers.put(qq, user);
         this.knownEmailUsers.put(email, user);
         return user;
