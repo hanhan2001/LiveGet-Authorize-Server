@@ -1,5 +1,6 @@
 package me.xiaoying.livegetauthorize.server;
 
+import me.xiaoying.livegetauthorize.core.classification.ClassificationManager;
 import me.xiaoying.livegetauthorize.core.command.CommandManager;
 import me.xiaoying.livegetauthorize.core.command.SimpleCommandManager;
 import me.xiaoying.livegetauthorize.core.permission.PermissionManager;
@@ -7,6 +8,7 @@ import me.xiaoying.livegetauthorize.core.plugin.PluginManager;
 import me.xiaoying.livegetauthorize.core.plugin.SimplePluginManager;
 import me.xiaoying.livegetauthorize.core.scheduler.Scheduler;
 import me.xiaoying.livegetauthorize.core.server.Server;
+import me.xiaoying.livegetauthorize.server.classification.SimpleClassificationManager;
 import me.xiaoying.livegetauthorize.server.permission.SimplePermissionManager;
 import me.xiaoying.livegetauthorize.server.scheduler.ServerScheduler;
 
@@ -18,6 +20,7 @@ public class AuthorizeServer implements Server {
     private final CommandManager commandManager = new SimpleCommandManager();
     private final Scheduler scheduler = new ServerScheduler();
     private PermissionManager permissionManager = new SimplePermissionManager();
+    private final ClassificationManager classificationManager = new SimpleClassificationManager();
 
     @Override
     public String getName() {
@@ -47,6 +50,11 @@ public class AuthorizeServer implements Server {
     @Override
     public void setPermissionManager(PermissionManager permissionManager) {
         this.permissionManager = permissionManager;
+    }
+
+    @Override
+    public ClassificationManager getClassificationManager() {
+        return this.classificationManager;
     }
 
     @Override
