@@ -12,18 +12,11 @@ websocket.onmessage = function(e) {
     	return;
    	}
 
-   	let code = json.code;
-   	if (code == 101) interpreterFunction(json.function);
-   	if (code == 202) changeMusic(json.id, json.url);
+   	interpreterJsonMessage(e.data);
 }
 
 websocket.onclose = function(e) {
 }
 
 websocket.onerror = function(e) {
-}
-
-function interpreterFunction(f) {
-	// if (f == "playMusic") playMusic();
-//	if (f == "changeMusic") changeMusic(f.id, f.url);
 }
