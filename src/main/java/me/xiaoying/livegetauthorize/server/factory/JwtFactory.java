@@ -2,7 +2,6 @@ package me.xiaoying.livegetauthorize.server.factory;
 
 import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
 import org.jose4j.json.JsonUtil;
-import org.jose4j.json.internal.json_simple.parser.JSONParser;
 import org.jose4j.jwk.RsaJsonWebKey;
 import org.jose4j.jws.AlgorithmIdentifiers;
 import org.jose4j.jws.JsonWebSignature;
