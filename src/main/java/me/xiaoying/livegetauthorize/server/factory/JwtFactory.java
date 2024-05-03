@@ -62,7 +62,7 @@ public class JwtFactory {
 
             // default setting
             // 签名算法 RS256
-            this.jsonWebSignature.setAlgorithmHeaderValue(AlgorithmIdentifiers.RSA_PSS_USING_SHA256);
+            this.jsonWebSignature.setAlgorithmHeaderValue(AlgorithmIdentifiers.RSA_USING_SHA256);
             this.jsonWebSignature.setKeyIdHeaderValue(this.keyId);
             this.jsonWebSignature.setPayload(this.jwtClaims.toJson());
 
