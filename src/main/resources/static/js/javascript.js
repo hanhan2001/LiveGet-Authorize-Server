@@ -24,10 +24,11 @@ window.onload = function(event) {
 	}
 
 	// 监听登录
-	const form = document.querySelector(".content .display .display_box_login_login .login .box .form");
-    form.onsubmit = function (e) {
+	const loginForm = document.querySelector(".content .display .display_box_login_login .login .box .form");
+    loginForm.onsubmit = function (e) {
         e.preventDefault();
-        fetch(e.target.action, { method: e.target.method, body: new FormData(form) })
+        console.log(e.target.method)
+        fetch(e.target.action, { method: e.target.method, body: new FormData(loginForm) })
             .then(res => res.text())
             .then(res => {
                 console.log('后端返回内容', res);
@@ -38,6 +39,20 @@ window.onload = function(event) {
                 alert('请求出错')
             });
     };
+    const registerForm = document.querySelector(".content .display .display_box_login_register .register .box .form");
+    registerForm.onsubmit = function(e) {
+        e.preventDefault();
+        fetch(e.target.action, { method: e.target.method, body: new FormData(registerForm) })
+            .then(res => res.text())
+            .then(res => {
+                console.log("后端返回内容", res);
+                alert("后端返回内容: " + res);
+            })
+            .catch(() => {
+                console.error("请求出错");
+                alert("请求出错");
+            });
+    }
 
 	// 分类 登录
 	let box_login = new Map();
