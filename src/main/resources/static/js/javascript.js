@@ -8,6 +8,9 @@ let musicID;
 
 // 页面初始化
 window.onload = function(event) {
+	// 初始化
+    initialize();
+
 	// 使用循环遍历检测websocket是否建立连接
 	let interval = setInterval(() => {
 		if (websocket.readyState != 1)
@@ -23,20 +26,29 @@ window.onload = function(event) {
 		websocket.send(new MusicEndedMessage(musicID, music.src).toString());
 	}
 
-	// 监听登录
+	// 默认打开
+	// openClassification("preview");
+	// openDisplayBox("preview", "preview");
+	// openClassification("shop");
+	// openDisplayBox("shop", "subsidiary");
+	openClassification("login")
+}
+
+/**
+ * 初始化
+ * */
+function initialize() {
+	// 注册消息处理体
+	registerJSONMessage(100, new LoginSuccessMessage());
+
+	// 初始化表单监听
 	const loginForm = document.querySelector(".content .display .display_box_login_login .login .box .form");
     loginForm.onsubmit = function (e) {
         e.preventDefault();
-        console.log(e.target.method)
         fetch(e.target.action, { method: e.target.method, body: new FormData(loginForm) })
             .then(res => res.text())
             .then(res => {
-                console.log('后端返回内容', res);
-                alert('后端返回内容: ' + res)
-            })
-            .catch(() => {
-                console.error('请求出错');
-                alert('请求出错')
+   				interpreterJsonMessage(res);
             });
     };
     const registerForm = document.querySelector(".content .display .display_box_login_register .register .box .form");
@@ -45,15 +57,15 @@ window.onload = function(event) {
         fetch(e.target.action, { method: e.target.method, body: new FormData(registerForm) })
             .then(res => res.text())
             .then(res => {
-                console.log("后端返回内容", res);
-                alert("后端返回内容: " + res);
+   				interpreterJsonMessage(res);
             })
             .catch(() => {
                 console.error("请求出错");
-                alert("请求出错");
             });
-    }
+    };
 
+
+	// 初始化界面
 	// 分类 登录
 	let box_login = new Map();
 	let box_login_login = new DisplayBox(".content .display .display_box_login_login");
@@ -124,13 +136,6 @@ window.onload = function(event) {
 	classifications.set("code", classification_code);
 	classifications.set("shop", classification_shop);
 	classifications.set("set", classification_set);
-
-	// 默认打开
-	// openClassification("preview");
-	// openDisplayBox("preview", "preview");
-	// openClassification("shop");
-	// openDisplayBox("shop", "subsidiary");
-	openClassification("login")
 }
 
 /**
@@ -161,117 +166,6 @@ function openClassification(classification) {
 	openedClassification = classificationEntity;
 }
 
-class DisplayBox {
-	/**
-	 * 构造 DisplayBox
-	 * 
-	 * @param displayBox dom实体
-	 * */
-	constructor(displayBox) {
-		this.displayBox = document.querySelector(displayBox);
-	}
-
-	/**
-	 * 打开 display
-	 * */
-	open() {
-		if (this.displayBox.classList.contains("open"))
-			return;
-
-		if (openedDisplayBox != null)
-			openedDisplayBox.close();
-
-		let button = this.getButton();
-
-		this.line.style.left = button.offsetLeft + "px";
-		this.line.style.width = button.offsetWidth + "px";
-
-		openedDisplayBox = this;
-		this.displayBox.classList.add("open");
-	}
-
-	/**
-	 * 关闭 displayBox
-	 * */
-	close() {
-		if (!this.displayBox.classList.contains("open"))
-			return;
-
-		this.displayBox.classList.remove("open");
-	}
-
-	setButton(button) {
-		this.button = document.querySelector(button);
-	}
-
-	getButton() {
-		return this.button;
-	}
-
-	setLine(line) {
-		this.line = document.querySelector(line);
-	}
-
-	getLine() {
-		return this.line;
-	}
-}
-
-class Classification {
-	/**
-	 * 构造 Classification
-	 * 
-	 * @param hrefs buttons
-	 * @param displayBoxMap display Map
-	 * @param defaultDisplayBoxName 默认displaybox
-	 * */
-	constructor(hrefs, displayBoxMap, defaultDisplayBoxName) {
-		this.hrefs = document.querySelector(hrefs);
-		this.displayBoxMap = displayBoxMap;
-		this.defaultDisplayBoxName = defaultDisplayBoxName;
-		this.defaultDisplayBox = displayBoxMap.get(defaultDisplayBoxName);
-	}
-
-	/**
-	 * 打开 Classification
-	 * */
-	open() {
-		if (openedClassification != null) {
-			openedClassification.getHref().classList.remove("open");
-			openedDisplayBox.close();
-		}
-
-		this.getHref().classList.add("open");
-		this.defaultDisplayBox.open();
-	}
-
-	close() {
-		this.getHref().classList.remove("open");
-
-		openedDisplayBox.close();
-	}
-
-	getDisplayBox(displayBox) {
-		return this.displayBoxMap.get(displayBox);
-	}
-
-	getDefaultDisplayBoxName() {
-		return this.defaultDisplayBoxName;
-	}
-
-	setLine(line) {
-		this.line = document.querySelector(line);
-	}
-
-	getLine() {
-		return this.line;
-	}
-
-	getHref() {
-		return this.hrefs;
-	}
-}
-
 /**
  * 根据值移除 ArrayList 中的元素
  * 
@@ -288,25 +182,4 @@ function removeArrayListValue(list, value) {
 
 		list.splice(i, 1);
 	}
-}
-
-function playMusic() {
-	let object = document.querySelector(".music .sound");
-	object.setAttribute("onclick", "stopMusic()");
-	object.setAttribute("title", "静音");
-	object.style.backgroundImage = "url(./images/mute.svg)";
-	music.play();
-}
-
-function stopMusic() {
-	let object = document.querySelector(".music .sound");
-	object.setAttribute("onclick", "playMusic()");
-	object.setAttribute("title", "播放");
-	object.style.backgroundImage = "url(./images/sound.svg)";
-	music.pause();
-}
-
-function changeMusic(id, url) {
-    musicID = id;
-	music.src = url;
 }
