@@ -7,6 +7,7 @@ import me.xiaoying.livegetauthorize.server.constant.ConstantCommon;
 import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
 import me.xiaoying.livegetauthorize.server.entity.ServerUser;
 import me.xiaoying.livegetauthorize.server.utils.DateUtil;
+import me.xiaoying.livegetauthorize.server.utils.StringUtil;
 import me.xiaoying.sql.SqlFactory;
 import me.xiaoying.sql.entity.Column;
 import me.xiaoying.sql.entity.Condition;
@@ -139,9 +140,12 @@ public class UserService {
             return null;
 
         Record column = records.get(0);
+        long telephone = 0L;
+        if (!StringUtil.isEmpty(column.get("telephone").toString()))
+            telephone = Long.parseLong(column.get("telephone").toString());
         User user = new ServerUser(Long.parseLong(column.get("qq").toString()),
                 column.get("email").toString(),
-                Long.parseLong(column.get("telephone").toString()),
+                telephone,
                 column.get("uuid").toString(),
                 column.get("password").toString(),
                 column.get("ip").toString(),
