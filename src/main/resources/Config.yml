@@ -18,7 +18,7 @@ Setting:
     #密码
     Password: "C7806234B5A8590291323D3A3D9016ED65F33284BD546EB17E99F7BB4EF7D5A3"
   #数据缓存时间
-  DataCacheTime: 600000
+  DataCacheTime: 5184000
   #日期格式
   DateFormat: "yyyy/MM/dd-HH:mm:ss"
   #存储数据
