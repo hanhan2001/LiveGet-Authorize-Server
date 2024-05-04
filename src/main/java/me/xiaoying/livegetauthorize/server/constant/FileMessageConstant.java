@@ -8,7 +8,8 @@ public class FileMessageConstant {
             MESSAGE_ACCOUNT_NOT_FOUND,
             MESSAGE_ACCOUNT_PASSWORD_INVALID,
             MESSAGE_ACCOUNT_USER_ALREADY_EXISTS,
-            MESSAGE_ACCOUNT_EMAIL_ALREADY_EXISTS;
+            MESSAGE_ACCOUNT_EMAIL_ALREADY_EXISTS,
+            MESSAGE_ACCOUNT_NEED_RE_LOGIN;
 
     static {
         MESSAGE_ACCOUNT_LOGIN = "{\n" +
@@ -32,6 +33,10 @@ public class FileMessageConstant {
         MESSAGE_ACCOUNT_EMAIL_ALREADY_EXISTS = "{\n" +
                 "  \"code\": 103,\n" +
                 "  \"message\": \"Email already exists.\"\n" +
+                "}";
+        MESSAGE_ACCOUNT_NEED_RE_LOGIN = "{\n" +
+                "  \"code\": 104,\n" +
+                "  \"message\": \"Token is over due, please re login.\"\n" +
                 "}";
     }
 }

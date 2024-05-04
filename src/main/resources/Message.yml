@@ -40,3 +40,9 @@ Account:
       "code": 103,
       "message": "Email already exists."
     }
+  #需要重新登录
+  NeedReLogin: |-
+    {
+      "code": 104,
+      "message": "Token is over due, please re login."
+    }
