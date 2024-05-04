@@ -214,6 +214,34 @@
 	position: absolute;
 }
 
+.popup {
+	z-index: 50;
+	width: 100vw;
+	height: auto;
+	padding: 5px 0px 5px 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+}
+
+.popup .info {
+	border-radius: 3px;
+	box-shadow: 0px 0px 5px #666666;
+	padding: 3px 5px 3px 5px;
+	justify-content: center;
+	align-items: center;
+	display: none;
+	animation: INTO_MARGIN_TOP_50_VISIBLE 2s;
+}
+
+.popup .info label {
+	border-radius: 3px;
+	background-color: white;
+	display: flex;
+	align-items: center;
+}
+
 .music {
 	height: auto;
 	display: flex;

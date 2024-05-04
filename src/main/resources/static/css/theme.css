@@ -20,3 +20,7 @@
 .content .display .display_box_shop_subsidiary .list .item .button .buy:active {
 	background-color: #BB5555;
 }
+
+.popup .info {
+	background-color: white;
+}

@@ -1,3 +1,4 @@
+let popup = null;
 let openedClassification = null;
 let openedDisplayBox = null;
 let classifications = new Map();
@@ -164,6 +165,33 @@ function openClassification(classification) {
 	classificationEntity.open();
 
 	openedClassification = classificationEntity;
+}
+
+/**
+ * 显示弹窗信息
+ * 
+ * @param type 弹窗类型
+ * @param message 消息
+ * @param ms 显示毫秒
+ * */
+function sendPopup(type, message, ms) {
+	let box;
+	if (type == "info") {
+		box = document.querySelector(".popup .info");
+		if (popup != null)
+			return;
+		box.style.display = "flex";
+		content = document.querySelector(".popup .info label");
+		content.innerHTML = message;
+		// box.classList.add("topto");
+
+		popup = setTimeout(() => {
+			// box.classList.remove("topto");
+			box.style.display = "none";
+			popup = null;
+			clearTimeout(popup);
+		}, ms);
+	}
 }
 
 /**
