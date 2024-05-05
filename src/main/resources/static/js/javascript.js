@@ -41,6 +41,7 @@ window.onload = function(event) {
 function initialize() {
 	// 注册消息处理体
 	registerJSONMessage(100, new LoginSuccessMessage());
+	registerJSONMessage(104, new NeedReLoginMessage());
 
 	// 初始化表单监听
 	const loginForm = document.querySelector(".content .display .display_box_login_login .login .box .form");
@@ -64,7 +65,6 @@ function initialize() {
                 console.error("请求出错");
             });
     };
-
 
 	// 初始化界面
 	// 分类 登录
@@ -141,11 +141,13 @@ function initialize() {
 
 /**
  * 打开 界面
- * 
+ *
  * @param classification 分类
  * @param name 界面名称
  * */
 function openDisplayBox(classification, name) {
+    if (classification != "login")
+	    verify();
 	let classificationEntity = classifications.get(classification);
 	let line = classificationEntity.getLine();
 	let display = classificationEntity.getDisplayBox(name);
@@ -155,6 +157,8 @@ function openDisplayBox(classification, name) {
 }
 
 function openClassification(classification) {
+    if (classification != "login")
+	    verify();
 	if (openedClassification == classifications.get(classification))
 		return;
 
@@ -165,6 +169,24 @@ function openClassification(classification) {
 	classificationEntity.open();
 
 	openedClassification = classificationEntity;
+}
+
+function verify() {
+	if (localStorage.token == null) {
+		openClassification("login");
+		return;
+	}
+
+	let formdata = new FormData();
+	formdata.append("token", localStorage.token);
+	fetch("./verify", { method: "post", body: formdata })
+		.then(res => res.text())
+		.then(res => {
+			interpreterJsonMessage(res);
+		})
+		.catch(() => {
+			sendPopup("info", "<img src='./images/error.svg' style='width: 30px; margin-top: 2px;'>请求出错", 1800);
+		});
 }
 
 /**
