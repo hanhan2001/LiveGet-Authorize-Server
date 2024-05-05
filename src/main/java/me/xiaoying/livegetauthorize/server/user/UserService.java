@@ -166,4 +166,8 @@ public class UserService {
     public void setLoginUser(String token, User user) {
         this.loginUser.put(token, user);
     }
+
+    public void removeLoginUser(String token) {
+        this.loginUser.remove(token);
+    }
 }
