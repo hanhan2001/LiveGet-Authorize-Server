@@ -25,7 +25,6 @@ public class JwtFactory {
 
     public JwtFactory parameter(String key, String value) {
         this.jwtClaims.setClaim(key, value);
-        this.jsonWebSignature.setPayload(this.jwtClaims.toJson());
         return this;
     }
 
@@ -57,7 +56,6 @@ public class JwtFactory {
         try {
             this.jwtClaims.setGeneratedJwtId();
             this.jwtClaims.setIssuedAtToNow();
-            this.jwtClaims.setAudience();
 
             // default setting
             // 签名算法 RS256
