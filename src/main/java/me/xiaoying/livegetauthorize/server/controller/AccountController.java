@@ -3,6 +3,7 @@ package me.xiaoying.livegetauthorize.server.controller;
 import me.xiaoying.livegetauthorize.core.LACore;
 import me.xiaoying.livegetauthorize.core.entity.User;
 import me.xiaoying.livegetauthorize.core.event.user.UserLoginEvent;
+import me.xiaoying.livegetauthorize.core.event.user.UserRegisterEvent;
 import me.xiaoying.livegetauthorize.server.Application;
 import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
 import me.xiaoying.livegetauthorize.server.constant.FileMessageConstant;
@@ -70,7 +71,7 @@ public class AccountController {
         String encryptPassword = ServerUtil.getEncryptPassword(password);
         ServerUser user = (ServerUser) Application.getUserManager().createUser(Long.parseLong(account), email, encryptPassword);
         user.setIP(request.getRemoteAddr());
-//        Application.getServer().getPluginManager().callEvent(new UserRegisterEvent(user));
+        Application.getServer().getPluginManager().callEvent(new UserRegisterEvent(user));
         LACore.getLogger().info("&6注册&e>> &f{}", user.getUUID());
         return this.login(account, password);
     }
