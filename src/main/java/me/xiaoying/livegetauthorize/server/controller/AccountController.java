@@ -12,7 +12,6 @@ import me.xiaoying.livegetauthorize.server.factory.VariableFactory;
 import me.xiaoying.livegetauthorize.server.utils.LongUtil;
 import me.xiaoying.livegetauthorize.server.utils.ServerUtil;
 import org.jose4j.json.JsonUtil;
-import org.jose4j.json.internal.json_simple.JSONObject;
 import org.jose4j.jwa.AlgorithmConstraints;
 import org.jose4j.jwk.RsaJsonWebKey;
 import org.jose4j.jws.AlgorithmIdentifiers;
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.Key;
 
 @RestController
 public class AccountController {
