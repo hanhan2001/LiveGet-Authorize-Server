@@ -30,6 +30,16 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory telephone(String telephone) {
+        this.string = this.string.replace("%telephone%", telephone);
+        return this;
+    }
+
+    public VariableFactory telephone(long telephone) {
+        this.string = this.string.replace("%telephone%", String.valueOf(telephone));
+        return this;
+    }
+
     public VariableFactory token(String token) {
         this.string = this.string.replace("%token%", token);
         return this;
