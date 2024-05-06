@@ -30,6 +30,16 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory lastLoginTime(String lastLoginTime) {
+        this.string = this.string.replace("%lastLoginTime%", lastLoginTime);
+        return this;
+    }
+
+    public VariableFactory lastLoginTime(Date date) {
+        this.string = this.string.replace("%lastLoginTime%", DateUtil.dateToString(date, FileConfigConstant.SETTING_DATEFORMAT));
+        return this;
+    }
+
     public VariableFactory name(String name) {
         this.string = this.string.replace("%name%", name);
         return this;
