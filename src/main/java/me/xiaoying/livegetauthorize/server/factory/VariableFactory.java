@@ -45,6 +45,16 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory uuid(String uuid) {
+        this.string = this.string.replace("%uuid%", uuid);
+        return this;
+    }
+
+    public VariableFactory uuid(long uuid) {
+        this.string = this.string.replace("%uuid%", String.valueOf(uuid));
+        return this;
+    }
+
     @Override
     public String toString() {
         return this.string;
