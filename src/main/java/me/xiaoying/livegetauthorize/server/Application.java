@@ -11,7 +11,7 @@ import me.xiaoying.livegetauthorize.server.file.files.FileConfig;
 import me.xiaoying.livegetauthorize.server.file.files.FileMessage;
 import me.xiaoying.livegetauthorize.server.listener.LoggerListener;
 import me.xiaoying.livegetauthorize.server.terminal.Terminal;
-import me.xiaoying.livegetauthorize.server.user.UserService;
+import me.xiaoying.livegetauthorize.server.user.UserManager;
 import me.xiaoying.logger.event.EventHandle;
 import me.xiaoying.sql.MysqlFactory;
 import me.xiaoying.sql.SqlFactory;
@@ -30,7 +30,7 @@ public class Application {
     private static Server server;
     private static Terminal terminal;
     private static FileService fileService;
-    private static UserService userService;
+    private static UserManager userManager;
 
     public static void main(String[] args) {
         LACore.getLogger().info("Starting server...");
@@ -64,7 +64,7 @@ public class Application {
         LACore.setServer(server);
 
         // UserService
-        userService = new UserService();
+        userManager = new UserManager();
 
         // plugin
         LACore.getLogger().info("Loading plugins...");
@@ -92,8 +92,8 @@ public class Application {
         return fileService;
     }
 
-    public static UserService getUserService() {
-        return userService;
+    public static UserManager getUserManager() {
+        return userManager;
     }
 
     public static SqlFactory getSqlFactory() {

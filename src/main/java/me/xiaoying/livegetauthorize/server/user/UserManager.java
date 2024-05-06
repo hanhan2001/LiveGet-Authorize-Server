@@ -24,12 +24,12 @@ import java.util.*;
 /**
  * UserService
  */
-public class UserService {
+public class UserManager {
     private final Map<Long, User> knownQQUsers = new HashMap<>();
     private final Map<String, User> knownEmailUsers = new HashMap<>();
     private final Map<String, User> loginUser = new HashMap<>();
 
-    public UserService() {
+    public UserManager() {
         // 初始化用户表
         SqlFactory sqlFactory = Application.getSqlFactory();
         Create create = new Create(ConstantCommon.TABLE_USER_INFO);

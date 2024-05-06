@@ -36,9 +36,9 @@ public class AccountController {
 
         User user;
         if (LongUtil.isLong(account))
-            user = Application.getUserService().getUser(Long.parseLong(account));
+            user = Application.getUserManager().getUser(Long.parseLong(account));
         else
-            user = Application.getUserService().getUser(account);
+            user = Application.getUserManager().getUser(account);
 
         if (user == null)
             return FileMessageConstant.MESSAGE_ACCOUNT_NOT_FOUND;
@@ -52,7 +52,7 @@ public class AccountController {
                 .setExpirationTime(60 * 60 * 24);
         String token = jwtFactory.toString();
         user.setToken(token);
-        Application.getUserService().setLoginUser(token, user);
+        Application.getUserManager().setLoginUser(token, user);
         Application.getServer().getPluginManager().callEvent(new UserLoginEvent(user));
         LACore.getLogger().info("&b登录&e>> &f{}", user.getUUID());
         return new VariableFactory(FileMessageConstant.MESSAGE_ACCOUNT_LOGIN)
@@ -62,13 +62,13 @@ public class AccountController {
 
     @PostMapping("/register")
     public String register(HttpServletRequest request, @RequestParam("account") String account, @RequestParam("email") String email, @RequestParam("password") String password) {
-        if (Application.getUserService().getUser(Long.parseLong(account)) != null)
+        if (Application.getUserManager().getUser(Long.parseLong(account)) != null)
             return FileMessageConstant.MESSAGE_ACCOUNT_USER_ALREADY_EXISTS;
-        if (Application.getUserService().getUser(email) != null)
+        if (Application.getUserManager().getUser(email) != null)
             return FileMessageConstant.MESSAGE_ACCOUNT_EMAIL_ALREADY_EXISTS;
 
         String encryptPassword = ServerUtil.getEncryptPassword(password);
-        ServerUser user = (ServerUser) Application.getUserService().createUser(Long.parseLong(account), email, encryptPassword);
+        ServerUser user = (ServerUser) Application.getUserManager().createUser(Long.parseLong(account), email, encryptPassword);
         user.setIP(request.getRemoteAddr());
 //        Application.getServer().getPluginManager().callEvent(new UserRegisterEvent(user));
         LACore.getLogger().info("&6注册&e>> &f{}", user.getUUID());
@@ -77,7 +77,7 @@ public class AccountController {
 
     @PostMapping("/verify")
     public String verify(HttpServletRequest request, String token) {
-        if (Application.getUserService().getLoginUser(token) == null)
+        if (Application.getUserManager().getLoginUser(token) == null)
             return FileMessageConstant.MESSAGE_ACCOUNT_NEED_RE_LOGIN;
 
         try {
@@ -91,12 +91,12 @@ public class AccountController {
 
             JwtClaims claims = jwtConsumer.processToClaims(token);
             if (claims == null) {
-                if (Application.getUserService().getLoginUser(token) != null)
-                    Application.getUserService().removeLoginUser(token);
+                if (Application.getUserManager().getLoginUser(token) != null)
+                    Application.getUserManager().removeLoginUser(token);
                 return FileMessageConstant.MESSAGE_ACCOUNT_NEED_RE_LOGIN;
             }
 
-            User user = Application.getUserService().getLoginUser(token);
+            User user = Application.getUserManager().getLoginUser(token);
             user.updateSurvival();
             return "";
         } catch (JoseException | InvalidJwtException e) {
