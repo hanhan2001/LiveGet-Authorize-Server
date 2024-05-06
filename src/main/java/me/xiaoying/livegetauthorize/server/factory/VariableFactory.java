@@ -15,6 +15,11 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory email(String email) {
+        this.string = this.string.replace("%email%", email);
+        return this;
+    }
+
     public VariableFactory qq(String qq) {
         this.string = this.string.replace("%qq%", qq);
         return this;
