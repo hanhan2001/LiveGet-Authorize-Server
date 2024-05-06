@@ -1,5 +1,10 @@
 package me.xiaoying.livegetauthorize.server.factory;
 
+import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
+import me.xiaoying.livegetauthorize.server.utils.DateUtil;
+
+import java.util.Date;
+
 /**
  * Factory Variable
  */
@@ -37,6 +42,16 @@ public class VariableFactory {
 
     public VariableFactory qq(long qq) {
         this.string = this.string.replace("%qq%", String.valueOf(qq));
+        return this;
+    }
+
+    public VariableFactory registerTime(String registerTime) {
+        this.string = this.string.replace("%registerTime%", registerTime);
+        return this;
+    }
+
+    public VariableFactory registerTime(Date date) {
+        this.string = this.string.replace("%registerTime%", DateUtil.dateToString(date, FileConfigConstant.SETTING_DATEFORMAT));
         return this;
     }
 
