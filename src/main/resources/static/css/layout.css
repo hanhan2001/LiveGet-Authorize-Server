@@ -214,6 +214,93 @@
 	position: absolute;
 }
 
+.content .display .display_box_preview {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	overflow: hidden;
+	position: absolute;
+}
+
+.content .display .display_box_preview .show {
+	width: 98%;
+	margin-top: 10px;
+	height: calc(100% - 180px);
+	position: absolute;
+	border-radius: 3px;
+	word-break: break-all;
+	max-height: 105%;
+}
+
+.content .display .display_box_preview .show::before {
+    content: "";
+    display: block;
+    height: 100%;
+    width: 3px;
+    background-color: #CCCCCC;
+    position: absolute;
+    border-radius: 3px;
+}
+
+.content .display .display_box_preview .show .text {
+	overflow-y: auto;
+	height: 100%;
+	margin-left: 10px;
+}
+
+.content .display .display_box_preview .user_info {
+	width: 98%;
+	height: 150px;
+	position: absolute;
+	bottom: 2%;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.content .display .display_box_preview .user_info .user {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.content .display .display_box_preview .user_info .user .photo {
+	width: 115px;
+	height: 115px;
+	background-size: cover;
+	border-radius: 3px;
+}
+
+.content .display .display_box_preview .user_info .user .name {
+	padding: 0px 5px 0px 5px;
+	width: 105px;
+	max-width: 105px;
+	margin-top: 3px;
+	text-overflow: ellipsis;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.content .display .display_box_preview .user_info .info {
+	width: calc(100% - 150px);
+	margin-left: 15px;
+	height: 95%;
+	background-color: #DFDFDF;
+	border-radius: 3px;
+}
+
+.content .display .display_box_preview .user_info .info::before {
+	content: "";
+	display: block;
+	width: 2px;
+	height: 100%;
+	margin-left: -8.5px;
+	background-color: #DFDFDF;
+	border-radius: 3px;
+}
+
 .popup {
 	z-index: 50;
 	width: 100vw;

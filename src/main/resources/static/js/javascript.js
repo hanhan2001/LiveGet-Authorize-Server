@@ -146,8 +146,8 @@ function initialize() {
  * @param name 界面名称
  * */
 function openDisplayBox(classification, name) {
-    if (classification != "login")
-	    verify();
+     if (classification != "login")
+	     verify();
 	let classificationEntity = classifications.get(classification);
 	let line = classificationEntity.getLine();
 	let display = classificationEntity.getDisplayBox(name);
@@ -157,8 +157,8 @@ function openDisplayBox(classification, name) {
 }
 
 function openClassification(classification) {
-    if (classification != "login")
-	    verify();
+     if (classification != "login")
+	     verify();
 	if (openedClassification == classifications.get(classification))
 		return;
 
