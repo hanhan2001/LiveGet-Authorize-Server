@@ -50,7 +50,7 @@ Account:
   Info: |-
     {
       "code": 105,
-      "qq": "%qq%",
+      "qq": %qq%,
       "email": "%email%",
       "telephone": %telephone%,
       "uuid": %uuid%,
