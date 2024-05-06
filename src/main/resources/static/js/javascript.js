@@ -32,6 +32,12 @@ window.onload = function(event) {
 	// openDisplayBox("preview", "preview");
 	// openClassification("shop");
 	// openDisplayBox("shop", "subsidiary");
+
+    if (verify()) {
+        openClassification("preview")
+        return;
+    }
+
 	openClassification("login");
 }
 
