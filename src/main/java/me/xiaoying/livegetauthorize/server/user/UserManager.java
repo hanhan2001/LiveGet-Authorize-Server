@@ -39,6 +39,7 @@ public class UserManager {
         columns.add(new Column("telephone", "varchar", 11));
         columns.add(new Column("password", "varchar", 255));
         columns.add(new Column("uuid", "varchar", 9));
+        columns.add(new Column("name", "varchar", 255));
         columns.add(new Column("ip", "varchar", 255));
         columns.add(new Column("registerTime", "varchar", 255));
         columns.add(new Column("lastLoginTime", "varchar", 255));
