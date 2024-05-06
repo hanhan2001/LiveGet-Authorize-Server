@@ -32,7 +32,7 @@ window.onload = function(event) {
 	// openDisplayBox("preview", "preview");
 	// openClassification("shop");
 	// openDisplayBox("shop", "subsidiary");
-	openClassification("login")
+	openClassification("login");
 }
 
 /**
@@ -91,7 +91,6 @@ function initialize() {
 	let classification_preview = new Classification(".content .display .display_hrefs .display_hrefs_preview", box_preview, "preview");
 	classification_preview.setLine(".content .display .display_hrefs .display_hrefs_preview .line");
 
-
 	// 分类 授权码
 	// 界面
 	let box_code = new Map();
@@ -102,7 +101,6 @@ function initialize() {
 	// 分类
 	let classification_code = new Classification(".content .display .display_hrefs .display_hrefs_code", box_code, "code");
 	classification_code.setLine(".content .display .display_hrefs .display_hrefs_code .line");
-
 
 	// 分类 服务
 	// 界面
@@ -118,7 +116,6 @@ function initialize() {
 	// 分类
 	let classification_shop = new Classification(".content .display .display_hrefs .display_hrefs_shop", box_shop, "code");
 	classification_shop.setLine(".content .display .display_hrefs .display_hrefs_shop .line");
-
 
 	// 分类 设置
 	// 界面
@@ -146,8 +143,10 @@ function initialize() {
  * @param name 界面名称
  * */
 function openDisplayBox(classification, name) {
-     if (classification != "login")
-	     verify();
+    if (classification != "login") {
+        if (!verify())
+            return;
+	}
 	let classificationEntity = classifications.get(classification);
 	let line = classificationEntity.getLine();
 	let display = classificationEntity.getDisplayBox(name);
@@ -157,8 +156,10 @@ function openDisplayBox(classification, name) {
 }
 
 function openClassification(classification) {
-     if (classification != "login")
-	     verify();
+     if (classification != "login") {
+	     if (!verify())
+	        return;
+	 }
 	if (openedClassification == classifications.get(classification))
 		return;
 
@@ -172,10 +173,8 @@ function openClassification(classification) {
 }
 
 function verify() {
-	if (localStorage.token == null) {
-		openClassification("login");
-		return;
-	}
+	if (localStorage.token == null)
+		return false;
 
 	let formdata = new FormData();
 	formdata.append("token", localStorage.token);
@@ -187,6 +186,7 @@ function verify() {
 		.catch(() => {
 			sendPopup("info", "<img src='./images/error.svg' style='width: 30px; margin-top: 2px;'>请求出错", 1800);
 		});
+	return true;
 }
 
 /**
