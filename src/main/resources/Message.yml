@@ -46,3 +46,16 @@ Account:
       "code": 104,
       "message": "Token is over due, please re login."
     }
+  #信息
+  Info: |-
+    {
+      "code": 105,
+      "qq": "%qq%",
+      "email": "%email%",
+      "telephone": %telephone%,
+      "uuid": %uuid%,
+      "name": "%name%",
+      "ip": "%ip%",
+      "registerTime": "%registerTime%",
+      "lastLoginTime": "%lastLoginTime%"
+    }
