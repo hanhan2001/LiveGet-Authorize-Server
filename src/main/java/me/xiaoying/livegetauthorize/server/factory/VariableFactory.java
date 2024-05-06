@@ -20,6 +20,11 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory name(String name) {
+        this.string = this.string.replace("%name%", name);
+        return this;
+    }
+
     public VariableFactory qq(String qq) {
         this.string = this.string.replace("%qq%", qq);
         return this;
