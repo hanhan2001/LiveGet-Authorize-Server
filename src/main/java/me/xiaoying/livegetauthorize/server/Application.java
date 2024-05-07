@@ -36,6 +36,9 @@ public class Application {
         LACore.getLogger().info("Starting server...");
         initialize();
 
+
+        System.getProperties().setProperty("server.address", FileConfigConstant.SERVER_HOST);
+        System.getProperties().setProperty("server.port", String.valueOf(FileConfigConstant.SERVER_PORT));
         SpringApplication springApplication = new SpringApplication(Application.class);
         springApplication.setLogStartupInfo(false);
         springApplication.setBannerMode(Banner.Mode.OFF);
