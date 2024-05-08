@@ -1,5 +1,6 @@
 package me.xiaoying.livegetauthorize.server.entity;
 
+import me.xiaoying.livegetauthorize.core.LACore;
 import me.xiaoying.livegetauthorize.core.command.CommandSender;
 import me.xiaoying.livegetauthorize.core.permission.Permissible;
 import me.xiaoying.livegetauthorize.core.permission.PermissibleBase;
@@ -16,6 +17,11 @@ public class Console implements CommandSender {
     @Override
     public String getName() {
         return "Console";
+    }
+
+    @Override
+    public void sendMessage(String message) {
+        LACore.getLogger().info(message);
     }
 
     @Override

@@ -54,6 +54,11 @@ public class ServerUser implements User {
     }
 
     @Override
+    public void sendMessage(String message) {
+
+    }
+
+    @Override
     public long getQQ() {
         return this.qq;
     }
