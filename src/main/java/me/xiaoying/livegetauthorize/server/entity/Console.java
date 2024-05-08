@@ -45,7 +45,7 @@ public class Console implements CommandSender {
 
     @Override
     public void removeAttachment(PermissionAttachment attachment) {
-
+        this.permissible.removeAttachment(attachment);
     }
 
     @Override
