@@ -1,7 +1,11 @@
 package me.xiaoying.livegetauthorize.server.entity;
 
-import me.xiaoying.livegetauthorize.core.LACore;
 import me.xiaoying.livegetauthorize.core.entity.User;
+import me.xiaoying.livegetauthorize.core.permission.Permissible;
+import me.xiaoying.livegetauthorize.core.permission.PermissibleBase;
+import me.xiaoying.livegetauthorize.core.permission.Permission;
+import me.xiaoying.livegetauthorize.core.permission.PermissionAttachment;
+import me.xiaoying.livegetauthorize.core.plugin.Plugin;
 import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
 import me.xiaoying.livegetauthorize.server.utils.DateUtil;
 
@@ -21,6 +25,7 @@ public class ServerUser implements User {
     private Date lastLoginTime;
     private Date survival = new Date();
     private String token;
+    private final Permissible permissible = new PermissibleBase(this);
 
     public ServerUser(long qq, String email, String uuid, String password, String ip, Date registerTime, Date lastLoginTime) {
         this.qq = qq;
@@ -46,11 +51,6 @@ public class ServerUser implements User {
     @Override
     public String getName() {
         return String.valueOf(this.qq);
-    }
-
-    @Override
-    public boolean hasPermission(String s) {
-        return LACore.getServer().getPermissionManager().hasPermission(this, s);
     }
 
     @Override
@@ -128,5 +128,45 @@ public class ServerUser implements User {
     @Override
     public void setToken(String s) {
         this.token = s;
+    }
+
+    @Override
+    public boolean isPermissionSet(String permission) {
+        return this.permissible.isPermissionSet(permission);
+    }
+
+    @Override
+    public boolean isPermissionSet(Permission permission) {
+        return this.permissible.isPermissionSet(permission);
+    }
+
+    @Override
+    public boolean hasPermission(String permission) {
+        return this.permissible.isPermissionSet(permission);
+    }
+
+    @Override
+    public boolean hasPermission(Permission permission) {
+        return this.permissible.hasPermission(permission);
+    }
+
+    @Override
+    public PermissionAttachment addAttachment(Plugin plugin) {
+        return this.permissible.addAttachment(plugin);
+    }
+
+    @Override
+    public void removeAttachment(PermissionAttachment attachment) {
+        this.permissible.removeAttachment(attachment);
+    }
+
+    @Override
+    public boolean isOp() {
+        return this.permissible.isOp();
+    }
+
+    @Override
+    public void setOp(boolean value) {
+        this.permissible.setOp(value);
     }
 }
