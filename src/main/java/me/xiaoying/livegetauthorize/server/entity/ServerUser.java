@@ -8,6 +8,7 @@ import me.xiaoying.livegetauthorize.core.permission.PermissionAttachment;
 import me.xiaoying.livegetauthorize.core.plugin.Plugin;
 import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
 import me.xiaoying.livegetauthorize.server.utils.DateUtil;
+import org.java_websocket.WebSocket;
 
 import java.util.Date;
 
@@ -26,6 +27,7 @@ public class ServerUser implements User {
     private Date survival = new Date();
     private String token;
     private final Permissible permissible = new PermissibleBase(this);
+    private WebSocket webSocket;
 
     public ServerUser(long qq, String email, String uuid, String password, String ip, Date registerTime, Date lastLoginTime) {
         this.qq = qq;
@@ -173,5 +175,9 @@ public class ServerUser implements User {
     @Override
     public void setOp(boolean value) {
         this.permissible.setOp(value);
+    }
+
+    public void setWebsocket(WebSocket websocket) {
+        this.webSocket = websocket;
     }
 }
