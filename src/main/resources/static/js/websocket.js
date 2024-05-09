@@ -1,5 +1,5 @@
 // websocket
-let websocket = new WebSocket("ws://liveget.top:6601");
+let websocket = new WebSocket("ws://127.0.0.1:22333");
 
 websocket.onopen = function(e) {
 }
