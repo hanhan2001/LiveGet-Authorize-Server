@@ -77,5 +77,11 @@
             <artifactId>Java-Websocket</artifactId>
             <version>1.5.3</version>
         </dependency>
+        <!-- JSON-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>2.0.0</version>
+        </dependency>
     </dependencies>
 </project>
