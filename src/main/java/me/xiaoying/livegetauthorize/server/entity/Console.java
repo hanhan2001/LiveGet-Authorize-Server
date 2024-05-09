@@ -26,22 +26,22 @@ public class Console implements CommandSender {
 
     @Override
     public boolean isPermissionSet(String permission) {
-        return this.permissible.isPermissionSet(permission);
+        return true;
     }
 
     @Override
     public boolean isPermissionSet(Permission permission) {
-        return this.permissible.isPermissionSet(permission);
+        return true;
     }
 
     @Override
     public boolean hasPermission(String s) {
-        return this.permissible.hasPermission(s);
+        return true;
     }
 
     @Override
     public boolean hasPermission(Permission permission) {
-        return this.permissible.hasPermission(permission);
+        return true;
     }
 
     @Override
@@ -56,11 +56,10 @@ public class Console implements CommandSender {
 
     @Override
     public boolean isOp() {
-        return this.permissible.isOp();
+        return true;
     }
 
     @Override
     public void setOp(boolean value) {
-        this.permissible.setOp(value);
     }
 }
