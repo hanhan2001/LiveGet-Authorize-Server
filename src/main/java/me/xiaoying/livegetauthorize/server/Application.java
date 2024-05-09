@@ -13,6 +13,7 @@ import me.xiaoying.livegetauthorize.server.file.FileService;
 import me.xiaoying.livegetauthorize.server.file.files.FileConfig;
 import me.xiaoying.livegetauthorize.server.file.files.FileMessage;
 import me.xiaoying.livegetauthorize.server.listener.LoggerListener;
+import me.xiaoying.livegetauthorize.server.message.UserLoginMessageExecutor;
 import me.xiaoying.livegetauthorize.server.terminal.Terminal;
 import me.xiaoying.livegetauthorize.server.user.UserManager;
 import me.xiaoying.logger.event.EventHandle;
@@ -24,7 +25,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -40,7 +40,6 @@ public class Application {
     public static void main(String[] args) {
         LACore.getLogger().info("Starting server...");
         initialize();
-
 
         System.getProperties().setProperty("server.address", FileConfigConstant.SERVER_HOST);
         System.getProperties().setProperty("server.port", String.valueOf(FileConfigConstant.SERVER_PORT));
@@ -83,17 +82,20 @@ public class Application {
         for (Plugin plugin : server.getPluginManager().getPlugins())
             server.getPluginManager().enablePlugin(plugin);
 
+        // MessageExecutor
+        LACore.getServer().getMessageManager().registerMessageExecutor("user_login", new UserLoginMessageExecutor());
+
         // register commands
-        server.getCommandManager().registerCommand("stop", new StopCommand("stop"));
-        server.getCommandManager().registerCommand("plugins", new PluginCommand("plugins", "Get server loaded plugins", "/pl", Collections.singletonList("pl")));
-        server.getCommandManager().registerCommand("reload", new ReloadCommand("reload", "Reload server", "/reload", null));
-        server.getCommandManager().registerCommand("jwt", new JwtCommand("jwt", "create new jwt", "/jwt", null));
+        LACore.getServer().getCommandManager().registerCommand("stop", new StopCommand("stop"));
+        LACore.getServer().getCommandManager().registerCommand("plugins", new PluginCommand("plugins", "Get server loaded plugins", "/pl", Collections.singletonList("pl")));
+        LACore.getServer().getCommandManager().registerCommand("reload", new ReloadCommand("reload", "Reload server", "/reload", null));
+        LACore.getServer().getCommandManager().registerCommand("jwt", new JwtCommand("jwt", "create new jwt", "/jwt", null));
     }
 
     // 取消初始化
     public static void unInitialize() {
         LACore.getLogger().info("Disable plugins...");
-        server.getPluginManager().disablePlugins();
+        LACore.getServer().getPluginManager().disablePlugins();
 
         LACore.getLogger().info("Remove Server...");
     }
