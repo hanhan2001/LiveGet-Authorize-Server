@@ -4,34 +4,44 @@ import me.xiaoying.livegetauthorize.core.NamespacedKey;
 import me.xiaoying.livegetauthorize.core.classification.Classification;
 import me.xiaoying.livegetauthorize.core.classification.ClassificationManager;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * Classification Simple
  */
 public class SimpleClassificationManager implements ClassificationManager {
+    private final Map<String, List<Classification>> knownClassification = new HashMap<>();
+
     @Override
     public void registerClassification(NamespacedKey namespacedKey, Classification classification) {
+        List<Classification> list;
+        if ((list = this.knownClassification.get(namespacedKey.toString())) == null)
+            list = new ArrayList<>();
 
+        if (list.contains(classification))
+            return;
+
+        list.add(classification);
     }
 
     @Override
-    public Classification getClassification(String s, String s1) {
+    public Classification getClassification(String name, String classification) {
+
         return null;
     }
 
     @Override
-    public void unregisterClassification(String s) {
+    public void unregisterClassification(String name) {
 
     }
 
     @Override
-    public void unregisterClassification(String s, String s1) {
+    public void unregisterClassification(String name, String classification) {
 
     }
 
     @Override
     public List<Classification> getClassifications() {
-        return null;
+        return Collections.emptyList();
     }
 }

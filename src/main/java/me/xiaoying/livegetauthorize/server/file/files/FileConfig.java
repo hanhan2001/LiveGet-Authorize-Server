@@ -7,10 +7,10 @@ import me.xiaoying.livegetauthorize.server.file.SubFile;
 import java.io.File;
 
 /**
- * File Config.yml
+ * File Configuration.yml
  */
 public class FileConfig extends SubFile {
-    private final File config = new File("Config.yml");
+    private final File config = new File("Configuration.yml");
 
     @Override
     public void newFile() {

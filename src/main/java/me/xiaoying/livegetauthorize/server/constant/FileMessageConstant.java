@@ -11,6 +11,7 @@ public class FileMessageConstant {
             MESSAGE_ACCOUNT_EMAIL_ALREADY_EXISTS,
             MESSAGE_ACCOUNT_NEED_RE_LOGIN,
             MESSAGE_ACCOUNT_INFO;
+    public static String MESSAGE_PERMISSION_NO_PERMISSION;
 
     static {
         MESSAGE_ACCOUNT_LOGIN = "{\n" +
@@ -49,6 +50,12 @@ public class FileMessageConstant {
                 "  \"ip\": \"%ip%\",\n" +
                 "  \"registerTime\": \"%registerTime%\",\n" +
                 "  \"lastLoginTime\": \"%lastLoginTime%\"\n" +
+                "}";
+
+        //权限信息
+        MESSAGE_PERMISSION_NO_PERMISSION = "{\n" +
+                "  \"code\": 201,\n" +
+                "  \"Message\": \"No permission.\"\n" +
                 "}";
     }
 }

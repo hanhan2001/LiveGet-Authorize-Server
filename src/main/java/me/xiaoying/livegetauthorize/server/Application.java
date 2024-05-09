@@ -1,8 +1,11 @@
 package me.xiaoying.livegetauthorize.server;
 
 import me.xiaoying.livegetauthorize.core.LACore;
+import me.xiaoying.livegetauthorize.core.plugin.JavaPluginLoader;
+import me.xiaoying.livegetauthorize.core.plugin.Plugin;
 import me.xiaoying.livegetauthorize.core.server.Server;
 import me.xiaoying.livegetauthorize.server.command.JwtCommand;
+import me.xiaoying.livegetauthorize.server.command.PluginCommand;
 import me.xiaoying.livegetauthorize.server.command.ReloadCommand;
 import me.xiaoying.livegetauthorize.server.command.StopCommand;
 import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
@@ -21,6 +24,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Application
@@ -73,8 +78,14 @@ public class Application {
         LACore.getLogger().info("Loading plugins...");
         File plugins = new File("./plugins");
         if (!plugins.exists()) plugins.mkdirs();
+        server.getPluginManager().registerInterface(JavaPluginLoader.class);
         server.getPluginManager().loadPlugins(plugins);
+        for (Plugin plugin : server.getPluginManager().getPlugins())
+            server.getPluginManager().enablePlugin(plugin);
+
+        // register commands
         server.getCommandManager().registerCommand("stop", new StopCommand("stop"));
+        server.getCommandManager().registerCommand("plugins", new PluginCommand("plugins", "Get server loaded plugins", "/pl", Collections.singletonList("pl")));
         server.getCommandManager().registerCommand("reload", new ReloadCommand("reload", "Reload server", "/reload", null));
         server.getCommandManager().registerCommand("jwt", new JwtCommand("jwt", "create new jwt", "/jwt", null));
     }

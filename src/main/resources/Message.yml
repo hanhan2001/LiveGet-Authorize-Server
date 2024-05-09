@@ -59,3 +59,17 @@ Account:
       "registerTime": "%registerTime%",
       "lastLoginTime": "%lastLoginTime%"
     }
+#权限信息
+Permission:
+  #权限验证成功
+  HasPermission: |-
+    {
+      "code": "200",
+      "Message": "Check permission success"
+    }
+  #无权限
+  NoPermission: |-
+    {
+      "code": 201,
+      "Message": "No permission."
+    }
