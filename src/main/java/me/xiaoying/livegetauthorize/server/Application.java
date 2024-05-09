@@ -16,6 +16,7 @@ import me.xiaoying.livegetauthorize.server.listener.LoggerListener;
 import me.xiaoying.livegetauthorize.server.message.UserLoginMessageExecutor;
 import me.xiaoying.livegetauthorize.server.terminal.Terminal;
 import me.xiaoying.livegetauthorize.server.user.UserManager;
+import me.xiaoying.livegetauthorize.server.websocket.LWebsocketServer;
 import me.xiaoying.logger.event.EventHandle;
 import me.xiaoying.sql.MysqlFactory;
 import me.xiaoying.sql.SqlFactory;
@@ -25,6 +26,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.File;
+import java.net.InetSocketAddress;
 import java.util.Collections;
 
 /**
@@ -72,6 +74,13 @@ public class Application {
 
         // UserService
         userManager = new UserManager();
+
+        // websocket
+        LACore.getLogger().info("Starting... websocket server");
+        LWebsocketServer websocketServer = new LWebsocketServer(new InetSocketAddress(22333));
+        websocketServer.setConnectionLostTimeout(0);
+        websocketServer.start();
+        LACore.getLogger().info("Websocket server is running: 22333");
 
         // plugin
         LACore.getLogger().info("Loading plugins...");
