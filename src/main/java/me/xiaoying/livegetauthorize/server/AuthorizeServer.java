@@ -3,6 +3,8 @@ package me.xiaoying.livegetauthorize.server;
 import me.xiaoying.livegetauthorize.core.classification.ClassificationManager;
 import me.xiaoying.livegetauthorize.core.command.CommandManager;
 import me.xiaoying.livegetauthorize.core.command.SimpleCommandManager;
+import me.xiaoying.livegetauthorize.core.message.MessageManager;
+import me.xiaoying.livegetauthorize.core.message.SimpleMessageManager;
 import me.xiaoying.livegetauthorize.core.plugin.PluginManager;
 import me.xiaoying.livegetauthorize.core.plugin.SimplePluginManager;
 import me.xiaoying.livegetauthorize.core.scheduler.Scheduler;
@@ -18,6 +20,7 @@ public class AuthorizeServer implements Server {
     private final CommandManager commandManager = new SimpleCommandManager();
     private final Scheduler scheduler = new ServerScheduler();
     private final ClassificationManager classificationManager = new SimpleClassificationManager();
+    private final MessageManager messageManager = new SimpleMessageManager();
 
     @Override
     public String getName() {
@@ -42,6 +45,11 @@ public class AuthorizeServer implements Server {
     @Override
     public ClassificationManager getClassificationManager() {
         return this.classificationManager;
+    }
+
+    @Override
+    public MessageManager getMessageManager() {
+        return this.messageManager;
     }
 
     @Override
