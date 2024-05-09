@@ -76,7 +76,7 @@ public class Application {
         userManager = new UserManager();
 
         // websocket
-        LACore.getLogger().info("Starting... websocket server");
+        LACore.getLogger().info("Starting websocket server...");
         LWebsocketServer websocketServer = new LWebsocketServer(new InetSocketAddress(22333));
         websocketServer.setConnectionLostTimeout(0);
         websocketServer.start();
