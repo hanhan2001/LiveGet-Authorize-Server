@@ -174,6 +174,12 @@ function openClassification(classification) {
 	openedClassification = classificationEntity;
 }
 
+function logout() {
+    websocket.send("{\"type\": \"user_quit\", \"user\": {\"token\": \"" + localStorage.token + "\"}}");
+    openClassification("login");
+    localStorage.setItem("token", "");
+}
+
 function verify() {
 	if (localStorage.token == null)
 		return false;
