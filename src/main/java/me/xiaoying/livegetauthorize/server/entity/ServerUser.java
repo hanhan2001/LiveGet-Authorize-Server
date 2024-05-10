@@ -57,7 +57,10 @@ public class ServerUser implements User {
 
     @Override
     public void sendMessage(String message) {
+        if (this.webSocket == null || this.webSocket.isClosed())
+            return;
 
+        this.webSocket.send(message);
     }
 
     @Override
