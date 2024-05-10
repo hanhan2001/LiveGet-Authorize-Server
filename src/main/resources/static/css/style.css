@@ -139,7 +139,17 @@ input[type="submit"]:active {
 	border-radius: 50px;
 }
 
+*::-moz-scrollbar {
+	background-color: #EEEEEE;
+	width: 3px;
+	height: 3px;
+	border-radius: 50px;
+}
+
 *::-webkit-scrollbar:hover {
+	width: 10px;
+}
+*::-moz-scrollbar:hover {
 	width: 10px;
 }
 
@@ -148,6 +158,15 @@ input[type="submit"]:active {
 	border-radius: 15px;
 }
 
+*::-moz-scrollbar-thumb {
+	background-color: #DDDDDD;
+	border-radius: 15px;
+}
+
 *::-webkit-scrollbar-thumb:hover {
+	background-color: #CCCCCC;
+}
+
+*::-moz-scrollbar-thumb:hover {
 	background-color: #CCCCCC;
 }

@@ -17,22 +17,17 @@ window.onload = function(event) {
 		if (websocket.readyState != 1)
 			return;
 
-		websocket.send(new WindowLoad().toString());
+		// websocket.send(new WindowLoad().toString());
 		clearInterval(interval);
 	}, 100);
 
     // 页面加载事件
 	music = document.getElementById("music");
 	music.onended = function (event) {
-		websocket.send(new MusicEndedMessage(musicID, music.src).toString());
+		// websocket.send(new MusicEndedMessage(musicID, music.src).toString());
 	}
 
-	// 默认打开
-	// openClassification("preview");
-	// openDisplayBox("preview", "preview");
-	// openClassification("shop");
-	// openDisplayBox("shop", "subsidiary");
-
+	// 验证是否登录
     if (verify()) {
         openClassification("preview")
         return;
@@ -48,6 +43,7 @@ function initialize() {
 	// 注册消息处理体
 	registerJSONMessage(100, new LoginSuccessMessage());
 	registerJSONMessage(104, new NeedReLoginMessage());
+	registerJSONMessage(105, new SelfInfoMessage());
 
 	// 初始化表单监听
 	const loginForm = document.querySelector(".content .display .display_box_login_login .login .box .form");

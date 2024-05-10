@@ -11,6 +11,7 @@ class LoginSuccessMessage extends JSONExecutor {
 		localStorage.setItem("token", JSON.parse(message).token);
 		sendPopup("info", "<img src='./images/success.svg' style='width: 30px; margin-top: 2px;'>登录成功", 1800);
 		openClassification("preview");
+		websocket.send("{\"type\": \"user_info\", \"user\": {\"token\": \"" + localStorage.token + "\"}}");
 	}
 }
 
@@ -37,4 +38,10 @@ class VerifyErrorMessage extends JSONExecutor {
 	execute(message) {
 		return false;
 	}
+}
+
+class SelfInfoMessage extends JSONExecutor {
+    execute(message) {
+        document.querySelector(".content .display .display_box_preview .user_info .user .name").innerText = JSON.parse(message).name;
+    }
 }
