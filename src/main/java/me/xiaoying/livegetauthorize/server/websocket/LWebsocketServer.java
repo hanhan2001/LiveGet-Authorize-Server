@@ -1,6 +1,7 @@
 package me.xiaoying.livegetauthorize.server.websocket;
 
 import me.xiaoying.livegetauthorize.core.LACore;
+import me.xiaoying.livegetauthorize.server.utils.StringUtil;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
@@ -17,7 +18,7 @@ public class LWebsocketServer extends WebSocketServer {
 
     @Override
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
-
+        LACore.getLogger().info("&a新连接: {}", StringUtil.removeSomeString(webSocket.getLocalSocketAddress().getAddress().toString(), 0));
     }
 
     @Override
