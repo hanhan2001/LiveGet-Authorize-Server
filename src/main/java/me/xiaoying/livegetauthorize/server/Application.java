@@ -14,6 +14,7 @@ import me.xiaoying.livegetauthorize.server.file.files.FileConfig;
 import me.xiaoying.livegetauthorize.server.file.files.FileMessage;
 import me.xiaoying.livegetauthorize.server.listener.LoggerListener;
 import me.xiaoying.livegetauthorize.server.message.SelfInfoMessageExecutor;
+import me.xiaoying.livegetauthorize.server.message.UserQuitMessageExecutor;
 import me.xiaoying.livegetauthorize.server.terminal.Terminal;
 import me.xiaoying.livegetauthorize.server.user.UserManager;
 import me.xiaoying.livegetauthorize.server.websocket.LWebsocketServer;
@@ -92,6 +93,7 @@ public class Application {
             server.getPluginManager().enablePlugin(plugin);
 
         // MessageExecutor
+        LACore.getServer().getMessageManager().registerMessageExecutor("user_quit", new UserQuitMessageExecutor());
         LACore.getServer().getMessageManager().registerMessageExecutor("user_info", new SelfInfoMessageExecutor());
 
         // register commands
