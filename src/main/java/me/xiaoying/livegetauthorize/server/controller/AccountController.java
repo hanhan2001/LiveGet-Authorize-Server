@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 public class AccountController {
     @PostMapping("/login")
-    public String login(@RequestParam("account") String account, @RequestParam("password") String password) {
+    public String login(HttpServletRequest request, @RequestParam("account") String account, @RequestParam("password") String password) {
         // get login type
         if (!LongUtil.isLong(account) && account.contains("@"))
             return null;
@@ -56,6 +56,7 @@ public class AccountController {
         Application.getUserManager().setLoginUser(token, user);
         Application.getServer().getPluginManager().callEvent(new UserLoginEvent(user));
         LACore.getLogger().info("&b登录&e>> &f{}", user.getUUID());
+        ((ServerUser) user).setIP(request.getRemoteAddr());
         return new VariableFactory(FileMessageConstant.MESSAGE_ACCOUNT_LOGIN)
                 .account(account)
                 .token(user.getToken()).toString();
@@ -73,7 +74,7 @@ public class AccountController {
         user.setIP(request.getRemoteAddr());
         Application.getServer().getPluginManager().callEvent(new UserRegisterEvent(user));
         LACore.getLogger().info("&6注册&e>> &f{}", user.getUUID());
-        return this.login(account, password);
+        return this.login(request, account, password);
     }
 
     @PostMapping("/verify")
