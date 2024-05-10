@@ -12,7 +12,7 @@ import org.java_websocket.WebSocket;
 /**
  * Message Executor User info
  */
-public class UserLoginMessageExecutor implements MessageExecutor {
+public class SelfInfoMessageExecutor implements MessageExecutor {
     @Override
     public void execute(JSONObject jsonObject, Object... objects) {
         JSONObject object = jsonObject.getJSONObject("user");
