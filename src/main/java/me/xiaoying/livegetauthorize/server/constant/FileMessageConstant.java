@@ -42,10 +42,10 @@ public class FileMessageConstant {
                 "}";
         MESSAGE_ACCOUNT_INFO = "{\n" +
                 "  \"code\": 105,\n" +
-                "  \"qq\": %qq%,\n" +
+                "  \"qq\": \"%qq%\",\n" +
                 "  \"email\": \"%email%\",\n" +
-                "  \"telephone\": %telephone%,\n" +
-                "  \"uuid\": %uuid%,\n" +
+                "  \"telephone\": \"%telephone%\",\n" +
+                "  \"uuid\": \"%uuid%\",\n" +
                 "  \"name\": \"%name%\",\n" +
                 "  \"ip\": \"%ip%\",\n" +
                 "  \"registerTime\": \"%registerTime%\",\n" +
