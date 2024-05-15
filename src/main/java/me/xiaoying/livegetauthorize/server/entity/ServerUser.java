@@ -16,15 +16,15 @@ import java.util.Date;
  * User
  */
 public class ServerUser implements User {
-    private long qq;
+    private final long qq;
     private String email;
     private long telephone;
-    private String uuid;
-    private String name;
-    private String password;
+    private final String uuid;
+    private final String name;
+    private final String password;
     private String ip;
-    private Date registerTime;
-    private Date lastLoginTime;
+    private final Date registerTime;
+    private final Date lastLoginTime;
     private Date survival = new Date();
     private String token;
     private final Permissible permissible = new PermissibleBase(this);
