@@ -6,8 +6,15 @@ import me.xiaoying.livegetauthorize.core.permission.PermissibleBase;
 import me.xiaoying.livegetauthorize.core.permission.Permission;
 import me.xiaoying.livegetauthorize.core.permission.PermissionAttachment;
 import me.xiaoying.livegetauthorize.core.plugin.Plugin;
+import me.xiaoying.livegetauthorize.server.Application;
+import me.xiaoying.livegetauthorize.server.constant.ConstantCommon;
 import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
 import me.xiaoying.livegetauthorize.server.utils.DateUtil;
+import me.xiaoying.sql.SqlFactory;
+import me.xiaoying.sql.entity.Column;
+import me.xiaoying.sql.entity.Condition;
+import me.xiaoying.sql.entity.ConditionType;
+import me.xiaoying.sql.sentence.Update;
 import org.java_websocket.WebSocket;
 
 import java.util.Date;
@@ -149,6 +156,11 @@ public class ServerUser implements User {
     @Override
     public void setPhotoBase64(String base64) {
         this.photoBase64 = base64;
+
+        SqlFactory sqlFactory = Application.getSqlFactory();
+        Update update = new Update(ConstantCommon.TABLE_USER_INFO);
+        update.set("photo", base64);
+        sqlFactory.sentence(update).condition(new Condition("uuid", this.uuid, ConditionType.EQUAL)).run();
     }
 
     @Override
