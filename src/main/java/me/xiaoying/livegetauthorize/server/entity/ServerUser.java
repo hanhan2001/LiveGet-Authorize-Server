@@ -11,7 +11,6 @@ import me.xiaoying.livegetauthorize.server.constant.ConstantCommon;
 import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
 import me.xiaoying.livegetauthorize.server.utils.DateUtil;
 import me.xiaoying.sql.SqlFactory;
-import me.xiaoying.sql.entity.Column;
 import me.xiaoying.sql.entity.Condition;
 import me.xiaoying.sql.entity.ConditionType;
 import me.xiaoying.sql.sentence.Update;
