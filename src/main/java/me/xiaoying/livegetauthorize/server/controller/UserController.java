@@ -49,6 +49,7 @@ public class UserController {
                 .ip(user.getIP())
                 .registerTime(user.getRegisterTime())
                 .lastLoginTime(user.getLastLoginTime())
+                .photo(user.getPhotoBase64())
                 .toString();
     }
 }

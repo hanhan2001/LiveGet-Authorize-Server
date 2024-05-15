@@ -50,7 +50,7 @@ public class FileMessageConstant {
                 "  \"ip\": \"%ip%\",\n" +
                 "  \"registerTime\": \"%registerTime%\",\n" +
                 "  \"lastLoginTime\": \"%lastLoginTime%\",\n" +
-                "  \"photo\": \"%photo%\"" +
+                "  \"photo\": \"%photo%\"\n" +
                 "}";
 
         //权限信息

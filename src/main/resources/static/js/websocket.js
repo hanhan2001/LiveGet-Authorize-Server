@@ -12,6 +12,7 @@ websocket.onmessage = function(e) {
     	return;
    	}
 
+    console.log(e.data);
    	interpreterJsonMessage(e.data);
 }
 

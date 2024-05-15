@@ -45,6 +45,8 @@ class SelfInfoMessage extends JSONExecutor {
         let json = JSON.parse(message);
         // 用户名称
         document.querySelector(".content .display .display_box_preview .user_info .user .name").innerText = json.name;
+        // 用户头像
+        document.querySelector(".content .display .display_box_preview .user_info .user .photo").style.backgroundImage = "url(\"" + json.photo + "\")";
         // 用户手机
         let telephone = document.querySelector(".content .display .display_box_preview .user_info .info .box .account_self_info .telephone");
         if (json.telephone == 0)

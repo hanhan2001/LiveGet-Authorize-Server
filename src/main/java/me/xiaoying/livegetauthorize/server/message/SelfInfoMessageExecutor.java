@@ -23,14 +23,15 @@ public class SelfInfoMessageExecutor implements MessageExecutor {
         ServerUser serverUser = (ServerUser) user;
         serverUser.setWebsocket((WebSocket) objects[0]);
         serverUser.sendMessage(new VariableFactory(FileMessageConstant.MESSAGE_ACCOUNT_INFO)
-                .qq(user.getQQ())
-                .email(user.getEmail())
-                .telephone(user.getTelephone())
-                .uuid(user.getUUID())
-                .name(user.getName())
-                .ip(user.getIP())
-                .registerTime(user.getRegisterTime())
-                .lastLoginTime(user.getLastLoginTime())
-                .toString());
+                        .qq(user.getQQ())
+                        .email(user.getEmail())
+                        .telephone(user.getTelephone())
+                        .uuid(user.getUUID())
+                        .name(user.getName())
+                        .ip(user.getIP())
+                        .registerTime(user.getRegisterTime())
+                        .lastLoginTime(user.getLastLoginTime())
+                        .photo(user.getPhotoBase64())
+                        .toString());
     }
 }
