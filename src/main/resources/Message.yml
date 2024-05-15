@@ -57,7 +57,8 @@ Account:
       "name": "%name%",
       "ip": "%ip%",
       "registerTime": "%registerTime%",
-      "lastLoginTime": "%lastLoginTime%"
+      "lastLoginTime": "%lastLoginTime%",
+      "photo": "%photo%"
     }
 #权限信息
 Permission:

@@ -49,7 +49,8 @@ public class FileMessageConstant {
                 "  \"name\": \"%name%\",\n" +
                 "  \"ip\": \"%ip%\",\n" +
                 "  \"registerTime\": \"%registerTime%\",\n" +
-                "  \"lastLoginTime\": \"%lastLoginTime%\"\n" +
+                "  \"lastLoginTime\": \"%lastLoginTime%\",\n" +
+                "  \"photo\": \"%photo%\"" +
                 "}";
 
         //权限信息
