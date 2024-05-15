@@ -16,6 +16,8 @@ window.onload = function(event) {
 	let interval = setInterval(() => {
 		if (websocket.readyState != 1)
 			return;
+	    if (websocket.readyState == 0)
+	        return;
 
 		// websocket.send(new WindowLoad().toString());
 		clearInterval(interval);
