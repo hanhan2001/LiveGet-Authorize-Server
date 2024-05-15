@@ -7,7 +7,9 @@ import me.xiaoying.livegetauthorize.server.constant.ConstantCommon;
 import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
 import me.xiaoying.livegetauthorize.server.entity.ServerUser;
 import me.xiaoying.livegetauthorize.server.utils.DateUtil;
+import me.xiaoying.livegetauthorize.server.utils.FileUtil;
 import me.xiaoying.livegetauthorize.server.utils.StringUtil;
+import me.xiaoying.livegetauthorize.server.utils.WebUtil;
 import me.xiaoying.sql.SqlFactory;
 import me.xiaoying.sql.entity.Column;
 import me.xiaoying.sql.entity.Condition;
@@ -43,6 +45,7 @@ public class UserManager {
         columns.add(new Column("ip", "varchar", 255));
         columns.add(new Column("registerTime", "varchar", 255));
         columns.add(new Column("lastLoginTime", "varchar", 255));
+        columns.add(new Column("photo", "longtext", 0));
         create.setColumns(columns);
         sqlFactory.sentence(create).run();
 
@@ -99,7 +102,7 @@ public class UserManager {
         String stringDate = DateUtil.dateToString(date, FileConfigConstant.SETTING_DATEFORMAT);
         insert.insert(String.valueOf(qq), email, "", password, uuid, String.valueOf(qq), "", stringDate, stringDate);
         sqlFactory.sentence(insert).run();
-        User user = new ServerUser(qq, email, uuid, String.valueOf(qq), password, "", date, date);
+        User user = new ServerUser(qq, email, uuid, String.valueOf(qq), password, "", date, date, FileUtil.fileToBase64(WebUtil.getInputStream("https://q1.qlogo.cn/g?b=qq&nk=" + qq + "&s=640")));
         this.knownQQUsers.put(qq, user);
         this.knownEmailUsers.put(email, user);
         return user;
@@ -152,7 +155,8 @@ public class UserManager {
                 column.get("password").toString(),
                 column.get("ip").toString(),
                 DateUtil.stringToDate(column.get("registerTime").toString(), FileConfigConstant.SETTING_DATEFORMAT),
-                DateUtil.stringToDate(column.get("lastLoginTime").toString(), FileConfigConstant.SETTING_DATEFORMAT));
+                DateUtil.stringToDate(column.get("lastLoginTime").toString(), FileConfigConstant.SETTING_DATEFORMAT),
+                column.get("photo").toString());
 
         if (key.equalsIgnoreCase("qq"))
             this.knownQQUsers.put(Long.parseLong(value), user);

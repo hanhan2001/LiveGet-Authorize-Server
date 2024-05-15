@@ -29,8 +29,9 @@ public class ServerUser implements User {
     private String token;
     private final Permissible permissible = new PermissibleBase(this);
     private WebSocket webSocket;
+    private String photoBase64;
 
-    public ServerUser(long qq, String email, String uuid, String name, String password, String ip, Date registerTime, Date lastLoginTime) {
+    public ServerUser(long qq, String email, String uuid, String name, String password, String ip, Date registerTime, Date lastLoginTime, String photoBase64) {
         this.qq = qq;
         this.email = email;
         this.uuid = uuid;
@@ -39,9 +40,10 @@ public class ServerUser implements User {
         this.ip = ip;
         this.registerTime = registerTime;
         this.lastLoginTime = lastLoginTime;
+        this.photoBase64 = photoBase64;
     }
 
-    public ServerUser(long qq, String email, long telephone, String uuid, String name, String password, String ip, Date registerTime, Date lastLoginTime) {
+    public ServerUser(long qq, String email, long telephone, String uuid, String name, String password, String ip, Date registerTime, Date lastLoginTime, String photoBase64) {
         this.qq = qq;
         this.email = email;
         this.telephone = telephone;
@@ -51,6 +53,7 @@ public class ServerUser implements User {
         this.ip = ip;
         this.registerTime = registerTime;
         this.lastLoginTime = lastLoginTime;
+        this.photoBase64 = photoBase64;
     }
 
     @Override
@@ -141,6 +144,16 @@ public class ServerUser implements User {
     @Override
     public void setToken(String s) {
         this.token = s;
+    }
+
+    @Override
+    public void setPhotoBase64(String base64) {
+        this.photoBase64 = base64;
+    }
+
+    @Override
+    public String getPhotoBase64() {
+        return this.photoBase64;
     }
 
     @Override
