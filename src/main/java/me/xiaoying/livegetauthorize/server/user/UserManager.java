@@ -99,7 +99,7 @@ public class UserManager {
         String stringDate = DateUtil.dateToString(date, FileConfigConstant.SETTING_DATEFORMAT);
         insert.insert(String.valueOf(qq), email, "", password, uuid, String.valueOf(qq), "", stringDate, stringDate);
         sqlFactory.sentence(insert).run();
-        User user = new ServerUser(qq, email, uuid, password, "", date, date);
+        User user = new ServerUser(qq, email, uuid, String.valueOf(qq), password, "", date, date);
         this.knownQQUsers.put(qq, user);
         this.knownEmailUsers.put(email, user);
         return user;
@@ -148,6 +148,7 @@ public class UserManager {
                 column.get("email").toString(),
                 telephone,
                 column.get("uuid").toString(),
+                column.get("name").toString(),
                 column.get("password").toString(),
                 column.get("ip").toString(),
                 DateUtil.stringToDate(column.get("registerTime").toString(), FileConfigConstant.SETTING_DATEFORMAT),

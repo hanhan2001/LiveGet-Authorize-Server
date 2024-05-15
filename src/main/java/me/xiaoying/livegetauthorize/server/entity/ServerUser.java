@@ -20,6 +20,7 @@ public class ServerUser implements User {
     private String email;
     private long telephone;
     private String uuid;
+    private String name;
     private String password;
     private String ip;
     private Date registerTime;
@@ -29,21 +30,23 @@ public class ServerUser implements User {
     private final Permissible permissible = new PermissibleBase(this);
     private WebSocket webSocket;
 
-    public ServerUser(long qq, String email, String uuid, String password, String ip, Date registerTime, Date lastLoginTime) {
+    public ServerUser(long qq, String email, String uuid, String name, String password, String ip, Date registerTime, Date lastLoginTime) {
         this.qq = qq;
         this.email = email;
         this.uuid = uuid;
+        this.name = name;
         this.password = password;
         this.ip = ip;
         this.registerTime = registerTime;
         this.lastLoginTime = lastLoginTime;
     }
 
-    public ServerUser(long qq, String email, long telephone, String uuid, String password, String ip, Date registerTime, Date lastLoginTime) {
+    public ServerUser(long qq, String email, long telephone, String uuid, String name, String password, String ip, Date registerTime, Date lastLoginTime) {
         this.qq = qq;
         this.email = email;
         this.telephone = telephone;
         this.uuid = uuid;
+        this.name = name;
         this.password = password;
         this.ip = ip;
         this.registerTime = registerTime;
@@ -52,7 +55,7 @@ public class ServerUser implements User {
 
     @Override
     public String getName() {
-        return String.valueOf(this.qq);
+        return this.name;
     }
 
     @Override
