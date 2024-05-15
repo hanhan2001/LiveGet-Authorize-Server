@@ -29,7 +29,8 @@ window.onload = function(event) {
 
 	// 验证是否登录
     if (verify()) {
-        openClassification("preview")
+    	websocket.send("{\"type\": \"user_info\", \"user\": {\"token\": \"" + localStorage.token + "\"}}");
+        openClassification("preview");
         return;
     }
 
@@ -145,10 +146,10 @@ function initialize() {
  * @param name 界面名称
  * */
 function openDisplayBox(classification, name) {
-    if (classification != "login") {
-        if (!verify())
-            return;
-	}
+     if (classification != "login") {
+         if (!verify())
+             return;
+	 }
 	let classificationEntity = classifications.get(classification);
 	let line = classificationEntity.getLine();
 	let display = classificationEntity.getDisplayBox(name);
@@ -158,10 +159,10 @@ function openDisplayBox(classification, name) {
 }
 
 function openClassification(classification) {
-     if (classification != "login") {
-	     if (!verify())
-	        return;
-	 }
+    if (classification != "login") {
+	    if (!verify())
+	       return;
+	}
 	if (openedClassification == classifications.get(classification))
 		return;
 

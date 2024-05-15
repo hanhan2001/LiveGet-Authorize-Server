@@ -289,16 +289,36 @@
 	height: 95%;
 	background-color: #EFEFEF;
 	border-radius: 3px;
+	display: flex;
+	overflow-y: auto;
+	flex-wrap: wrap;
 }
 
-.content .display .display_box_preview .user_info .info::before {
+.content .display .display_box_preview .user_info::before {
 	content: "";
-	display: block;
 	width: 2px;
-	height: 100%;
-	margin-left: -8.5px;
-	background-color: #DFDFDF;
+	height: 92%;
 	border-radius: 3px;
+	position: absolute;
+	left: 132.5px;
+	background-color: #DFDFDF;
+}
+
+.content .display .display_box_preview .user_info .info .box {
+	padding: 5px 0px 5px 0px;
+}
+
+.content .display .display_box_preview .user_info .info .box .account_login_info,
+.content .display .display_box_preview .user_info .info .box .account_self_info {
+	display: flex;
+	flex-wrap: wrap;
+	white-space: nowrap;
+}
+
+.content .display .display_box_preview .user_info .info .box .line {
+	padding: 2px 10px 2px 10px;
+	margin-left: 10px;
+	margin-top: 5px;
 }
 
 .popup {
