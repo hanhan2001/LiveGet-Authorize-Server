@@ -2,7 +2,9 @@ package me.xiaoying.livegetauthorize.server.factory;
 
 import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
 import me.xiaoying.livegetauthorize.server.utils.DateUtil;
+import me.xiaoying.livegetauthorize.server.utils.FileUtil;
 
+import java.io.File;
 import java.util.Date;
 
 /**
@@ -42,6 +44,16 @@ public class VariableFactory {
 
     public VariableFactory name(String name) {
         this.string = this.string.replace("%name%", name);
+        return this;
+    }
+
+    public VariableFactory photo(String photo) {
+        this.string = this.string.replace("%photo%", photo);
+        return this;
+    }
+
+    public VariableFactory photo(File file) {
+        this.string = this.string.replace("%photo%", FileUtil.fileToBase64(file.getPath()));
         return this;
     }
 
