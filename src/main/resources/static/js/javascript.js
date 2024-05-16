@@ -12,16 +12,18 @@ window.onload = function(event) {
 	// 初始化
     initialize();
 
-	// 使用循环遍历检测websocket是否建立连接
-	let interval = setInterval(() => {
-		if (websocket.readyState != 1)
-			return;
-	    if (websocket.readyState == 0)
-	        return;
+    while (websocket.readyState == 0) {};
 
-		// websocket.send(new WindowLoad().toString());
-		clearInterval(interval);
-	}, 100);
+	// 使用循环遍历检测websocket是否建立连接
+	// let interval = setInterval(() => {
+	// 	if (websocket.readyState != 1)
+	// 		return;
+	//     if (websocket.readyState == 0)
+	//         return;
+
+	// 	// websocket.send(new WindowLoad().toString());
+	// 	clearInterval(interval);
+	// }, 100);
 
     // 页面加载事件
 	music = document.getElementById("music");
