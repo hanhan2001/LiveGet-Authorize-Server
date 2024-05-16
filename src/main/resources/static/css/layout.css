@@ -321,6 +321,22 @@
 	margin-top: 5px;
 }
 
+@media screen and (max-width: 600px) {
+	.content .display .display_box_preview .user_info .user {
+		display: none;
+	}
+
+	.content .display .display_box_preview .user_info::before {
+		display: none;
+	}
+
+
+	.content .display .display_box_preview .user_info .info {
+		width: 98%;
+		margin-left: 0px;
+	}
+}
+
 .popup {
 	z-index: 50;
 	width: 100vw;
