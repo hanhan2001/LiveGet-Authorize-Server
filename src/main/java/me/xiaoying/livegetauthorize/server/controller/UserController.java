@@ -36,7 +36,7 @@ public class UserController {
 
         User orderUser = Application.getUserManager().getLoginUser(token);
         if (orderUser == null)
-            return FileMessageConstant.MESSAGE_ACCOUNT_NEED_RE_LOGIN;
+            return FileMessageConstant.MESSAGE_ACCOUNT_NEED_LOGIN;
 
         if (!orderUser.hasPermission("user.query.other"))
             return FileMessageConstant.MESSAGE_PERMISSION_NO_PERMISSION;

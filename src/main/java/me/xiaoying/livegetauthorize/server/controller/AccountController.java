@@ -83,7 +83,7 @@ public class AccountController {
     @PostMapping("/verify")
     public String verify(HttpServletRequest request, String token) {
         if (Application.getUserManager().getLoginUser(token) == null)
-            return FileMessageConstant.MESSAGE_ACCOUNT_NEED_RE_LOGIN;
+            return FileMessageConstant.MESSAGE_ACCOUNT_NEED_LOGIN;
 
         try {
             JwtConsumer jwtConsumer = new JwtConsumerBuilder()
@@ -98,14 +98,14 @@ public class AccountController {
             if (claims == null) {
                 if (Application.getUserManager().getLoginUser(token) != null)
                     Application.getUserManager().removeLoginUser(token);
-                return FileMessageConstant.MESSAGE_ACCOUNT_NEED_RE_LOGIN;
+                return FileMessageConstant.MESSAGE_ACCOUNT_NEED_LOGIN;
             }
 
             User user = Application.getUserManager().getLoginUser(token);
             user.updateSurvival();
             return "";
         } catch (JoseException | InvalidJwtException e) {
-            return FileMessageConstant.MESSAGE_ACCOUNT_NEED_RE_LOGIN;
+            return FileMessageConstant.MESSAGE_ACCOUNT_NEED_LOGIN;
         }
     }
 

@@ -1,7 +1,6 @@
 # -1 系统异常
-# 110 账户错误
+# 110 统一失败编码
 # 200 统一成功编码
-# 120 权限错误
 
 #账户信息
 Account:
@@ -9,9 +8,11 @@ Account:
   Login: |-
     {
       "code": 200,
+      "type": "account_login",
       "account": "%account%",
       "token": "%token%",
-      "message": "Login success."
+      "message": "Login success.",
+      "time": "%date%"
     }
   #信息
   Info: |-
@@ -26,41 +27,50 @@ Account:
       "ip": "%ip%",
       "registerTime": "%registerTime%",
       "lastLoginTime": "%lastLoginTime%",
-      "photo": "%photo%"
+      "photo": "%photo%",
+      "time": "%date%"
     }
   #密码错误
   PasswordInvalid: |-
     {
       "code": 110,
       "type": "account_password_invalid",
-      "message": "Password invalid."
+      "message": "Password invalid.",
+      "time": "%date%"
     }
   #未找到用户
   NotFound: |-
     {
       "code": 110,
       "type": "account_not_found_user",
-      "message": "Can't find user."
+      "message": "Can't find user.",
+      "time": "%date%"
     }
   #用户已存在
-  UserExists: |-
+  UserExisted: |-
     {
       "code": 110,
-      "type": "account_user_existed"
-      "message": "User already exists."
+      "type": "account_user_existed",
+      "message": "User already exists.",
+      "time": "%date%"
     }
   #邮箱已绑定
-  EmailExists: |-
+  EmailExisted: |-
     {
       "code": 110,
-      "message": "Email already exists."
+      "type": "account_email_existed",
+      "message": "Email already exists.",
+      "time": "%date%"
     }
-  #需要重新登录
-  NeedReLogin: |-
+  #需要登录
+  NeedLogin: |-
     {
       "code": 110,
-      "message": "Token is over due, please re login."
+      "type": "account_need_login",
+      "message": "Token is over due, please re login.",
+      "time": "%date%"
     }
+
 #权限信息
 Permission:
   #权限验证成功
@@ -68,14 +78,16 @@ Permission:
     {
       "code": 200,
       "type": "permission_true",
-      "message": "Check permission success"
+      "message": "Check permission success",
+      "time": "%date%"
     }
   #无权限
   NoPermission: |-
     {
-      "code": 120,
+      "code": 110,
       "type": "permission_no",
-      "message": "No permission."
+      "message": "No permission.",
+      "time": "%date%"
     }
 
 #授权码
@@ -90,8 +102,9 @@ Token:
       "object": "%object%",
       "save": "%token_save%",
       "over": "%token_over%",
-      "bind": "%token_bind%",
-      "lastUse": "%token_lastUse%"
+      "machine": "%token_machine%",
+      "lastUse": "%token_lastUse%",
+      "time": "%date%"
     }
   #授权码列表
   List: |-
@@ -108,3 +121,14 @@ Token:
 #          "over": "%over%",
 #          "bind": "%bind%"
 #        }
+
+#报错信息
+Error:
+  #普通报错信息
+  Normal: |-
+    {
+      "code": -1,
+      "type": "error",
+      "message": "An error has occurred, please send this page to the website administrator.",
+      "time": "%date%"
+    }
