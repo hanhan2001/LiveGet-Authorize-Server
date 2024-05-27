@@ -46,9 +46,9 @@ window.onload = function(event) {
  * */
 function initialize() {
 	// 注册消息处理体
-	registerJSONMessage(100, new LoginSuccessMessage());
-	registerJSONMessage(104, new NeedReLoginMessage());
-	registerJSONMessage(105, new SelfInfoMessage());
+	registerJSONMessage("account_login", new LoginSuccessMessage());
+	registerJSONMessage("account_need_login", new NeedLoginMessage());
+	registerJSONMessage("account_info", new SelfInfoMessage());
 
 	// 初始化表单监听
 	const loginForm = document.querySelector(".content .display .display_box_login_login .login .box .form");
