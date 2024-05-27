@@ -9,13 +9,19 @@ function interpreterJsonMessage(message) {
 	}
 
 	let code = json.code;
+
+	if (code == -1) {
+		// do some
+		return;
+	}
+
 	let jsonExecutor;
-	if ((jsonExecutor = knownJsonMessage.get(code)) == null)
+	if ((jsonExecutor = knownJsonMessage.get(json.type)) == null)
 		return;
 
 	jsonExecutor.execute(message);
 }
 
-function registerJSONMessage(code, jsonExecutor) {
-	knownJsonMessage.set(code, jsonExecutor);
+function registerJSONMessage(type, jsonExecutor) {
+	knownJsonMessage.set(type, jsonExecutor);
 }

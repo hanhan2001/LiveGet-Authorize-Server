@@ -15,7 +15,7 @@ class LoginSuccessMessage extends JSONExecutor {
 	}
 }
 
-class NeedReLoginMessage extends JSONExecutor {
+class NeedLoginMessage extends JSONExecutor {
 	execute(message) {
 		openClassification("login");
 		return false;
