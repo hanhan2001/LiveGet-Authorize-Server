@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Date;
 
 @RestController
 public class AccountController {
@@ -38,11 +39,11 @@ public class AccountController {
         if (!LongUtil.isLong(account) && account.contains("@"))
             return null;
 
-        User user;
+        ServerUser user;
         if (LongUtil.isLong(account))
-            user = Application.getUserManager().getUser(Long.parseLong(account));
+            user = (ServerUser) Application.getUserManager().getUser(Long.parseLong(account));
         else
-            user = Application.getUserManager().getUser(account);
+            user = (ServerUser) Application.getUserManager().getUser(account);
 
         if (user == null)
             return FileMessageConstant.MESSAGE_ACCOUNT_NOT_FOUND;
@@ -59,7 +60,9 @@ public class AccountController {
         Application.getUserManager().setLoginUser(token, user);
         Application.getServer().getPluginManager().callEvent(new UserLoginEvent(user));
         LACore.getLogger().info("&b登录&e>> &f{}", user.getUUID());
-        ((ServerUser) user).setIP(request.getRemoteAddr());
+        // update information for user
+        user.setIP(request.getRemoteAddr());
+        user.setLastLoginTime(new Date());
         return new VariableFactory(FileMessageConstant.MESSAGE_ACCOUNT_LOGIN)
                 .account(account)
                 .token(user.getToken()).toString();
@@ -103,7 +106,6 @@ public class AccountController {
 
             User user = Application.getUserManager().getLoginUser(token);
             user.updateSurvival();
-            LACore.getPluginManager().callEvent(new UserLoginEvent(user));
             return "";
         } catch (JoseException | InvalidJwtException e) {
             return FileMessageConstant.MESSAGE_ACCOUNT_NEED_LOGIN;

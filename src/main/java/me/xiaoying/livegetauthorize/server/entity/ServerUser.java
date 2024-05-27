@@ -30,7 +30,7 @@ public class ServerUser implements User {
     private final String password;
     private String ip;
     private final Date registerTime;
-    private final Date lastLoginTime;
+    private Date lastLoginTime;
     private Date survival = new Date();
     private String token;
     private final Permissible permissible = new PermissibleBase(this);
@@ -124,6 +124,13 @@ public class ServerUser implements User {
     @Override
     public Date getLastLoginTime() {
         return this.lastLoginTime;
+    }
+
+    public void setLastLoginTime(Date date) {
+        this.lastLoginTime = date;
+        Update update = new Update(ConstantCommon.TABLE_USER_INFO);
+        update.set("lastLoginTime", DateUtil.dateToString(this.lastLoginTime, FileConfigConstant.SETTING_DATEFORMAT));
+        Application.getSqlFactory().sentence(update).run();
     }
 
     @Override
