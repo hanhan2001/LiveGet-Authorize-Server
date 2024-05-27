@@ -103,7 +103,6 @@ public class ServerUser implements User {
         return this.uuid;
     }
 
-    @Override
     public String getPassword() {
         return this.password;
     }
@@ -142,17 +141,14 @@ public class ServerUser implements User {
      *
      * @return String
      */
-    @Override
     public String getToken() {
         return this.token;
     }
 
-    @Override
     public void setToken(String s) {
         this.token = s;
     }
 
-    @Override
     public void setPhotoBase64(String base64) {
         this.photoBase64 = base64;
 
