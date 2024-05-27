@@ -103,6 +103,7 @@ public class AccountController {
 
             User user = Application.getUserManager().getLoginUser(token);
             user.updateSurvival();
+            LACore.getPluginManager().callEvent(new UserLoginEvent(user));
             return "";
         } catch (JoseException | InvalidJwtException e) {
             return FileMessageConstant.MESSAGE_ACCOUNT_NEED_LOGIN;
