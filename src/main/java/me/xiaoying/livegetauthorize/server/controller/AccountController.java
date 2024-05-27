@@ -10,6 +10,7 @@ import me.xiaoying.livegetauthorize.server.constant.FileMessageConstant;
 import me.xiaoying.livegetauthorize.server.entity.ServerUser;
 import me.xiaoying.livegetauthorize.server.factory.JwtFactory;
 import me.xiaoying.livegetauthorize.server.factory.VariableFactory;
+import me.xiaoying.livegetauthorize.server.utils.FileUtil;
 import me.xiaoying.livegetauthorize.server.utils.LongUtil;
 import me.xiaoying.livegetauthorize.server.utils.ServerUtil;
 import org.jose4j.json.JsonUtil;
@@ -24,8 +25,10 @@ import org.jose4j.lang.JoseException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 @RestController
 public class AccountController {
@@ -65,9 +68,9 @@ public class AccountController {
     @PostMapping("/register")
     public String register(HttpServletRequest request, @RequestParam("account") String account, @RequestParam("email") String email, @RequestParam("password") String password) {
         if (Application.getUserManager().getUser(Long.parseLong(account)) != null)
-            return FileMessageConstant.MESSAGE_ACCOUNT_USER_ALREADY_EXISTS;
+            return FileMessageConstant.MESSAGE_ACCOUNT_USER_EXISTED;
         if (Application.getUserManager().getUser(email) != null)
-            return FileMessageConstant.MESSAGE_ACCOUNT_EMAIL_ALREADY_EXISTS;
+            return FileMessageConstant.MESSAGE_ACCOUNT_EMAIL_EXISTED;
 
         String encryptPassword = ServerUtil.getEncryptPassword(password);
         ServerUser user = (ServerUser) Application.getUserManager().createUser(Long.parseLong(account), email, encryptPassword);
@@ -104,5 +107,15 @@ public class AccountController {
         } catch (JoseException | InvalidJwtException e) {
             return FileMessageConstant.MESSAGE_ACCOUNT_NEED_RE_LOGIN;
         }
+    }
+
+    @PostMapping("/setPhoto")
+    public String setPhoto(MultipartFile photo) {
+        try {
+            System.out.println(FileUtil.fileToBase64(photo.getInputStream()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }
