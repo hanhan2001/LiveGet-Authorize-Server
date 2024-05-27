@@ -10,8 +10,8 @@
 
 其他文档:
 
-- [Web](https://github.com/LeavesCloud/LiveGet-Authorize-Server/Web.md)
-- [Token]("https://github.com/LeavesCloud/LiveGet-Authorize-Server/Token.md")
+- [Web]([LiveGet-Authorize-Server/Web.md at master · LeavesCloud/LiveGet-Authorize-Server (github.com)](https://github.com/LeavesCloud/LiveGet-Authorize-Server/blob/master/Web.md))
+- [Token]([LiveGet-Authorize-Server/Web.md at master · LeavesCloud/LiveGet-Authorize-Server (github.com)](https://github.com/LeavesCloud/LiveGet-Authorize-Server/blob/master/Token.md))
 
 
 
