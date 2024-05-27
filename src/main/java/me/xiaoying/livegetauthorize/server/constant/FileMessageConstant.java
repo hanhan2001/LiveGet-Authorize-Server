@@ -7,8 +7,8 @@ public class FileMessageConstant {
     public static String MESSAGE_ACCOUNT_LOGIN ,
             MESSAGE_ACCOUNT_NOT_FOUND,
             MESSAGE_ACCOUNT_PASSWORD_INVALID,
-            MESSAGE_ACCOUNT_USER_ALREADY_EXISTS,
-            MESSAGE_ACCOUNT_EMAIL_ALREADY_EXISTS,
+            MESSAGE_ACCOUNT_USER_EXISTED,
+            MESSAGE_ACCOUNT_EMAIL_EXISTED,
             MESSAGE_ACCOUNT_NEED_RE_LOGIN,
             MESSAGE_ACCOUNT_INFO;
     public static String MESSAGE_PERMISSION_NO_PERMISSION;
@@ -20,28 +20,9 @@ public class FileMessageConstant {
                 "  \"token\": \"%token%\",\n" +
                 "  \"message\": \"Login success.\"\n" +
                 "}";
-        MESSAGE_ACCOUNT_NOT_FOUND = "{\n" +
-                "  \"code\": 101,\n" +
-                "  \"message\": \"can't find user.\"\n" +
-                "}";
-        MESSAGE_ACCOUNT_PASSWORD_INVALID = "{\n" +
-                "  \"code\": 301,\n" +
-                "  \"message\": \"Password invalid.\"\n" +
-                "}";
-        MESSAGE_ACCOUNT_USER_ALREADY_EXISTS = "{\n" +
-                "  \"code\": 102,\n" +
-                "  \"message\": \"User already exists.\"\n" +
-                "}";
-        MESSAGE_ACCOUNT_EMAIL_ALREADY_EXISTS = "{\n" +
-                "  \"code\": 103,\n" +
-                "  \"message\": \"Email already exists.\"\n" +
-                "}";
-        MESSAGE_ACCOUNT_NEED_RE_LOGIN = "{\n" +
-                "  \"code\": 104,\n" +
-                "  \"message\": \"Token is over due, please re login.\"\n" +
-                "}";
         MESSAGE_ACCOUNT_INFO = "{\n" +
-                "  \"code\": 105,\n" +
+                "  \"code\": 200,\n" +
+                "  \"type\": \"account_info\",\n" +
                 "  \"qq\": \"%qq%\",\n" +
                 "  \"email\": \"%email%\",\n" +
                 "  \"telephone\": \"%telephone%\",\n" +
@@ -51,6 +32,26 @@ public class FileMessageConstant {
                 "  \"registerTime\": \"%registerTime%\",\n" +
                 "  \"lastLoginTime\": \"%lastLoginTime%\",\n" +
                 "  \"photo\": \"%photo%\"\n" +
+                "}";
+        MESSAGE_ACCOUNT_PASSWORD_INVALID = "{\n" +
+                "  \"code\": 110,\n" +
+                "  \"message\": \"Password invalid.\"\n" +
+                "}";
+        MESSAGE_ACCOUNT_NOT_FOUND = "{\n" +
+                "  \"code\": 110,\n" +
+                "  \"message\": \"Can't find user.\"\n" +
+                "}";
+        MESSAGE_ACCOUNT_EMAIL_EXISTED = "{\n" +
+                "  \"code\": 110,\n" +
+                "  \"message\": \"Email already exists.\"\n" +
+                "}";
+        MESSAGE_ACCOUNT_USER_EXISTED = "{\n" +
+                "  \"code\": 110,\n" +
+                "  \"message\": \"User already exists.\"\n" +
+                "}";
+        MESSAGE_ACCOUNT_NEED_RE_LOGIN = "{\n" +
+                "  \"code\": 110,\n" +
+                "  \"message\": \"Token is over due, please re login.\"\n" +
                 "}";
 
         //权限信息

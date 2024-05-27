@@ -28,8 +28,8 @@ public class FileMessage extends SubFile {
         FileMessageConstant.MESSAGE_ACCOUNT_LOGIN = this.getString(FileMessageConstant.MESSAGE_ACCOUNT_LOGIN, "Account.Login");
         FileMessageConstant.MESSAGE_ACCOUNT_PASSWORD_INVALID = this.getString(FileMessageConstant.MESSAGE_ACCOUNT_PASSWORD_INVALID, "Account.PasswordInvalid");
         FileMessageConstant.MESSAGE_ACCOUNT_NOT_FOUND = this.getString(FileMessageConstant.MESSAGE_ACCOUNT_NOT_FOUND, "Account.NotFound");
-        FileMessageConstant.MESSAGE_ACCOUNT_USER_ALREADY_EXISTS = this.getString(FileMessageConstant.MESSAGE_ACCOUNT_USER_ALREADY_EXISTS, "Account.UserAlreadyExists");
-        FileMessageConstant.MESSAGE_ACCOUNT_EMAIL_ALREADY_EXISTS = this.getString(FileMessageConstant.MESSAGE_ACCOUNT_EMAIL_ALREADY_EXISTS, "Account.EmailAlreadyExists");
+        FileMessageConstant.MESSAGE_ACCOUNT_USER_EXISTED = this.getString(FileMessageConstant.MESSAGE_ACCOUNT_USER_EXISTED, "Account.UserExists");
+        FileMessageConstant.MESSAGE_ACCOUNT_EMAIL_EXISTED = this.getString(FileMessageConstant.MESSAGE_ACCOUNT_EMAIL_EXISTED, "Account.EmailExists");
         FileMessageConstant.MESSAGE_ACCOUNT_INFO = this.getString(FileMessageConstant.MESSAGE_ACCOUNT_INFO, "Account.Info");
     }
 }

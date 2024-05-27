@@ -1,55 +1,23 @@
-#-1 产生错误
-#100 正常登录
-#101 无法找到对象
-#102 账户已存在
-#103 邮箱已绑定
-#301 用户-密码错误
-#200 请求成功
+# -1 系统异常
+# 110 账户错误
+# 200 统一成功编码
+# 120 权限错误
 
 #账户信息
 Account:
   #登录
   Login: |-
     {
-      "code": 100,
+      "code": 200,
       "account": "%account%",
       "token": "%token%",
       "message": "Login success."
     }
-  #密码错误
-  PasswordInvalid: |-
-    {
-      "code": 301,
-      "message": "Password invalid."
-    }
-  #未找到用户
-  NotFound: |-
-    {
-      "code": 101,
-      "message": "Can't find user."
-    }
-  #用户已存在
-  UserAlreadyExists: |-
-    {
-      "code": 102,
-      "message": "User already exists."
-    }
-  #邮箱已绑定
-  EmailAlreadyExists: |-
-    {
-      "code": 103,
-      "message": "Email already exists."
-    }
-  #需要重新登录
-  NeedReLogin: |-
-    {
-      "code": 104,
-      "message": "Token is over due, please re login."
-    }
   #信息
   Info: |-
     {
-      "code": 105,
+      "code": 200,
+      "type": "account_info",
       "qq": "%qq%",
       "email": "%email%",
       "telephone": "%telephone%",
@@ -60,17 +28,83 @@ Account:
       "lastLoginTime": "%lastLoginTime%",
       "photo": "%photo%"
     }
+  #密码错误
+  PasswordInvalid: |-
+    {
+      "code": 110,
+      "type": "account_password_invalid",
+      "message": "Password invalid."
+    }
+  #未找到用户
+  NotFound: |-
+    {
+      "code": 110,
+      "type": "account_not_found_user",
+      "message": "Can't find user."
+    }
+  #用户已存在
+  UserExists: |-
+    {
+      "code": 110,
+      "type": "account_user_existed"
+      "message": "User already exists."
+    }
+  #邮箱已绑定
+  EmailExists: |-
+    {
+      "code": 110,
+      "message": "Email already exists."
+    }
+  #需要重新登录
+  NeedReLogin: |-
+    {
+      "code": 110,
+      "message": "Token is over due, please re login."
+    }
 #权限信息
 Permission:
   #权限验证成功
   HasPermission: |-
     {
-      "code": "200",
-      "Message": "Check permission success"
+      "code": 200,
+      "type": "permission_true",
+      "message": "Check permission success"
     }
   #无权限
   NoPermission: |-
     {
-      "code": 201,
-      "Message": "No permission."
+      "code": 120,
+      "type": "permission_no",
+      "message": "No permission."
     }
+
+#授权码
+Token:
+  #授权码信息
+  TokenInfo: |-
+    {
+      "code": 200,
+      "type": "token_info",
+      "token": "%token%",
+      "function": "%token_function%",
+      "object": "%object%",
+      "save": "%token_save%",
+      "over": "%token_over%",
+      "bind": "%token_bind%",
+      "lastUse": "%token_lastUse%"
+    }
+  #授权码列表
+  List: |-
+    {
+      "code": 200,
+      "type": "token_list",
+      "list": [
+        %token_list%
+      ]
+    }
+#       {
+#          "token": "%token%",
+#          "save": "%save%",
+#          "over": "%over%",
+#          "bind": "%bind%"
+#        }
