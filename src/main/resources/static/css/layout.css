@@ -380,12 +380,14 @@
 	.content .display .display_box_preview .show .text .preview .self_info .service {
 		width: 98%;
 		margin-top: 10px;
+		position: static;
 	}
 	
 	.content .display .display_box_preview .show .text .preview .self_info .token {
 		width: 98%;
 		height: 147px;
 		margin-right: 0px;
+		position: static;
 	}
 }
 
