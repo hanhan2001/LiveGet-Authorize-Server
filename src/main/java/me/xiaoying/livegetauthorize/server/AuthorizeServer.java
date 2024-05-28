@@ -1,8 +1,10 @@
 package me.xiaoying.livegetauthorize.server;
 
+import me.xiaoying.livegetauthorize.core.LACore;
 import me.xiaoying.livegetauthorize.core.classification.ClassificationManager;
 import me.xiaoying.livegetauthorize.core.command.CommandManager;
 import me.xiaoying.livegetauthorize.core.command.SimpleCommandManager;
+import me.xiaoying.livegetauthorize.core.event.server.ServerClosingEvent;
 import me.xiaoying.livegetauthorize.core.message.MessageManager;
 import me.xiaoying.livegetauthorize.core.message.SimpleMessageManager;
 import me.xiaoying.livegetauthorize.core.plugin.PluginManager;
@@ -58,5 +60,9 @@ public class AuthorizeServer implements Server {
 
     @Override
     public void stop() {
+        LACore.getLogger().info("Stopping server...");
+
+        // 触发关闭服务器事件
+        LACore.getPluginManager().callEvent(new ServerClosingEvent());
     }
 }
