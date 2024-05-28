@@ -14,6 +14,11 @@ import me.xiaoying.livegetauthorize.core.server.Server;
 import me.xiaoying.livegetauthorize.server.classification.SimpleClassificationManager;
 import me.xiaoying.livegetauthorize.server.scheduler.ServerScheduler;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 /**
  * Server Authorize
  */
@@ -61,6 +66,13 @@ public class AuthorizeServer implements Server {
     @Override
     public void stop() {
         LACore.getLogger().info("Stopping server...");
+
+        // 用户缓存
+        try {
+            Application.getUserManager().serializable();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         // 触发关闭服务器事件
         LACore.getPluginManager().callEvent(new ServerClosingEvent());

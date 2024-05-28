@@ -16,6 +16,6 @@ public class SpringBootListener implements CommandLineRunner, DisposableBean {
 
     @Override
     public void destroy() throws Exception {
-        Application.getServer().stop();
+//        Application.getServer().stop();
     }
 }

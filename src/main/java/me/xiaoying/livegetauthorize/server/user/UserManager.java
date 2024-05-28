@@ -7,6 +7,7 @@ import me.xiaoying.livegetauthorize.server.constant.ConstantCommon;
 import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
 import me.xiaoying.livegetauthorize.server.entity.ServerUser;
 import me.xiaoying.livegetauthorize.server.utils.DateUtil;
+import me.xiaoying.livegetauthorize.server.utils.SerializableUtil;
 import me.xiaoying.livegetauthorize.server.utils.StringUtil;
 import me.xiaoying.sql.SqlFactory;
 import me.xiaoying.sql.entity.Column;
@@ -18,16 +19,20 @@ import me.xiaoying.sql.sentence.Delete;
 import me.xiaoying.sql.sentence.Insert;
 import me.xiaoying.sql.sentence.Select;
 
+import java.io.*;
 import java.text.DecimalFormat;
 import java.util.*;
 
 /**
  * UserService
  */
-public class UserManager {
-    private final Map<Long, User> knownQQUsers = new HashMap<>();
-    private final Map<String, User> knownEmailUsers = new HashMap<>();
-    private final Map<String, User> loginUser = new HashMap<>();
+public class UserManager implements Serializable {
+    private Map<Long, User> knownQQUsers = new HashMap<>();
+    private Map<String, User> knownEmailUsers = new HashMap<>();
+    private Map<String, User> loginUser = new HashMap<>();
+    private final File serializableEmail = new File("./Cache/UserManager-email.serializable");
+    private final File serializableQQ = new File("./Cache/UserManager-qq.serializable");
+    private final File serializableLogin = new File("./Cache/UserManager-login.serializable");
 
     public UserManager() {
         // 初始化用户表
@@ -46,6 +51,26 @@ public class UserManager {
         columns.add(new Column("photo", "longtext", 0));
         create.setColumns(columns);
         sqlFactory.sentence(create).run();
+
+        // 反序列化数据
+        try {
+            if (this.serializableEmail.exists()) {
+                LACore.getLogger().info("Loading email user...");
+                this.knownEmailUsers = (Map<String, User>) SerializableUtil.deserializable(this.serializableEmail);
+            }
+            if (this.serializableQQ.exists()) {
+                LACore.getLogger().info("Loading qq user...");
+                this.knownQQUsers = (Map<Long, User>) SerializableUtil.deserializable(this.serializableQQ);
+            }
+            if (this.serializableLogin.exists()) {
+                LACore.getLogger().info("Loading login user...");
+                this.loginUser = (Map<String, User>) SerializableUtil.deserializable(this.serializableLogin);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         // 检测过期用户缓存
         LACore.getServer().getScheduler().scheduleSyncRepeatingTask(null, () -> {
@@ -173,5 +198,11 @@ public class UserManager {
 
     public void removeLoginUser(String token) {
         this.loginUser.remove(token);
+    }
+
+    public void serializable() throws IOException {
+        SerializableUtil.serializable(this.serializableEmail, this.knownEmailUsers);
+        SerializableUtil.serializable(this.serializableQQ, this.knownQQUsers);
+        SerializableUtil.serializable(this.serializableLogin, this.loginUser);
     }
 }

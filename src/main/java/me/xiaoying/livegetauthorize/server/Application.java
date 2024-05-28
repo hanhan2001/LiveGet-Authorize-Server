@@ -27,6 +27,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.Collections;
 
@@ -101,6 +102,15 @@ public class Application {
         LACore.getServer().getCommandManager().registerCommand("plugins", new PluginCommand("plugins", "Get server loaded plugins", "/pl", Collections.singletonList("pl")));
         LACore.getServer().getCommandManager().registerCommand("reload", new ReloadCommand("reload", "Reload server", "/reload", null));
         LACore.getServer().getCommandManager().registerCommand("jwt", new JwtCommand("jwt", "create new jwt", "/jwt", null));
+
+        // register shutdown hook
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                userManager.serializable();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }));
     }
 
     // 取消初始化

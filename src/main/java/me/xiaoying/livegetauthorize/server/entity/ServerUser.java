@@ -16,12 +16,13 @@ import me.xiaoying.sql.entity.ConditionType;
 import me.xiaoying.sql.sentence.Update;
 import org.java_websocket.WebSocket;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * User
  */
-public class ServerUser implements User {
+public class ServerUser implements User, Serializable {
     private final long qq;
     private String email;
     private long telephone;
@@ -34,7 +35,7 @@ public class ServerUser implements User {
     private Date survival = new Date();
     private String token;
     private final Permissible permissible = new PermissibleBase(this);
-    private WebSocket webSocket;
+    private transient WebSocket webSocket;
     private String photoBase64;
 
     public ServerUser(long qq, String email, String uuid, String name, String password, String ip, Date registerTime, Date lastLoginTime, String photoBase64) {
