@@ -1,6 +1,6 @@
 package me.xiaoying.livegetauthorize.server.listener;
 
-import me.xiaoying.logger.LoggerFactory;
+import me.xiaoying.livegetauthorize.server.Application;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -16,5 +16,6 @@ public class SpringBootListener implements CommandLineRunner, DisposableBean {
 
     @Override
     public void destroy() throws Exception {
+        Application.getServer().stop();
     }
 }
