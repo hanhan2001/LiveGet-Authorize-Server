@@ -42,6 +42,10 @@ public class FileConfig extends SubFile {
         FileConfigConstant.SETTING_DATA_MYSQL_PASSWORD = this.getString(FileConfigConstant.SETTING_DATA_MYSQL_PASSWORD, "Setting.Data.Mysql.Password");
         FileConfigConstant.SETTING_DATA_MYSQL_RECONNECT_TIME = this.getInt(FileConfigConstant.SETTING_DATA_MYSQL_RECONNECT_TIME, "Setting.Data.Mysql.ReconnectTime");
         FileConfigConstant.SETTING_DATA_MYSQL_RECONNECT_DELAY = this.getInt(FileConfigConstant.SETTING_DATA_MYSQL_RECONNECT_DELAY, "Setting.Data.Mysql.ReconnectDelay");
+        FileConfigConstant.SETTING_CACHE_USER_TIME = this.getInt(FileConfigConstant.SETTING_CACHE_USER_TIME, "Setting.Cache.User.Time");
+        FileConfigConstant.SETTING_CACHE_USER_SERVER_STOP = this.getConfiguration().getBoolean("Setting.Cache.User.ServerStop");
+        FileConfigConstant.SETTING_CACHE_TOKEN_SERVER_STOP = this.getConfiguration().getBoolean("Setting.Cache.Token.ServerStop");
+        FileConfigConstant.SETTING_CACHE_TOKEN_TIME = this.getInt(FileConfigConstant.SETTING_CACHE_TOKEN_TIME, "Setting.Cache.Token.Time");
 
         FileConfigConstant.SETTING_JWT_KET_ID = this.getString(FileConfigConstant.SETTING_JWT_KET_ID, "Setting.Jwt.KeyId");
         FileConfigConstant.SETTING_JWT_PUBLIC_KEY = this.getString(FileConfigConstant.SETTING_JWT_PUBLIC_KEY, "Setting.Jwt.PublicKey");
