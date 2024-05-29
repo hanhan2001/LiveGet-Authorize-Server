@@ -140,6 +140,6 @@ public class Application {
             case "SQLITE":
                 return new SqliteFactory(FileConfigConstant.SETTING_DATA_SQLITE_PATH, FileConfigConstant.SETTING_DATA_SQLITE_FILE);
         }
-        return new SqliteFactory("/", "authorize.db");
+        return new SqliteFactory("jdbc:sqlite", "authorize.db");
     }
 }
