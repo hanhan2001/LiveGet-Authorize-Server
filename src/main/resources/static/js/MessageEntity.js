@@ -68,7 +68,6 @@ class SelfInfoMessage extends JSONExecutor {
 class PreviewTitleMessage extends JSONExecutor {
 	execute(message) {
 		let json = JSON.parse(message);
-		console.log(json.message);
 		document.querySelector(".content .display .display_box_preview .show .text .preview .title .message .box").innerText = json.message;
 	}
 }
