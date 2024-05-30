@@ -13,6 +13,8 @@ public class UserOpenClassificationMessageExecutor implements MessageExecutor {
         JSONObject userObject = jsonObject.getJSONObject("user");
         User user = Application.getUserManager().getLoginUser(userObject.getString("token"));
         Classification classification = Application.getServer().getClassificationManager().getClassification(jsonObject.getString("classification"));
+        if (classification == null)
+            return;
         Application.getServer().getPluginManager().callEvent(new UserOpenClassificationEvent(user, classification));
         classification.enable(user);
     }

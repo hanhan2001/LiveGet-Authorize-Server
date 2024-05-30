@@ -16,6 +16,8 @@ public class UserOpenDisplayMessageExecutor implements MessageExecutor {
         JSONObject userObject = jsonObject.getJSONObject("user");
         User user = Application.getUserManager().getLoginUser(userObject.getString("token"));
         DisplayPage displayPage = Application.getServer().getClassificationManager().getClassification(jsonObject.getString("classification")).getPage(jsonObject.getString("displayPage"));
+        if (displayPage == null)
+            return;
         Application.getServer().getPluginManager().callEvent(new UserOpenDisplayPageEvent(user, displayPage));
         displayPage.enable(user);
     }
