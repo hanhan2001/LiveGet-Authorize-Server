@@ -3,6 +3,7 @@ package me.xiaoying.livegetauthorize.server.command;
 import me.xiaoying.livegetauthorize.core.LACore;
 import me.xiaoying.livegetauthorize.core.command.Command;
 import me.xiaoying.livegetauthorize.core.command.CommandSender;
+import me.xiaoying.livegetauthorize.core.command.commands.HelpCommand;
 import me.xiaoying.livegetauthorize.core.message.MessageManager;
 import me.xiaoying.livegetauthorize.core.plugin.JavaPluginLoader;
 import me.xiaoying.livegetauthorize.core.plugin.Plugin;
@@ -46,5 +47,6 @@ public class ReloadCommand extends Command {
         LACore.getServer().getCommandManager().registerCommand("plugins", new PluginCommand("plugins", "Get server loaded plugins", "/pl", Collections.singletonList("pl")));
         LACore.getServer().getCommandManager().registerCommand("reload", new ReloadCommand("reload", "Reload server", "/reload", null));
         LACore.getServer().getCommandManager().registerCommand("jwt", new JwtCommand("jwt", "create new jwt", "/jwt", null));
+        LACore.getServer().getCommandManager().registerCommand("authorizecore", new HelpCommand("help"));
     }
 }
