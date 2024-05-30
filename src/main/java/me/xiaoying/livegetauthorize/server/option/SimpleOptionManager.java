@@ -56,6 +56,7 @@ public class SimpleOptionManager implements OptionManager {
      * @param name Option name
      * @param value Option value
      */
+    @Override
     public void registerOption(String name, String value) {
         this.knownOptions.put(name, new Option(name, value));
     }
@@ -65,8 +66,14 @@ public class SimpleOptionManager implements OptionManager {
      *
      * @param name Option name
      */
+    @Override
     public void unregisterOption(String name) {
         this.knownOptions.remove(name);
+    }
+
+    @Override
+    public void unregisterOptions() {
+        this.knownOptions.clear();
     }
 
     /**
@@ -75,6 +82,7 @@ public class SimpleOptionManager implements OptionManager {
      * @param name Option name
      * @return Option
      */
+    @Override
     public Option getOption(String name) {
         return this.knownOptions.get(name);
     }
@@ -84,6 +92,7 @@ public class SimpleOptionManager implements OptionManager {
      *
      * @return ArrayList
      */
+    @Override
     public List<Option> getOptions() {
         return new ArrayList<>(this.knownOptions.values());
     }

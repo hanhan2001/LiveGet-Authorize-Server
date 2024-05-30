@@ -122,7 +122,13 @@ public class Application {
     // 取消初始化
     public static void unInitialize() {
         LACore.getLogger().info("Disable plugins...");
+        for (Plugin plugin : LACore.getServer().getPluginManager().getPlugins())
+            LACore.getServer().getCommandManager().unregisterCommands(plugin);
         LACore.getServer().getPluginManager().disablePlugins();
+
+        LACore.getServer().getOptionManager().unregisterOptions();
+        LACore.getServer().getCommandManager().unregisterCommands();
+        LACore.getServer().getMessageManager().unregisterMessages();
 
         LACore.getLogger().info("Remove Server...");
     }
