@@ -256,10 +256,6 @@
 	width: 100%;
 }
 
-.content .display .display_box_preview .show .text .preview .title .message {
-/*	width: calc(100% - 3px);*/
-}
-
 .content .display .display_box_preview .show .text .preview .self_info {
 	display: flex;
 	margin-top: 10px;
@@ -271,7 +267,7 @@
 	width: calc(50% - 10px);
 	position: absolute;
 	left: 0px;
-	height: 147px;
+	height: 157px;
 }
 
 .content .display .display_box_preview .show .text .preview .self_info .service {

@@ -156,6 +156,7 @@ div[type="info_box"]:hover .caption {
 
 div[type="info_box"] .box {
 	margin-left: 5px;
+	padding: 5px 0px 5px 0px;
 }
 
 /* 滚动条 */
