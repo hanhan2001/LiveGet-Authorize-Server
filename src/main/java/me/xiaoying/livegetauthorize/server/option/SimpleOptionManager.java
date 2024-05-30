@@ -37,7 +37,6 @@ public class SimpleOptionManager implements OptionManager {
 
     private void defaultOption() {
         SqlFactory sqlFactory = Application.getSqlFactory();
-        System.out.println(sqlFactory.getTotalRecord(ConstantCommon.OPTION_LIST));
         if (sqlFactory.getTotalRecord(ConstantCommon.OPTION_LIST) > 0)
             return;
 
