@@ -30,9 +30,7 @@ public class SimpleOptionManager implements OptionManager {
 
         this.defaultOption();
 
-        SqlFactory selectSqlFactory = Application.getSqlFactory();
-        Select select = new Select(ConstantCommon.OPTION_LIST);
-        selectSqlFactory.sentence(select).run().forEach(record -> this.registerOption(new Option(record.get("option_name").toString(), record.get("option_value").toString())));
+        this.initialize();
     }
 
     private void defaultOption() {
@@ -43,6 +41,12 @@ public class SimpleOptionManager implements OptionManager {
         Insert insert = new Insert(ConstantCommon.OPTION_LIST);
         insert.insert("preview_title", "你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好");
         sqlFactory.sentence(insert).run();
+    }
+
+    public void initialize() {
+        SqlFactory selectSqlFactory = Application.getSqlFactory();
+        Select select = new Select(ConstantCommon.OPTION_LIST);
+        selectSqlFactory.sentence(select).run().forEach(record -> this.registerOption(new Option(record.get("option_name").toString(), record.get("option_value").toString())));
     }
 
     @Override
