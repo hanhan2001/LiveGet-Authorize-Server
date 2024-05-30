@@ -160,6 +160,8 @@ function openDisplayBox(classification, name) {
 
 	display.open(display.getLine());
 	openedDisplayBox = display;
+
+	websocket.send("{\"type\": \"open_display\", \"user\": {\"token\": \"" + localStorage.token + "\"}, \"classification\": \"" + classification + "\", \"dispalyPage\": \"" + name + "\"}");
 }
 
 function openClassification(classification) {
@@ -177,6 +179,8 @@ function openClassification(classification) {
 	classificationEntity.open();
 
 	openedClassification = classificationEntity;
+
+	websocket.send("{\"type\": \"open_classification\", \"user\": {\"token\": \"" + localStorage.token + "\"}, \"classification\": \"" + classification + "\"}");
 }
 
 function logout() {
