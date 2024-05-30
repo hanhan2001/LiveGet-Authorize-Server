@@ -11,7 +11,7 @@ import java.util.*;
  * Classification Simple
  */
 public class SimpleClassificationManager implements ClassificationManager {
-    private final Map<String, List<Classification>> knownClassification = new HashMap<>();
+    private final Map<String, Classification> knownClassification = new HashMap<>();
 
     public SimpleClassificationManager() {
         this.registerClassification("preview", new PreviewClassification("preview"));
@@ -19,44 +19,25 @@ public class SimpleClassificationManager implements ClassificationManager {
 
     @Override
     public void registerClassification(NamespacedKey namespacedKey, Classification classification) {
-        List<Classification> list;
-        if ((list = this.knownClassification.get(namespacedKey.toString())) == null)
-            list = new ArrayList<>();
-
-        if (list.contains(classification))
-            return;
-
-        list.add(classification);
+        this.knownClassification.put(namespacedKey.toString(), classification);
     }
 
     public void registerClassification(String name, Classification classification) {
-        List<Classification> list;
-        if ((list = this.knownClassification.get(name.toLowerCase(Locale.ROOT))) == null)
-            list = new ArrayList<>();
-
-        if (list.contains(classification))
-            return;
-
-        list.add(classification);
+        this.knownClassification.put(name.toLowerCase(Locale.ROOT), classification);
     }
 
     @Override
-    public Classification getClassification(String name, String classification) {
-        return null;
+    public Classification getClassification(String name) {
+        return this.knownClassification.get(name);
     }
 
     @Override
     public void unregisterClassification(String name) {
-
-    }
-
-    @Override
-    public void unregisterClassification(String name, String classification) {
-
+        this.knownClassification.remove(name);
     }
 
     @Override
     public List<Classification> getClassifications() {
-        return Collections.emptyList();
+        return new ArrayList<>(this.knownClassification.values());
     }
 }
