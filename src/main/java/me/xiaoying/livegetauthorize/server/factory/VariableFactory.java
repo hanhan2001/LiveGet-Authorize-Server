@@ -22,6 +22,11 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory date() {
+        this.string = this.string.replace("%date%", DateUtil.newStringDate(FileConfigConstant.SETTING_DATEFORMAT));
+        return this;
+    }
+
     public VariableFactory email(String email) {
         this.string = this.string.replace("%email%", email);
         return this;
