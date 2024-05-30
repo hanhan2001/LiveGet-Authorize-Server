@@ -49,6 +49,7 @@ function initialize() {
 	registerJSONMessage("account_login", new LoginSuccessMessage());
 	registerJSONMessage("account_need_login", new NeedLoginMessage());
 	registerJSONMessage("account_info", new SelfInfoMessage());
+	registerJSONMessage("display_preview_title", new PreviewTitleMessage());
 
 	// 初始化表单监听
 	const loginForm = document.querySelector(".content .display .display_box_login_login .login .box .form");

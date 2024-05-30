@@ -64,3 +64,11 @@ class SelfInfoMessage extends JSONExecutor {
         document.querySelector(".content .display .display_box_preview .user_info .info .box .account_login_info .lastLoginTime").innerText = "最后登录时间: " + json.lastLoginTime;
     }
 }
+
+class PreviewTitleMessage extends JSONExecutor {
+	execute(message) {
+		let json = JSON.parse(message);
+		console.log(json.message);
+		document.querySelector(".content .display .display_box_preview .show .text .preview .title .message .box").innerText = json.message;
+	}
+}
