@@ -1,6 +1,7 @@
 package me.xiaoying.livegetauthorize.server;
 
 import me.xiaoying.livegetauthorize.core.LACore;
+import me.xiaoying.livegetauthorize.core.message.MessageManager;
 import me.xiaoying.livegetauthorize.core.plugin.JavaPluginLoader;
 import me.xiaoying.livegetauthorize.core.plugin.Plugin;
 import me.xiaoying.livegetauthorize.core.server.Server;
@@ -15,6 +16,8 @@ import me.xiaoying.livegetauthorize.server.file.files.FileMessage;
 import me.xiaoying.livegetauthorize.server.listener.LoggerListener;
 import me.xiaoying.livegetauthorize.server.message.SelfInfoMessageExecutor;
 import me.xiaoying.livegetauthorize.server.message.UserQuitMessageExecutor;
+import me.xiaoying.livegetauthorize.server.message.user.UserOpenClassificationMessageExecutor;
+import me.xiaoying.livegetauthorize.server.message.user.UserOpenDisplayMessageExecutor;
 import me.xiaoying.livegetauthorize.server.terminal.Terminal;
 import me.xiaoying.livegetauthorize.server.user.UserManager;
 import me.xiaoying.livegetauthorize.server.websocket.LWebsocketServer;
@@ -94,8 +97,11 @@ public class Application {
             server.getPluginManager().enablePlugin(plugin);
 
         // MessageExecutor
-        LACore.getServer().getMessageManager().registerMessageExecutor("user_quit", new UserQuitMessageExecutor());
-        LACore.getServer().getMessageManager().registerMessageExecutor("user_info", new SelfInfoMessageExecutor());
+        MessageManager messageManager = LACore.getServer().getMessageManager();
+        messageManager.registerMessageExecutor("user_quit", new UserQuitMessageExecutor());
+        messageManager.registerMessageExecutor("user_info", new SelfInfoMessageExecutor());
+        messageManager.registerMessageExecutor("open_display", new UserOpenDisplayMessageExecutor());
+        messageManager.registerMessageExecutor("open_classification", new UserOpenClassificationMessageExecutor());
 
         // register commands
         LACore.getServer().getCommandManager().registerCommand("stop", new StopCommand("stop"));
