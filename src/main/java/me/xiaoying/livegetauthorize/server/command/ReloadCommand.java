@@ -5,7 +5,6 @@ import me.xiaoying.livegetauthorize.core.command.Command;
 import me.xiaoying.livegetauthorize.core.command.CommandSender;
 import me.xiaoying.livegetauthorize.core.command.commands.HelpCommand;
 import me.xiaoying.livegetauthorize.core.message.MessageManager;
-import me.xiaoying.livegetauthorize.core.option.OptionManager;
 import me.xiaoying.livegetauthorize.core.plugin.JavaPluginLoader;
 import me.xiaoying.livegetauthorize.core.plugin.Plugin;
 import me.xiaoying.livegetauthorize.server.Application;
