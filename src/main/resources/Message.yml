@@ -71,6 +71,19 @@ Account:
       "time": "%date%"
     }
 
+#展示信息
+Display:
+  #总览
+  Preview:
+    #公告
+    Title: |-
+      {
+        "code": 200,
+        "type": "display_preview_title",
+        "message": "%title%",
+        "time": "%date%"
+      }
+
 #权限信息
 Permission:
   #权限验证成功

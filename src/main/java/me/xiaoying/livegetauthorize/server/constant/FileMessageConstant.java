@@ -11,6 +11,9 @@ public class FileMessageConstant {
             MESSAGE_ACCOUNT_EMAIL_EXISTED,
             MESSAGE_ACCOUNT_NEED_LOGIN,
             MESSAGE_ACCOUNT_INFO;
+
+    public static String MESSAGE_DISPLAY_PREVIEW_TITLE;
+
     public static String MESSAGE_PERMISSION_NO_PERMISSION;
 
     public static String ERROR_NORMAL;
@@ -66,6 +69,14 @@ public class FileMessageConstant {
                 "  \"code\": 110,\n" +
                 "  \"type\": \"account_need_login\",\n" +
                 "  \"message\": \"Token is over due, please re login.\",\n" +
+                "  \"time\": \"%date%\"\n" +
+                "}";
+
+        //显示页面
+        MESSAGE_DISPLAY_PREVIEW_TITLE = "{\n" +
+                "  \"code\": 200,\n" +
+                "  \"type\": \"display_preview_title\",\n" +
+                "  \"message\": \"%title%\",\n" +
                 "  \"time\": \"%date%\"\n" +
                 "}";
 

@@ -34,6 +34,9 @@ public class FileMessage extends SubFile {
         FileMessageConstant.MESSAGE_ACCOUNT_EMAIL_EXISTED = this.getString(FileMessageConstant.MESSAGE_ACCOUNT_EMAIL_EXISTED, "Account.EmailExisted");
         FileMessageConstant.MESSAGE_ACCOUNT_NEED_LOGIN = this.getString(FileMessageConstant.MESSAGE_ACCOUNT_NEED_LOGIN, "Account.NeedLogin");
 
+        // 显示界面
+        FileMessageConstant.MESSAGE_DISPLAY_PREVIEW_TITLE = this.getString(FileMessageConstant.MESSAGE_DISPLAY_PREVIEW_TITLE, "Display.Preview.Title");
+
         // 权限信息
         FileMessageConstant.MESSAGE_PERMISSION_NO_PERMISSION = this.getString(FileMessageConstant.MESSAGE_PERMISSION_NO_PERMISSION, "Permission.NoPermission");
 
