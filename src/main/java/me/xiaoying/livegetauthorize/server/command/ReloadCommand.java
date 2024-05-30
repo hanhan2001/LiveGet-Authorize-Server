@@ -5,6 +5,7 @@ import me.xiaoying.livegetauthorize.core.command.Command;
 import me.xiaoying.livegetauthorize.core.command.CommandSender;
 import me.xiaoying.livegetauthorize.core.command.commands.HelpCommand;
 import me.xiaoying.livegetauthorize.core.message.MessageManager;
+import me.xiaoying.livegetauthorize.core.option.OptionManager;
 import me.xiaoying.livegetauthorize.core.plugin.JavaPluginLoader;
 import me.xiaoying.livegetauthorize.core.plugin.Plugin;
 import me.xiaoying.livegetauthorize.server.Application;
@@ -12,6 +13,7 @@ import me.xiaoying.livegetauthorize.server.message.SelfInfoMessageExecutor;
 import me.xiaoying.livegetauthorize.server.message.UserQuitMessageExecutor;
 import me.xiaoying.livegetauthorize.server.message.user.UserOpenClassificationMessageExecutor;
 import me.xiaoying.livegetauthorize.server.message.user.UserOpenDisplayMessageExecutor;
+import me.xiaoying.livegetauthorize.server.option.SimpleOptionManager;
 
 import java.io.File;
 import java.util.Collections;
@@ -41,6 +43,10 @@ public class ReloadCommand extends Command {
         messageManager.registerMessageExecutor("user_info", new SelfInfoMessageExecutor());
         messageManager.registerMessageExecutor("open_display", new UserOpenDisplayMessageExecutor());
         messageManager.registerMessageExecutor("open_classification", new UserOpenClassificationMessageExecutor());
+
+        // OptionManager
+        SimpleOptionManager optionManager = (SimpleOptionManager) LACore.getServer().getOptionManager();
+        optionManager.initialize();
 
         // register commands
         LACore.getServer().getCommandManager().registerCommand("stop", new StopCommand("stop"));
