@@ -37,7 +37,8 @@ public class SimpleOptionManager implements OptionManager {
 
     private void defaultOption() {
         SqlFactory sqlFactory = Application.getSqlFactory();
-        if (sqlFactory.getTotalRecord(ConstantCommon.OPTION_LIST) >= 0)
+        System.out.println(sqlFactory.getTotalRecord(ConstantCommon.OPTION_LIST));
+        if (sqlFactory.getTotalRecord(ConstantCommon.OPTION_LIST) > 0)
             return;
 
         Insert insert = new Insert(ConstantCommon.OPTION_LIST);
