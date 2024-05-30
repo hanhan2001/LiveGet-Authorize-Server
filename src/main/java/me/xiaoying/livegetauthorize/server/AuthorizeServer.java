@@ -7,11 +7,13 @@ import me.xiaoying.livegetauthorize.core.command.SimpleCommandManager;
 import me.xiaoying.livegetauthorize.core.event.server.ServerClosingEvent;
 import me.xiaoying.livegetauthorize.core.message.MessageManager;
 import me.xiaoying.livegetauthorize.core.message.SimpleMessageManager;
+import me.xiaoying.livegetauthorize.core.option.OptionManager;
 import me.xiaoying.livegetauthorize.core.plugin.PluginManager;
 import me.xiaoying.livegetauthorize.core.plugin.SimplePluginManager;
 import me.xiaoying.livegetauthorize.core.scheduler.Scheduler;
 import me.xiaoying.livegetauthorize.core.server.Server;
 import me.xiaoying.livegetauthorize.server.classification.SimpleClassificationManager;
+import me.xiaoying.livegetauthorize.server.option.SimpleOptionManager;
 import me.xiaoying.livegetauthorize.server.scheduler.ServerScheduler;
 
 import java.io.IOException;
@@ -25,6 +27,7 @@ public class AuthorizeServer implements Server {
     private final Scheduler scheduler = new ServerScheduler();
     private final ClassificationManager classificationManager = new SimpleClassificationManager();
     private final MessageManager messageManager = new SimpleMessageManager();
+    private final OptionManager optionManager = new SimpleOptionManager();
 
     @Override
     public String getName() {
@@ -54,6 +57,11 @@ public class AuthorizeServer implements Server {
     @Override
     public MessageManager getMessageManager() {
         return this.messageManager;
+    }
+
+    @Override
+    public OptionManager getOptionManager() {
+        return this.optionManager;
     }
 
     @Override
