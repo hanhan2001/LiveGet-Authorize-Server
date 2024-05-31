@@ -157,7 +157,7 @@ public class UserManager implements Serializable {
      * @param value 判断值
      */
     public User findUser(String key, String value) {
-        if (!key.equalsIgnoreCase("qq") && !key.equalsIgnoreCase("email"))
+        if (!key.equalsIgnoreCase("qq") && !key.equalsIgnoreCase("email") && !key.equalsIgnoreCase("uuid"))
             return null;
 
         SqlFactory sqlFactory = Application.getSqlFactory();
