@@ -99,7 +99,6 @@ public class ServerUtil {
         }
     }
 
-
     private static HandlerList getEventListeners(Class<? extends Event> type) {
         try {
             Method method = getRegistrationClass(type).getDeclaredMethod("getHandlerList", new Class[0]);
