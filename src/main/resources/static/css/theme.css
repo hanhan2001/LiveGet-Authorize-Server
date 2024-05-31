@@ -1,3 +1,15 @@
+a {
+	color: #6666AA;
+}
+
+a:hover {
+	color: #5555AA;
+}
+
+a:active {
+	color: #6666AA;
+}
+
 .content .display .display_box_shop_subsidiary .list .item .button .info {
 	background-color: #55A155;
 }

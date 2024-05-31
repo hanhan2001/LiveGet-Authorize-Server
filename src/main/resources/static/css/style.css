@@ -159,6 +159,11 @@ div[type="info_box"] .box {
 	padding: 5px 0px 5px 0px;
 }
 
+a {
+	font-weight: bold;
+	transition: color 0.2s;
+}
+
 /* 滚动条 */
 *::-webkit-scrollbar {
 	background-color: #EEEEEE;
