@@ -32,6 +32,9 @@ public class PreviewClassification extends Classification {
 
     @Override
     public void enable(User user) {
+        if (user == null)
+            return;
+
         DisplayPage displayPage = this.getPage("preview");
         displayPage.enable(user);
         LACore.getPluginManager().callEvent(new UserOpenClassificationEvent(user, this));
@@ -39,6 +42,9 @@ public class PreviewClassification extends Classification {
 
     @Override
     public void enable(User user, DisplayPage displayPage) {
+        if (user == null)
+            return;
+
         displayPage.enable(user);
         LACore.getPluginManager().callEvent(new UserOpenClassificationEvent(user, this));
     }
