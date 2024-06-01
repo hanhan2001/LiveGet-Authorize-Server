@@ -45,7 +45,7 @@ public class Task {
     }
 
     public boolean ready() {
-        return new Date().getTime() - this.runTime.getDate() >= this.delay;
+        return new Date().getTime() - this.runTime.getTime() >= this.delay;
     }
 
     public void setRunTime(Date runtime) {
