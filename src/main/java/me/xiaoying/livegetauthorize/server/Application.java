@@ -54,6 +54,7 @@ public class Application {
         springApplication.setLogStartupInfo(false);
         springApplication.setBannerMode(Banner.Mode.OFF);
         springApplication.run();
+        LACore.getLogger().info("Web server listening port - {}", String.valueOf(FileConfigConstant.SERVER_PORT));
 
         // Terminal
         terminal = new Terminal();
