@@ -56,7 +56,7 @@ public class SimpleModuleManager implements ModuleManager {
         Stack<Record> records = sqlFactory.sentence(select).run();
         records.forEach(record -> {
             Module module = new Module(record.get("function").toString(), record.get("description").toString(), record.get("identification").toString(), record.get("permission").toString());
-            if (!StringUtil.isEmpty(record.get("child").toString()))
+            if (record.get("child") != null && !StringUtil.isEmpty(record.get("child").toString()))
                 this.handleChild(module, record.get("child").toString());
             this.registerModule(module);
         });
