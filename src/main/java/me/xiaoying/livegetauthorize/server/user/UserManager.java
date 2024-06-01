@@ -35,6 +35,8 @@ public class UserManager implements Serializable {
     private final File serializableLogin = new File("./Cache/UserManager-login.serializable");
 
     public UserManager() {
+        LACore.getLogger().info("Initializing user manager...");
+
         // 初始化用户表
         SqlFactory sqlFactory = Application.getSqlFactory();
         Create create = new Create(ConstantCommon.TABLE_USER_INFO);

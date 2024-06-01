@@ -1,5 +1,6 @@
 package me.xiaoying.livegetauthorize.server.classification;
 
+import me.xiaoying.livegetauthorize.core.LACore;
 import me.xiaoying.livegetauthorize.core.NamespacedKey;
 import me.xiaoying.livegetauthorize.core.classification.Classification;
 import me.xiaoying.livegetauthorize.core.classification.ClassificationManager;
@@ -14,6 +15,8 @@ public class SimpleClassificationManager implements ClassificationManager {
     private final Map<String, Classification> knownClassification = new HashMap<>();
 
     public SimpleClassificationManager() {
+        LACore.getLogger().info("Initializing classification manager...");
+
         this.registerClassification("preview", new PreviewClassification("preview"));
     }
 

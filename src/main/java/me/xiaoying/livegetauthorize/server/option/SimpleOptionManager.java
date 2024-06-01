@@ -1,5 +1,6 @@
 package me.xiaoying.livegetauthorize.server.option;
 
+import me.xiaoying.livegetauthorize.core.LACore;
 import me.xiaoying.livegetauthorize.core.option.Option;
 import me.xiaoying.livegetauthorize.core.option.OptionManager;
 import me.xiaoying.livegetauthorize.server.Application;
@@ -19,6 +20,8 @@ public class SimpleOptionManager implements OptionManager {
     private final Map<String, Option> knownOptions = new HashMap<>();
 
     public SimpleOptionManager() {
+        LACore.getLogger().info("Initializing option manager...");
+
         // 初始化数据表
         SqlFactory sqlFactory = Application.getSqlFactory();
         Create create = new Create(ConstantCommon.OPTION_LIST);
