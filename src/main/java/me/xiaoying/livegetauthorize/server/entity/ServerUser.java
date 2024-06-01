@@ -216,5 +216,6 @@ public class ServerUser implements User, Serializable {
     public void setWebsocket(WebSocket websocket) {
         this.webSocket = websocket;
         LACore.getServer().getPluginManager().callEvent(new UserConnectEvent(this, websocket));
+        LACore.getLogger().info("&b登录&e>> &f{}", this.getUUID());
     }
 }
