@@ -1,6 +1,8 @@
 package me.xiaoying.livegetauthorize.server.entity;
 
+import me.xiaoying.livegetauthorize.core.LACore;
 import me.xiaoying.livegetauthorize.core.entity.User;
+import me.xiaoying.livegetauthorize.core.event.user.UserConnectEvent;
 import me.xiaoying.livegetauthorize.core.permission.Permissible;
 import me.xiaoying.livegetauthorize.core.permission.PermissibleBase;
 import me.xiaoying.livegetauthorize.core.permission.Permission;
@@ -213,5 +215,6 @@ public class ServerUser implements User, Serializable {
 
     public void setWebsocket(WebSocket websocket) {
         this.webSocket = websocket;
+        LACore.getServer().getPluginManager().callEvent(new UserConnectEvent(this, websocket));
     }
 }
