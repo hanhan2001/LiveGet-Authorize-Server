@@ -7,12 +7,14 @@ import me.xiaoying.livegetauthorize.core.command.SimpleCommandManager;
 import me.xiaoying.livegetauthorize.core.event.server.ServerClosingEvent;
 import me.xiaoying.livegetauthorize.core.message.MessageManager;
 import me.xiaoying.livegetauthorize.core.message.SimpleMessageManager;
+import me.xiaoying.livegetauthorize.core.module.ModuleManager;
 import me.xiaoying.livegetauthorize.core.option.OptionManager;
 import me.xiaoying.livegetauthorize.core.plugin.PluginManager;
 import me.xiaoying.livegetauthorize.core.plugin.SimplePluginManager;
 import me.xiaoying.livegetauthorize.core.scheduler.Scheduler;
 import me.xiaoying.livegetauthorize.core.server.Server;
 import me.xiaoying.livegetauthorize.server.classification.SimpleClassificationManager;
+import me.xiaoying.livegetauthorize.server.module.SimpleModuleManager;
 import me.xiaoying.livegetauthorize.server.option.SimpleOptionManager;
 import me.xiaoying.livegetauthorize.server.scheduler.ServerScheduler;
 
@@ -28,6 +30,7 @@ public class AuthorizeServer implements Server {
     private final ClassificationManager classificationManager = new SimpleClassificationManager();
     private final MessageManager messageManager = new SimpleMessageManager();
     private final OptionManager optionManager = new SimpleOptionManager();
+    private final ModuleManager moduleManager = new SimpleModuleManager();
 
     @Override
     public String getName() {
@@ -62,6 +65,11 @@ public class AuthorizeServer implements Server {
     @Override
     public OptionManager getOptionManager() {
         return this.optionManager;
+    }
+
+    @Override
+    public ModuleManager getModuleManager() {
+        return moduleManager;
     }
 
     @Override
