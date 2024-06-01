@@ -104,10 +104,10 @@ public class Application {
         messageManager.registerMessageExecutor("open_classification", new UserOpenClassificationMessageExecutor());
 
         // register commands
-        LACore.getServer().getCommandManager().registerCommand("stop", new StopCommand("stop"));
-        LACore.getServer().getCommandManager().registerCommand("plugins", new PluginCommand("plugins", "Get server loaded plugins", "/pl", Collections.singletonList("pl")));
-        LACore.getServer().getCommandManager().registerCommand("reload", new ReloadCommand("reload", "Reload server", "/reload", null));
-        LACore.getServer().getCommandManager().registerCommand("jwt", new JwtCommand("jwt", "create new jwt", "/jwt", null));
+        LACore.getServer().getCommandManager().registerCommand("authorizecore", new StopCommand("stop"));
+        LACore.getServer().getCommandManager().registerCommand("authorizecore", new PluginCommand("plugins", "Get server loaded plugins", "/pl", Collections.singletonList("pl")));
+        LACore.getServer().getCommandManager().registerCommand("authorizecore", new ReloadCommand("reload", "Reload server", "/reload", null));
+        LACore.getServer().getCommandManager().registerCommand("authorizecore", new JwtCommand("jwt", "create new jwt", "/jwt", null));
 
         // register shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
