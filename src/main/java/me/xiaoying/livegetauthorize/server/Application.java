@@ -85,7 +85,7 @@ public class Application {
         LWebsocketServer websocketServer = new LWebsocketServer(new InetSocketAddress(22333));
         websocketServer.setConnectionLostTimeout(0);
         websocketServer.start();
-        LACore.getLogger().info("Websocket server listening port - &b22333");
+        LACore.getLogger().info("&6Websocket server listening port &f- &e22333");
 
         // plugin
         LACore.getLogger().info("Loading plugins...");
