@@ -96,7 +96,7 @@ public class UserManager implements Serializable {
                 if (user.isSurvival())
                     continue;
 
-                iterator.remove();
+                iteratorLogin.remove();
             }
         }, 0L, 2L);
     }
