@@ -1,0 +1,89 @@
+package me.xiaoying.livegetauthorize.server.controller;
+
+import me.xiaoying.livegetauthorize.core.LACore;
+import me.xiaoying.livegetauthorize.core.module.Module;
+import me.xiaoying.livegetauthorize.core.module.Token;
+import me.xiaoying.livegetauthorize.core.module.TokenManager;
+import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
+import me.xiaoying.livegetauthorize.server.constant.FileMessageConstant;
+import me.xiaoying.livegetauthorize.server.factory.VariableFactory;
+import me.xiaoying.livegetauthorize.server.utils.StringUtil;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@RestController
+public class TokenController {
+    @GetMapping("/token/info")
+    public String info(String token, String function, String object, String password) {
+        List<String> parameters = new ArrayList<>();
+        if (StringUtil.isEmpty(token))
+            parameters.add("token");
+        if (StringUtil.isEmpty(function))
+            parameters.add("function");
+        if (StringUtil.isEmpty(object))
+            parameters.add("object");
+        if (StringUtil.isEmpty(password))
+            parameters.add("password");
+
+        if (!parameters.isEmpty())
+            return new VariableFactory(FileMessageConstant.ERROR_NEED_PARAMETER).parameter(parameters).toString();
+
+        // 系统密码错误
+        if (password.equalsIgnoreCase(FileConfigConstant.SETTING_PASSWORD_PASSWORD))
+            return FileMessageConstant.ERROR_PASSWORD_INVALID;
+
+        Module module = null;
+        if (!object.equalsIgnoreCase("default")) {
+            Module m = LACore.getServer().getModuleManager().getModule(function);
+            if (m != null) module = m.getModuleChild(object);
+        } else
+            module = LACore.getServer().getModuleManager().getModule(function);
+
+        // 模块不存在
+        if (module == null)
+            return FileMessageConstant.MESSAGE_MODULE_NOT_FOUND;
+        TokenManager tokenManager = module.getTokenManager();
+        // 授权码不存在
+        if (!tokenManager.contains(token))
+            return FileMessageConstant.MESSAGE_TOKEN_NOT_FOUND;
+        Token token1 = tokenManager.getToken(token);
+        if (module.getParent() == null)
+            return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_INFO)
+                    .token(token1.getToken())
+                    .function(module.getName())
+                    .object("default")
+                    .save(token1.getSave())
+                    .over(token1.getOver())
+                    .lastUse(token1.getLastUse())
+                    .date()
+                    .toString();
+        else
+            return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_INFO)
+                    .token(token1.getToken())
+                    .function(module.getParent().getName())
+                    .object(module.getName())
+                    .save(token1.getSave())
+                    .over(token1.getOver())
+                    .lastUse(token1.getLastUse())
+                    .date()
+                    .toString();
+    }
+
+    @GetMapping("/token/verify")
+    public String verify(String token, String machine, String identification) {
+        Module module = LACore.getServer().getModuleManager().getModuleByIdentification(identification);
+        if (module == null)
+            return FileMessageConstant.MESSAGE_MODULE_NOT_FOUND;
+
+        TokenManager tokenManager = module.getTokenManager();
+        if (!tokenManager.contains(token))
+            return FileMessageConstant.MESSAGE_TOKEN_NOT_FOUND;
+        Token t = tokenManager.getToken(token);
+        if (!t.getToken().equalsIgnoreCase(machine))
+            return FileMessageConstant.MESSAGE_TOKEN_ERROR_MACHINE;
+        return FileMessageConstant.MESSAGE_TOKEN_VERIFIED;
+    }
+}
