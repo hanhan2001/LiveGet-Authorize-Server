@@ -48,6 +48,7 @@ public class FileMessage extends SubFile {
         FileMessageConstant.MESSAGE_TOKEN_NOT_FOUND = this.getString(FileMessageConstant.MESSAGE_TOKEN_NOT_FOUND, "Token.NotFound");
         FileMessageConstant.MESSAGE_TOKEN_OVERDUE = this.getString(FileMessageConstant.MESSAGE_TOKEN_OVERDUE, "Token.Overdue");
         FileMessageConstant.MESSAGE_TOKEN_EXISTED = this.getString(FileMessageConstant.MESSAGE_TOKEN_EXISTED, "Token.Existed");
+        FileMessageConstant.MESSAGE_TOKEN_ERROR_MACHINE = this.getString(FileMessageConstant.MESSAGE_TOKEN_ERROR_MACHINE, "Token.ErrorMachine");
 
         // 权限信息
         FileMessageConstant.MESSAGE_PERMISSION_NO_PERMISSION = this.getString(FileMessageConstant.MESSAGE_PERMISSION_NO_PERMISSION, "Permission.NoPermission");

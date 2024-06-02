@@ -178,6 +178,13 @@ Token:
       "type": "token_not_found",
       "message": "Can't find token."
     }
+  #机器码错误
+  ErrorMachine: |-
+    {
+      "code": 110,
+      "type": "token_machine_error",
+      "message": "Machine error."
+    }
   #授权码列表
   List: |-
     {

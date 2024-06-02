@@ -23,7 +23,8 @@ public class FileMessageConstant {
     public static String MESSAGE_TOKEN_INFO,
             MESSAGE_TOKEN_EXISTED,
             MESSAGE_TOKEN_NOT_FOUND,
-            MESSAGE_TOKEN_OVERDUE;
+            MESSAGE_TOKEN_OVERDUE,
+            MESSAGE_TOKEN_ERROR_MACHINE;
 
     // Permission
     public static String MESSAGE_PERMISSION_NO_PERMISSION;
@@ -118,6 +119,11 @@ public class FileMessageConstant {
                 "  \"code\": 110,\n" +
                 "  \"type\": \"module_existed\",\n" +
                 "  \"message\": \"This module existed.\"\n" +
+                "}";
+        MESSAGE_TOKEN_ERROR_MACHINE = "{\n" +
+                "  \"code\": 110,\n" +
+                "  \"type\": \"token_machine_error\",\n" +
+                "  \"message\": \"Machine error.\"\n" +
                 "}";
 
         // Token
