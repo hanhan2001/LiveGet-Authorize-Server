@@ -33,7 +33,7 @@ public class TokenController {
 
         // 系统密码错误
         if (password.equalsIgnoreCase(FileConfigConstant.SETTING_PASSWORD_PASSWORD))
-            return FileMessageConstant.ERROR_PASSWORD_INVALID;
+            return new VariableFactory(FileMessageConstant.ERROR_PASSWORD_INVALID).date().toString();
 
         Module module = null;
         if (!object.equalsIgnoreCase("default")) {
@@ -44,11 +44,11 @@ public class TokenController {
 
         // 模块不存在
         if (module == null)
-            return FileMessageConstant.MESSAGE_MODULE_NOT_FOUND;
+            return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_NOT_FOUND).date().toString();
         TokenManager tokenManager = module.getTokenManager();
         // 授权码不存在
         if (!tokenManager.contains(token))
-            return FileMessageConstant.MESSAGE_TOKEN_NOT_FOUND;
+            return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_NOT_FOUND).date().toString();
         Token token1 = tokenManager.getToken(token);
         if (module.getParent() == null)
             return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_INFO)
