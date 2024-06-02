@@ -39,7 +39,7 @@ public class UserController {
             return FileMessageConstant.MESSAGE_ACCOUNT_NEED_LOGIN;
 
         if (!orderUser.hasPermission("user.query.other"))
-            return FileMessageConstant.MESSAGE_PERMISSION_NO_PERMISSION;
+            return FileMessageConstant.MESSAGE_PERMISSION_MISSING_PERMISSION;
         return new VariableFactory(FileMessageConstant.MESSAGE_ACCOUNT_INFO)
                 .qq(user.getQQ())
                 .email(user.getEmail())
