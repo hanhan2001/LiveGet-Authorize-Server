@@ -32,6 +32,11 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory function(String function) {
+        this.string = this.string.replace("%function%", function);
+        return this;
+    }
+
     public VariableFactory title(String title) {
         this.string = this.string.replace("%title%", title);
         return this;
@@ -54,6 +59,11 @@ public class VariableFactory {
 
     public VariableFactory name(String name) {
         this.string = this.string.replace("%name%", name);
+        return this;
+    }
+
+    public VariableFactory object(String object) {
+        this.string = this.string.replace("%object%", object);
         return this;
     }
 
