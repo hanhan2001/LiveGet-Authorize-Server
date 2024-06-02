@@ -133,4 +133,9 @@ public class ServerScheduler implements Scheduler {
         this.knownTask.put(id, task);
         return id;
     }
+
+    public void stop() {
+        this.knownTask.clear();
+        this.executors.shutdown();
+    }
 }

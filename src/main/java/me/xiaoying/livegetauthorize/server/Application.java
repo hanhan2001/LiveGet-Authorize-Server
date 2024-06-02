@@ -4,6 +4,7 @@ import me.xiaoying.livegetauthorize.core.LACore;
 import me.xiaoying.livegetauthorize.core.message.MessageManager;
 import me.xiaoying.livegetauthorize.core.plugin.JavaPluginLoader;
 import me.xiaoying.livegetauthorize.core.plugin.Plugin;
+import me.xiaoying.livegetauthorize.core.scheduler.Scheduler;
 import me.xiaoying.livegetauthorize.core.server.Server;
 import me.xiaoying.livegetauthorize.server.command.JwtCommand;
 import me.xiaoying.livegetauthorize.server.command.PluginCommand;
@@ -18,6 +19,7 @@ import me.xiaoying.livegetauthorize.server.message.SelfInfoMessageExecutor;
 import me.xiaoying.livegetauthorize.server.message.UserQuitMessageExecutor;
 import me.xiaoying.livegetauthorize.server.message.user.UserOpenClassificationMessageExecutor;
 import me.xiaoying.livegetauthorize.server.message.user.UserOpenDisplayMessageExecutor;
+import me.xiaoying.livegetauthorize.server.scheduler.ServerScheduler;
 import me.xiaoying.livegetauthorize.server.terminal.Terminal;
 import me.xiaoying.livegetauthorize.server.user.UserManager;
 import me.xiaoying.livegetauthorize.server.websocket.LWebsocketServer;
@@ -129,11 +131,14 @@ public class Application {
         }
         LACore.getServer().getPluginManager().clearPlugins();
 
+        LACore.getLogger().info("Unregistering scheduler...");
+        ((ServerScheduler) LACore.getScheduler()).stop();
+        LACore.getLogger().info("Unregistering option manager...");
         LACore.getServer().getOptionManager().unregisterOptions();
+        LACore.getLogger().info("Unregistering command manager...");
         LACore.getServer().getCommandManager().unregisterCommands();
+        LACore.getLogger().info("Unregistering message manager...");
         LACore.getServer().getMessageManager().unregisterMessages();
-
-        LACore.getLogger().info("Remove Server...");
     }
 
     public static Server getServer() {
