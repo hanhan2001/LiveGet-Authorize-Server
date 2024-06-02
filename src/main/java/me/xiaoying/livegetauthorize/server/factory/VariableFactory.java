@@ -6,6 +6,7 @@ import me.xiaoying.livegetauthorize.server.utils.FileUtil;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Factory Variable
@@ -64,6 +65,22 @@ public class VariableFactory {
 
     public VariableFactory object(String object) {
         this.string = this.string.replace("%object%", object);
+        return this;
+    }
+
+    public VariableFactory parameter(List<String> parameter) {
+        if (parameter.isEmpty())
+            return this;
+
+        StringBuilder stringBuilder = new StringBuilder("[");
+        for (int i = 0; i < parameter.size(); i++) {
+            if (i != 0)
+                stringBuilder.append(", ");
+
+            stringBuilder.append("\"").append(parameter.get(i)).append("\"");
+        }
+        stringBuilder.append("]");
+        this.string = this.string.replace("%parameter%", stringBuilder.toString());
         return this;
     }
 
