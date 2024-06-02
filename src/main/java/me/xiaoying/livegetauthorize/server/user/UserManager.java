@@ -30,9 +30,11 @@ public class UserManager implements Serializable {
     private Map<Long, User> knownQQUsers = new HashMap<>();
     private Map<String, User> knownEmailUsers = new HashMap<>();
     private Map<String, User> loginUser = new HashMap<>();
+    private Map<String, User> uuidUser = new HashMap<>();
     private final File serializableEmail = new File("./cache/UserManager-email.serializable");
     private final File serializableQQ = new File("./cache/UserManager-qq.serializable");
     private final File serializableLogin = new File("./cache/UserManager-login.serializable");
+    private final File serializableUUID = new File("./cache/UserManager-uuid.serializable");
 
     public UserManager() {
         LACore.getLogger().info("Initializing user manager...");
@@ -68,6 +70,10 @@ public class UserManager implements Serializable {
                 LACore.getLogger().info("Loading login user...");
                 this.loginUser = (Map<String, User>) SerializableUtil.deserializable(this.serializableLogin);
             }
+            if (this.serializableUUID.exists()) {
+                LACore.getLogger().info("Loading uuid user...");
+                this.uuidUser = (Map<String, User>) SerializableUtil.deserializable(this.serializableUUID);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -79,6 +85,7 @@ public class UserManager implements Serializable {
             Iterator<User> iterator = this.knownQQUsers.values().iterator();
             Iterator<User> iteratorEmail = this.knownEmailUsers.values().iterator();
             Iterator<User> iteratorLogin = this.loginUser.values().iterator();
+            Iterator<User> iteratorUUID = this.uuidUser.values().iterator();
             User user;
             while (iterator.hasNext() && (user = iterator.next()) != null) {
                 if (user.isSurvival())
@@ -98,6 +105,12 @@ public class UserManager implements Serializable {
 
                 iteratorLogin.remove();
             }
+            while (iteratorUUID.hasNext() && (user = iteratorUUID.next()) != null) {
+                if (user.isSurvival())
+                    continue;
+
+                iteratorUUID.remove();
+            }
         }, 0L, 2L);
     }
 
@@ -113,6 +126,13 @@ public class UserManager implements Serializable {
             return this.knownEmailUsers.get(email);
 
         return this.findUser("email", email);
+    }
+
+    public User getUserByUUID(String uuid) {
+        if (this.uuidUser.get(uuid) != null)
+            return this.uuidUser.get(uuid);
+
+        return this.findUser("uuid", uuid);
     }
 
     public User createUser(long qq) {
@@ -206,5 +226,6 @@ public class UserManager implements Serializable {
         SerializableUtil.serializable(this.serializableEmail, this.knownEmailUsers);
         SerializableUtil.serializable(this.serializableQQ, this.knownQQUsers);
         SerializableUtil.serializable(this.serializableLogin, this.loginUser);
+        SerializableUtil.serializable(this.serializableUUID, this.uuidUser);
     }
 }
