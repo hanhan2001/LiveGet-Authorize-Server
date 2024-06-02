@@ -16,31 +16,39 @@ import java.util.concurrent.TimeUnit;
 public class ServerScheduler implements Scheduler {
     private final ScheduledExecutorService executors = Executors.newScheduledThreadPool(200);
     private final Map<Integer, Task> knownTask = new HashMap<>();
+    private Thread thread;
 
     public ServerScheduler() {
-        new Thread(() -> {
+        this.thread = new Thread(() -> {
             synchronized (this) {
-                try {
-                    wait(1);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                this.knownTask.forEach((id, task) -> {
-                    if ((task.getType() == Task.TaskType.SYNC_RUN || task.getType() == Task.TaskType.ASYNC_RUN) && task.isFinish()) {
-                        this.cancelTask(id);
+                while (true) {
+                    // 判断线程是否被中断
+                    if (this.thread.isInterrupted())
                         return;
+
+                    try {
+                        wait(1);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
                     }
+                    this.knownTask.forEach((id, task) -> {
+                        if ((task.getType() == Task.TaskType.SYNC_RUN || task.getType() == Task.TaskType.ASYNC_RUN) && task.isFinish()) {
+                            this.cancelTask(id);
+                            return;
+                        }
 
-                    if (task.getType() == Task.TaskType.ASYNC_RUN || task.getType() == Task.TaskType.ASYNC_REPEAT)
-                        return;
+                        if (task.getType() == Task.TaskType.ASYNC_RUN || task.getType() == Task.TaskType.ASYNC_REPEAT)
+                            return;
 
-                    if (!task.ready())
-                        return;
+                        if (!task.ready())
+                            return;
 
-                    task.run();
-                });
+                        task.run();
+                    });
+                }
             }
-        }).start();
+        });
+        this.thread.start();
     }
 
     @Override
@@ -135,6 +143,7 @@ public class ServerScheduler implements Scheduler {
     }
 
     public void stop() {
+        this.thread.interrupt();
         this.knownTask.clear();
         this.executors.shutdown();
     }
