@@ -185,6 +185,13 @@ Token:
       "type": "token_machine_error",
       "message": "Machine error."
     }
+  #授权码验证通过
+  Verified: |-
+    {
+      "code": 200,
+      "type": "token_verified",
+      "message": "Token verified."
+    }
   #授权码列表
   List: |-
     {

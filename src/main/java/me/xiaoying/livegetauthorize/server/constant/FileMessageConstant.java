@@ -20,11 +20,13 @@ public class FileMessageConstant {
             MESSAGE_MODULE_OVERDUE,
             MESSAGE_MODULE_EXISTED;
 
+    // Token
     public static String MESSAGE_TOKEN_INFO,
             MESSAGE_TOKEN_EXISTED,
             MESSAGE_TOKEN_NOT_FOUND,
             MESSAGE_TOKEN_OVERDUE,
-            MESSAGE_TOKEN_ERROR_MACHINE;
+            MESSAGE_TOKEN_ERROR_MACHINE,
+            MESSAGE_TOKEN_VERIFIED;
 
     // Permission
     public static String MESSAGE_PERMISSION_NO_PERMISSION;
@@ -153,6 +155,11 @@ public class FileMessageConstant {
                 "  \"code\": 110,\n" +
                 "  \"type\": \"token_not_found\",\n" +
                 "  \"message\": \"Can't find token.\"\n" +
+                "}";
+        MESSAGE_TOKEN_VERIFIED = "{\n" +
+                "  \"code\": 200,\n" +
+                "  \"type\": \"token_verified\",\n" +
+                "  \"message\": \"Token verified.\"\n" +
                 "}";
 
         //权限信息
