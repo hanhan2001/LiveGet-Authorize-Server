@@ -5,6 +5,7 @@ import me.xiaoying.livegetauthorize.core.module.Module;
 import me.xiaoying.livegetauthorize.core.module.Token;
 import me.xiaoying.livegetauthorize.server.Application;
 import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
+import me.xiaoying.livegetauthorize.server.utils.StringUtil;
 import me.xiaoying.sql.SqlFactory;
 import me.xiaoying.sql.sentence.Update;
 
@@ -16,15 +17,17 @@ import java.util.Date;
 public class ServerToken implements Token {
     private final String token;
     private String machine;
+    private String description;
     private Date save;
     private Date over;
     private final User owner;
     private final Module module;
     private Date survival = new Date();
 
-    public ServerToken(String token, String machine, Date save, Date over, User owner, Module module) {
+    public ServerToken(String token, String machine, String description, Date save, Date over, User owner, Module module) {
         this.token = token;
         this.machine = machine;
+        this.description = description;
         this.save = save;
         this.over = over;
         this.owner = owner;
@@ -39,6 +42,16 @@ public class ServerToken implements Token {
     @Override
     public User getOwner() {
         return this.owner;
+    }
+
+    @Override
+    public String getDescription() {
+        return this.description;
+    }
+
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
@@ -81,6 +94,11 @@ public class ServerToken implements Token {
     @Override
     public void setOver(Date date) {
         this.over = date;
+    }
+
+    @Override
+    public boolean isBind() {
+        return !StringUtil.isEmpty(this.machine);
     }
 
     @Override
