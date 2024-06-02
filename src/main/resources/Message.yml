@@ -218,3 +218,11 @@ Error:
       "message": "An error has occurred, please send this page to the website administrator.",
       "time": "%date%"
     }
+  #缺少参数
+  NeedParameter: |-
+    {
+      "code": 110,
+      "type": "error_need_parameter",
+      "parameter": %parameter%,
+      "message": "Missing parameter"
+    }

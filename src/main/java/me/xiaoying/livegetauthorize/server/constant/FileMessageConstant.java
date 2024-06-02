@@ -31,7 +31,8 @@ public class FileMessageConstant {
     // Permission
     public static String MESSAGE_PERMISSION_NO_PERMISSION;
 
-    public static String ERROR_NORMAL;
+    public static String ERROR_NORMAL,
+            ERROR_NEED_PARAMETER;
 
     static {
         MESSAGE_ACCOUNT_LOGIN = "{\n" +
@@ -176,6 +177,12 @@ public class FileMessageConstant {
                 "  \"type\": \"error\",\n" +
                 "  \"message\": \"An error has occurred, please send this page to the website administrator.\",\n" +
                 "  \"time\": \"%date%\"\n" +
+                "}";
+        ERROR_NEED_PARAMETER = "{\n" +
+                "  \"code\": 110,\n" +
+                "  \"type\": \"error_need_parameter\",\n" +
+                "  \"parameter\": %parameter%,\n" +
+                "  \"message\": \"Missing parameter\"\n" +
                 "}";
     }
 }
