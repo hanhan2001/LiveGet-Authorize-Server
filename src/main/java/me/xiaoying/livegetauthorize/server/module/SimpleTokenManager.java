@@ -13,6 +13,7 @@ import me.xiaoying.sql.entity.Condition;
 import me.xiaoying.sql.entity.ConditionType;
 import me.xiaoying.sql.entity.Record;
 import me.xiaoying.sql.sentence.Create;
+import me.xiaoying.sql.sentence.Delete;
 import me.xiaoying.sql.sentence.Insert;
 import me.xiaoying.sql.sentence.Select;
 
@@ -74,10 +75,10 @@ public class SimpleTokenManager implements TokenManager {
 
         Record record = records.get(0);
         Token token1 = new ServerToken(token,
-                DateUtil.stringToDate(record.get("save").toString(),
-                        FileConfigConstant.SETTING_DATEFORMAT),
-                DateUtil.stringToDate(record.get("over").toString(),
-                        FileConfigConstant.SETTING_DATEFORMAT),
+                record.get("machine").toString(),
+                record.get("description").toString(),
+                DateUtil.stringToDate(record.get("save").toString(), FileConfigConstant.SETTING_DATEFORMAT),
+                DateUtil.stringToDate(record.get("over").toString(), FileConfigConstant.SETTING_DATEFORMAT),
                 Application.getUserManager().getUserByUUID(record.get("uuid").toString()),
                 this.getModule());
         this.knownToken.put(token, token1);
@@ -88,12 +89,19 @@ public class SimpleTokenManager implements TokenManager {
     public void create(Token token) {
         SqlFactory sqlFactory = Application.getSqlFactory();
         Insert insert = new Insert(((ServerModule) this.getModule()).getTable());
-        insert.insert(token.getToken(), "", "", "");
+        insert.insert(token.getToken(), token.getOwner().getUUID(), ((ServerToken) token).getMachine(), token.getDescription(), DateUtil.dateToString(token.getSave(), FileConfigConstant.SETTING_DATEFORMAT), DateUtil.dateToString(token.getOver(), FileConfigConstant.SETTING_DATEFORMAT));
+        sqlFactory.sentence(insert).run();
     }
 
     @Override
     public void delete(String token) {
+        SqlFactory sqlFactory = Application.getSqlFactory();
+        Token t = this.getToken(token);
+        if (t == null)
+            return;
 
+        Delete delete = new Delete(((ServerModule) t.getModule()).getTable());
+        sqlFactory.sentence(delete).condition(new Condition("token", token, ConditionType.EQUAL)).run();
     }
 
     @Override
