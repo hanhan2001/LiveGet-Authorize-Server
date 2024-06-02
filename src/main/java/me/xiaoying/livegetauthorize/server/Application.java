@@ -2,6 +2,7 @@ package me.xiaoying.livegetauthorize.server;
 
 import me.xiaoying.livegetauthorize.core.LACore;
 import me.xiaoying.livegetauthorize.core.message.MessageManager;
+import me.xiaoying.livegetauthorize.core.module.ModuleManager;
 import me.xiaoying.livegetauthorize.core.plugin.JavaPluginLoader;
 import me.xiaoying.livegetauthorize.core.plugin.Plugin;
 import me.xiaoying.livegetauthorize.core.scheduler.Scheduler;
@@ -19,6 +20,7 @@ import me.xiaoying.livegetauthorize.server.message.SelfInfoMessageExecutor;
 import me.xiaoying.livegetauthorize.server.message.UserQuitMessageExecutor;
 import me.xiaoying.livegetauthorize.server.message.user.UserOpenClassificationMessageExecutor;
 import me.xiaoying.livegetauthorize.server.message.user.UserOpenDisplayMessageExecutor;
+import me.xiaoying.livegetauthorize.server.module.SimpleModuleManager;
 import me.xiaoying.livegetauthorize.server.scheduler.ServerScheduler;
 import me.xiaoying.livegetauthorize.server.terminal.Terminal;
 import me.xiaoying.livegetauthorize.server.user.UserManager;
@@ -45,6 +47,7 @@ public class Application {
     private static Terminal terminal;
     private static FileService fileService;
     private static UserManager userManager;
+    private static ModuleManager moduleManager;
 
     public static void main(String[] args) {
         LACore.getLogger().info("Starting server...");
@@ -82,6 +85,9 @@ public class Application {
 
         // UserService
         userManager = new UserManager();
+        // ModuleManager
+        moduleManager = new SimpleModuleManager();
+        ((AuthorizeServer) LACore.getServer()).setModuleManager(moduleManager);
 
         // websocket
         LACore.getLogger().info("Starting websocket server...");

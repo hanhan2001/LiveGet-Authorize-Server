@@ -45,7 +45,7 @@ public class SimpleTokenManager implements TokenManager {
         sqlFactory.sentence(create).run();
 
         // 判断是否过期
-        LACore.getScheduler().scheduleSyncDelayedTask(null, () -> {
+        LACore.getScheduler().scheduleSyncRepeatingTask(null, () -> {
             Iterator<Token> iterator = this.knownToken.values().iterator();
             Token token;
             while (iterator.hasNext() && (token = iterator.next()) != null) {
@@ -54,7 +54,7 @@ public class SimpleTokenManager implements TokenManager {
 
                 iterator.remove();
             }
-        });
+        }, 0L, 2L);
     }
 
     @Override

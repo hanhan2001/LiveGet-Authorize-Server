@@ -29,7 +29,7 @@ public class ServerModule implements Module {
     private Date save;
     private Date over;
     private final Map<String, Module> knownModule = new HashMap<>();
-    private final TokenManager tokenManager = new SimpleTokenManager(this);
+    private final TokenManager tokenManager;
     private Module parent;
 
     /**
@@ -46,13 +46,14 @@ public class ServerModule implements Module {
         this.description = description;
         this.permission = permission;
         this.identification = identification;
+        this.tokenManager = new SimpleTokenManager(this);
     }
 
     /**
      * 构造器
      *
-     @param owner 拥有者
-      * @param name 名称
+     * @param owner 拥有者
+     * @param name 名称
      * @param description 描述
      * @param permission 权限
      */
@@ -62,6 +63,7 @@ public class ServerModule implements Module {
         this.description = description;
         this.permission = permission.getPermission();
         this.identification = identification;
+        this.tokenManager = new SimpleTokenManager(this);
     }
 
     /**
@@ -83,8 +85,21 @@ public class ServerModule implements Module {
         this.identification = identification;
         this.save = save;
         this.over = over;
+        this.tokenManager = new SimpleTokenManager(this);
     }
 
+    /**
+     * 构造器
+     *
+     * @param owner 拥有者
+     * @param name 名称
+     * @param description 描述
+     * @param permission 权限
+     * @param identification 身份码
+     * @param save 存储时间
+     * @param over 过期时间
+     * @param parent 父Module
+     */
     public ServerModule(User owner, String name, String description, String permission, String identification, Date save, Date over, Module parent) {
         this.owner = owner;
         this.name = name;
@@ -94,6 +109,7 @@ public class ServerModule implements Module {
         this.save = save;
         this.over = over;
         this.parent = parent;
+        this.tokenManager = new SimpleTokenManager(this);
     }
 
     /**

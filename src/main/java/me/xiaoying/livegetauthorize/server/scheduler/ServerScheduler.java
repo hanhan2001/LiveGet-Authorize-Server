@@ -120,26 +120,28 @@ public class ServerScheduler implements Scheduler {
     }
 
     private int setupTask(Task task) {
-        if (this.knownTask.isEmpty()) {
-            this.knownTask.put(0, task);
-            return 0;
-        }
+        synchronized (this) {
+            if (this.knownTask.isEmpty()) {
+                this.knownTask.put(0, task);
+                return 0;
+            }
 
-        int up = 0;
-        for (Integer i : this.knownTask.keySet()) {
-            if (i - up <= 1)
-                continue;
+            int up = 0;
+            for (Integer i : this.knownTask.keySet()) {
+                if (i - up <= 1)
+                    continue;
 
-            up = i;
-            break;
+                up = i;
+                break;
+            }
+            int id;
+            if (up == 0)
+                id = this.knownTask.size();
+            else
+                id = up  + 1;
+            this.knownTask.put(id, task);
+            return id;
         }
-        int id;
-        if (up == 0)
-            id = this.knownTask.size();
-        else
-            id = up  + 1;
-        this.knownTask.put(id, task);
-        return id;
     }
 
     public void stop() {
