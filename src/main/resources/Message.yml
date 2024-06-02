@@ -126,18 +126,25 @@ Module:
       "type": "module_not_found",
       "message": "Can't find module."
     }
+  #模块已存在
+  Existed: |-
+    {
+      "code": 110,
+      "type": "module_existed",
+      "message": "This module existed."
+    }
   #模块过期
   Overdue: |-
     {
       "code": 110,
       "type": "module_overdue",
-      "Message": "This module is overdue."
+      "Message": "This module overdue."
     }
 
 #授权码
 Token:
   #授权码信息
-  TokenInfo: |-
+  Info: |-
     {
       "code": 200,
       "type": "token_info",
@@ -149,6 +156,27 @@ Token:
       "machine": "%token_machine%",
       "lastUse": "%token_lastUse%",
       "time": "%date%"
+    }
+  #授权码过期
+  Overdue: |-
+    {
+      "code": 110,
+      "type": "token_overdue",
+      "message": "This token overdue."
+    }
+  #授权码已存在
+  Existed: |-
+    {
+      "code": 110,
+      "type": "token_existed",
+      "message": "This token existed."
+    }
+  #无法找到授权码
+  NotFound: |-
+    {
+      "code": 110,
+      "type": "token_not_found",
+      "message": "Can't find token."
     }
   #授权码列表
   List: |-
