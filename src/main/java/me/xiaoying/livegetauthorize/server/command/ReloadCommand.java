@@ -13,6 +13,7 @@ import me.xiaoying.livegetauthorize.server.message.UserQuitMessageExecutor;
 import me.xiaoying.livegetauthorize.server.message.user.UserOpenClassificationMessageExecutor;
 import me.xiaoying.livegetauthorize.server.message.user.UserOpenDisplayMessageExecutor;
 import me.xiaoying.livegetauthorize.server.option.SimpleOptionManager;
+import me.xiaoying.livegetauthorize.server.scheduler.ServerScheduler;
 
 import java.io.File;
 import java.util.Collections;
@@ -26,6 +27,8 @@ public class ReloadCommand extends Command {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         Application.unInitialize();
+
+        ((ServerScheduler) Application.getServer().getScheduler()).initialize();
 
         // plugin
         LACore.getLogger().info("Loading plugins...");

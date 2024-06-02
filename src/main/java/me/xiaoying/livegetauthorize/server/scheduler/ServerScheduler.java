@@ -19,17 +19,19 @@ public class ServerScheduler implements Scheduler {
     private Thread thread;
 
     public ServerScheduler() {
+        this.initialize();
+    }
+
+    public void initialize() {
         this.thread = new Thread(() -> {
             synchronized (this) {
-                while (true) {
-                    // 判断线程是否被中断
-                    if (this.thread.isInterrupted())
-                        return;
-
+                while (!this.thread.isInterrupted() && !Thread.currentThread().isInterrupted()) {
+                    System.out.println("---");
+                    System.out.println(123);
                     try {
                         wait(1);
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                        break;
                     }
                     this.knownTask.forEach((id, task) -> {
                         if ((task.getType() == Task.TaskType.SYNC_RUN || task.getType() == Task.TaskType.ASYNC_RUN) && task.isFinish()) {
