@@ -135,12 +135,12 @@ public class FileMessageConstant {
                 "  \"code\": 200,\n" +
                 "  \"type\": \"token_info\",\n" +
                 "  \"token\": \"%token%\",\n" +
-                "  \"function\": \"%token_function%\",\n" +
+                "  \"function\": \"%function%\",\n" +
                 "  \"object\": \"%object%\",\n" +
-                "  \"save\": \"%token_save%\",\n" +
-                "  \"over\": \"%token_over%\",\n" +
-                "  \"machine\": \"%token_machine%\",\n" +
-                "  \"lastUse\": \"%token_lastUse%\",\n" +
+                "  \"save\": \"%save%\",\n" +
+                "  \"over\": \"%over%\",\n" +
+                "  \"machine\": \"%machine%\",\n" +
+                "  \"lastUse\": \"%lastUse%\",\n" +
                 "  \"time\": \"%date%\"\n" +
                 "}";
         MESSAGE_TOKEN_OVERDUE = "{\n" +
