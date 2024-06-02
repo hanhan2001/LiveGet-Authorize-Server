@@ -42,6 +42,7 @@ public class SimpleTokenManager implements TokenManager {
         columns.add(new Column("description", "varchar", 255));
         columns.add(new Column("save", "varchar", 255));
         columns.add(new Column("over", "varchar", 255));
+        columns.add(new Column("lastUse", "varchar", 255));
         create.setColumns(columns);
         sqlFactory.sentence(create).run();
 
@@ -79,6 +80,7 @@ public class SimpleTokenManager implements TokenManager {
                 record.get("description").toString(),
                 DateUtil.stringToDate(record.get("save").toString(), FileConfigConstant.SETTING_DATEFORMAT),
                 DateUtil.stringToDate(record.get("over").toString(), FileConfigConstant.SETTING_DATEFORMAT),
+                DateUtil.stringToDate(record.get("lastUse").toString(), FileConfigConstant.SETTING_DATEFORMAT),
                 Application.getUserManager().getUserByUUID(record.get("uuid").toString()),
                 this.getModule());
         this.knownToken.put(token, token1);
