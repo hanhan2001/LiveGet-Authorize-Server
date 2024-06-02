@@ -4,7 +4,6 @@ import me.xiaoying.livegetauthorize.core.LACore;
 import me.xiaoying.livegetauthorize.core.NamespacedKey;
 import me.xiaoying.livegetauthorize.core.entity.User;
 import me.xiaoying.livegetauthorize.core.module.Module;
-import me.xiaoying.livegetauthorize.core.module.ModuleChild;
 import me.xiaoying.livegetauthorize.core.module.ModuleManager;
 import me.xiaoying.livegetauthorize.core.plugin.Plugin;
 import me.xiaoying.livegetauthorize.server.Application;
@@ -17,10 +16,7 @@ import me.xiaoying.sql.entity.Column;
 import me.xiaoying.sql.entity.Condition;
 import me.xiaoying.sql.entity.ConditionType;
 import me.xiaoying.sql.entity.Record;
-import me.xiaoying.sql.sentence.Create;
-import me.xiaoying.sql.sentence.Insert;
-import me.xiaoying.sql.sentence.Select;
-import me.xiaoying.sql.sentence.Update;
+import me.xiaoying.sql.sentence.*;
 
 import java.util.*;
 
@@ -55,55 +51,96 @@ public class SimpleModuleManager implements ModuleManager {
         Select select = new Select(ConstantCommon.MODULE_INFO);
         Stack<Record> records = sqlFactory.sentence(select).run();
         records.forEach(record -> {
-            Module module = new Module(record.get("function").toString(), record.get("description").toString(), record.get("identification").toString(), record.get("permission").toString());
+            Module module = new ServerModule(null, record.get("function").toString(), record.get("description").toString(), record.get("identification").toString(), record.get("permission").toString());
             if (record.get("child") != null && !StringUtil.isEmpty(record.get("child").toString()))
                 this.handleChild(module, record.get("child").toString());
+
             this.registerModule(module);
         });
     }
 
     private void handleChild(Module module, String string) {
+        String description = module.getDescription();
+        String identification = module.getIdentification();
+        String permission = module.getPermission();
         for (String s : string.split(",")) {
             String[] split = s.replace(" ", "").split("~");
-            String name = split[0];
-            User user = Application.getUserManager().findUser("uuid", split[1]);
-            if (split.length == 2) {
-                module.registerChild(new ModuleChild(name, null, null, user, module));
-                continue;
+            Module m = null;
+            switch (split.length) {
+                case 1:
+                    m = new ServerModule(null, split[0], description, identification, permission);
+                    break;
+                case 2:
+                    m = new ServerModule(Application.getUserManager().getUserByUUID(split[1]), split[0], description, identification, permission);
+                    break;
+                case 3: {
+                    Date save = DateUtil.stringToDate(split[1], FileConfigConstant.SETTING_DATEFORMAT);
+                    Date over = DateUtil.stringToDate(split[2], FileConfigConstant.SETTING_DATEFORMAT);
+                    m = new ServerModule(null, split[0], description, identification, permission, save, over);
+                    break;
+                }
+                case 4: {
+                    User user = Application.getUserManager().getUser(split[1]);
+                    Date save = DateUtil.stringToDate(split[1], FileConfigConstant.SETTING_DATEFORMAT);
+                    Date over = DateUtil.stringToDate(split[2], FileConfigConstant.SETTING_DATEFORMAT);
+                    m = new ServerModule(user, split[0], description, identification, permission, save, over);
+                    break;
+                }
             }
-            Date save = DateUtil.stringToDate(split[2].toString(), FileConfigConstant.SETTING_DATEFORMAT);
-            Date over = DateUtil.stringToDate(split[3].toString(), FileConfigConstant.SETTING_DATEFORMAT);
-            module.registerChild(new ModuleChild(name, save, over, user, module));
+
+            if (m == null)
+                continue;
+
+            ((ServerModule) module).registerChild(m);
         }
     }
 
     public void create(Module module) {
         // module
-        // | function | description | child | identification | permission |
-        // | minecraft | Any | 764932129~user~2024/05/31-10:10:47~2024/05/31-15:10:47,730521870 | Any | Any |
+//        // | function | description | child | identification | permission |
+//        // | minecraft | Any | 764932129~user~2024/05/31-10:10:47~2024/05/31-15:10:47,730521870 | Any | Any |
+        if (module.getParent() != null) {
+            SqlFactory sqlFactory = Application.getSqlFactory();
+            Insert insert = new Insert(((ServerModule) module).getTable());
+            insert.insert(module.getName(), module.getDescription(), "", module.getIdentification(), module.getPermission());
+            sqlFactory.sentence(insert).run();
+            return;
+        }
+
+        // 子 Module
         SqlFactory sqlFactory = Application.getSqlFactory();
-        Insert insert = new Insert(ConstantCommon.MODULE_INFO);
-        insert.insert(module.getFunction(), module.getDescription(), module.getModuleChildrenAsString(), module.getIdentification(), module.getPermission());
-        sqlFactory.sentence(insert).run();
+        ServerModule parent = (ServerModule) module.getParent();
+        parent.registerChild(module);
+        Update update = new Update(parent.getTable());
+        update.set("child", parent.getModuleChildrenAsString());
+        sqlFactory.sentence(update).condition(new Condition("function", parent.getName(), ConditionType.EQUAL)).run();
     }
 
-    public void create(ModuleChild moduleChild) {
-        Module module = moduleChild.getModule();
-        module.registerChild(moduleChild);
+    public void delete(Module module) {
+        if (module.getParent() != null) {
+            SqlFactory sqlFactory = Application.getSqlFactory();
+            Delete delete = new Delete(((ServerModule) module).getTable());
+            sqlFactory.sentence(delete).condition(new Condition("function", module.getName(), ConditionType.EQUAL)).run();
+            return;
+        }
+
+        // 子 Module
         SqlFactory sqlFactory = Application.getSqlFactory();
-        Update update = new Update(ConstantCommon.MODULE_INFO);
-        update.set("child", module.getModuleChildrenAsString());
-        sqlFactory.sentence(update).condition(new Condition("function", module.getFunction(), ConditionType.EQUAL)).run();
+        ServerModule parent = (ServerModule) module.getParent();
+        parent.unregisterModuleChild(module.getName());
+        Update update = new Update(parent.getTable());
+        update.set("child", parent.getModuleChildrenAsString());
+        sqlFactory.sentence(update).condition(new Condition("function", parent.getName(), ConditionType.EQUAL)).run();
     }
 
     private void registerModule(Module module) {
-        this.knownModule.put("authorizecore:" + module.getFunction().toLowerCase(Locale.ROOT), module);
+        this.knownModule.put("authorizecore:" + module.getName().toLowerCase(Locale.ROOT), module);
         this.identificationModule.put(module.getIdentification(), module);
     }
 
     @Override
     public void registerModule(Plugin plugin, Module module) {
-        this.knownModule.put(new NamespacedKey(plugin, module.getFunction()).toString(), module);
+        this.knownModule.put(new NamespacedKey(plugin, module.getName()).toString(), module);
         this.identificationModule.put(module.getIdentification(), module);
     }
 
