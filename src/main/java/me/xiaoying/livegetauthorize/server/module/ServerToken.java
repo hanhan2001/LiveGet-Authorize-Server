@@ -5,8 +5,11 @@ import me.xiaoying.livegetauthorize.core.module.Module;
 import me.xiaoying.livegetauthorize.core.module.Token;
 import me.xiaoying.livegetauthorize.server.Application;
 import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
+import me.xiaoying.livegetauthorize.server.utils.DateUtil;
 import me.xiaoying.livegetauthorize.server.utils.StringUtil;
 import me.xiaoying.sql.SqlFactory;
+import me.xiaoying.sql.entity.Condition;
+import me.xiaoying.sql.entity.ConditionType;
 import me.xiaoying.sql.sentence.Update;
 
 import java.util.Date;
@@ -20,16 +23,18 @@ public class ServerToken implements Token {
     private String description;
     private Date save;
     private Date over;
+    private Date lastUse;
     private final User owner;
     private final Module module;
     private Date survival = new Date();
 
-    public ServerToken(String token, String machine, String description, Date save, Date over, User owner, Module module) {
+    public ServerToken(String token, String machine, String description, Date save, Date over, Date lastUse, User owner, Module module) {
         this.token = token;
         this.machine = machine;
         this.description = description;
         this.save = save;
         this.over = over;
+        this.lastUse = lastUse;
         this.owner = owner;
         this.module = module;
     }
@@ -94,6 +99,24 @@ public class ServerToken implements Token {
     @Override
     public void setOver(Date date) {
         this.over = date;
+    }
+
+    @Override
+    public Date getLastUse() {
+        return this.lastUse;
+    }
+
+    @Override
+    public void updateLastUse() {
+        this.setLastUse(new Date());
+    }
+
+    @Override
+    public void setLastUse(Date date) {
+        SqlFactory sqlFactory = Application.getSqlFactory();
+        Update update = new Update(((ServerModule) this.getModule()).getTable());
+        update.set("lastUse", DateUtil.dateToString(date, FileConfigConstant.SETTING_DATEFORMAT));
+        sqlFactory.sentence(update).condition(new Condition("token", this.getToken(), ConditionType.EQUAL)).run();
     }
 
     @Override
