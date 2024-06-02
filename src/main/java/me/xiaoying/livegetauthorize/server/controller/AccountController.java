@@ -59,7 +59,7 @@ public class AccountController {
         user.setToken(token);
         Application.getUserManager().setLoginUser(token, user);
         Application.getServer().getPluginManager().callEvent(new UserLoginEvent(user));
-        LACore.getLogger().info("&b登录&e>> &f{}", user.getUUID());
+//        LACore.getLogger().info("&b登录&e>> &f{}", user.getUUID());
         // update information for user
         user.setIP(request.getRemoteAddr());
         user.setLastLoginTime(new Date());
