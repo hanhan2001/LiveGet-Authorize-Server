@@ -3,7 +3,10 @@ package me.xiaoying.livegetauthorize.server.module;
 import me.xiaoying.livegetauthorize.core.entity.User;
 import me.xiaoying.livegetauthorize.core.module.Module;
 import me.xiaoying.livegetauthorize.core.module.Token;
+import me.xiaoying.livegetauthorize.server.Application;
 import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
+import me.xiaoying.sql.SqlFactory;
+import me.xiaoying.sql.sentence.Update;
 
 import java.util.Date;
 
@@ -12,14 +15,16 @@ import java.util.Date;
  */
 public class ServerToken implements Token {
     private final String token;
+    private String machine;
     private Date save;
     private Date over;
     private final User owner;
     private final Module module;
     private Date survival = new Date();
 
-    public ServerToken(String token, Date save, Date over, User owner, Module module) {
+    public ServerToken(String token, String machine, Date save, Date over, User owner, Module module) {
         this.token = token;
+        this.machine = machine;
         this.save = save;
         this.over = over;
         this.owner = owner;
@@ -34,6 +39,28 @@ public class ServerToken implements Token {
     @Override
     public User getOwner() {
         return this.owner;
+    }
+
+    /**
+     * 获取 Machine
+     *
+     * @return Machine
+     */
+    public String getMachine() {
+        return this.machine;
+    }
+
+    /**
+     * 设置 Machine
+     *
+     * @param machine Machine
+     */
+    public void setMachine(String machine) {
+        this.machine = machine;
+        SqlFactory sqlFactory = Application.getSqlFactory();
+        Update update = new Update(((ServerModule) this.getModule()).getTable());
+        update.set("machine", machine);
+        sqlFactory.sentence(update).run();
     }
 
     @Override
