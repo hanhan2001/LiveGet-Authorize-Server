@@ -30,9 +30,9 @@ public class UserManager implements Serializable {
     private Map<Long, User> knownQQUsers = new HashMap<>();
     private Map<String, User> knownEmailUsers = new HashMap<>();
     private Map<String, User> loginUser = new HashMap<>();
-    private final File serializableEmail = new File("./Cache/UserManager-email.serializable");
-    private final File serializableQQ = new File("./Cache/UserManager-qq.serializable");
-    private final File serializableLogin = new File("./Cache/UserManager-login.serializable");
+    private final File serializableEmail = new File("./cache/UserManager-email.serializable");
+    private final File serializableQQ = new File("./cache/UserManager-qq.serializable");
+    private final File serializableLogin = new File("./cache/UserManager-login.serializable");
 
     public UserManager() {
         LACore.getLogger().info("Initializing user manager...");
