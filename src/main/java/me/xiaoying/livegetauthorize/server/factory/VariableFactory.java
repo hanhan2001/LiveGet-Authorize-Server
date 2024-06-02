@@ -58,6 +58,16 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory lastUse(String lastUse) {
+        this.string = this.string.replace("%lastUse%", lastUse);
+        return this;
+    }
+
+    public VariableFactory lastUse(Date lastUse) {
+        this.string = this.string.replace("%lastUse%", DateUtil.dateToString(lastUse, FileConfigConstant.SETTING_DATEFORMAT));
+        return this;
+    }
+
     public VariableFactory name(String name) {
         this.string = this.string.replace("%name%", name);
         return this;
@@ -121,6 +131,26 @@ public class VariableFactory {
 
     public VariableFactory telephone(long telephone) {
         this.string = this.string.replace("%telephone%", String.valueOf(telephone));
+        return this;
+    }
+
+    public VariableFactory save(String save) {
+        this.string = this.string.replace("%save%", save);
+        return this;
+    }
+
+    public VariableFactory save(Date save) {
+        this.string = this.string.replace("%save%", DateUtil.dateToString(save, FileConfigConstant.SETTING_DATEFORMAT));
+        return this;
+    }
+
+    public VariableFactory over(String over) {
+        this.string = this.string.replace("%over%", over);
+        return this;
+    }
+
+    public VariableFactory over(Date over) {
+        this.string = this.string.replace("%over%", DateUtil.dateToString(over, FileConfigConstant.SETTING_DATEFORMAT));
         return this;
     }
 
