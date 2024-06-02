@@ -52,7 +52,7 @@ public class FileMessage extends SubFile {
         FileMessageConstant.MESSAGE_TOKEN_VERIFIED = this.getString(FileMessageConstant.MESSAGE_TOKEN_VERIFIED, "Token.Verified");
 
         // 权限信息
-        FileMessageConstant.MESSAGE_PERMISSION_NO_PERMISSION = this.getString(FileMessageConstant.MESSAGE_PERMISSION_NO_PERMISSION, "Permission.NoPermission");
+        FileMessageConstant.MESSAGE_PERMISSION_MISSING_PERMISSION = this.getString(FileMessageConstant.MESSAGE_PERMISSION_MISSING_PERMISSION, "Permission.MissingPermission");
 
         // 错误信息
         FileMessageConstant.ERROR_NORMAL = this.getString(FileMessageConstant.ERROR_NORMAL, "Error.Normal");

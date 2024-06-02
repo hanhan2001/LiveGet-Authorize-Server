@@ -29,7 +29,7 @@ public class FileMessageConstant {
             MESSAGE_TOKEN_VERIFIED;
 
     // Permission
-    public static String MESSAGE_PERMISSION_NO_PERMISSION;
+    public static String MESSAGE_PERMISSION_MISSING_PERMISSION;
 
     public static String ERROR_NORMAL,
             ERROR_NEED_PARAMETER,
@@ -108,26 +108,26 @@ public class FileMessageConstant {
                 "  \"owner\": \"%owner%\",\n" +
                 "  \"description\": \"%description%\",\n" +
                 "  \"identification\": \"%identification%\",\n" +
-                "  \"permission\": \"%permission%\"\n" +
+                "  \"permission\": \"%permission%\",\n" +
+                "  \"time\": \"%date%\"\n" +
                 "}";
         MESSAGE_MODULE_NOT_FOUND = "{\n" +
                 "  \"code\": 110,\n" +
                 "  \"type\": \"module_not_found\",\n" +
-                "  \"message\": \"Can't find module.\"";
+                "  \"message\": \"Can't find module.\",\n" +
+                "  \"time\": \"%date%\"\n" +
+                "}";
         MESSAGE_MODULE_OVERDUE = "{\n" +
                 "  \"code\": 110,\n" +
                 "  \"type\": \"module_overdue\",\n" +
-                "  \"Message\": \"This module overdue.\"\n" +
+                "  \"Message\": \"This module overdue.\",\n" +
+                "  \"time\": \"%date%\"\n" +
                 "}";
         MESSAGE_MODULE_EXISTED = "{\n" +
                 "  \"code\": 110,\n" +
                 "  \"type\": \"module_existed\",\n" +
-                "  \"message\": \"This module existed.\"\n" +
-                "}";
-        MESSAGE_TOKEN_ERROR_MACHINE = "{\n" +
-                "  \"code\": 110,\n" +
-                "  \"type\": \"token_machine_error\",\n" +
-                "  \"message\": \"Machine error.\"\n" +
+                "  \"message\": \"This module existed.\",\n" +
+                "  \"time\": \"%date%\"\n" +
                 "}";
 
         // Token
@@ -146,29 +146,39 @@ public class FileMessageConstant {
         MESSAGE_TOKEN_OVERDUE = "{\n" +
                 "  \"code\": 110,\n" +
                 "  \"type\": \"token_overdue\",\n" +
-                "  \"message\": \"This token overdue.\"\n" +
+                "  \"message\": \"This token overdue.\",\n" +
+                "  \"time\": \"%date%\"\n" +
                 "}";
         MESSAGE_TOKEN_EXISTED = "{\n" +
                 "  \"code\": 110,\n" +
                 "  \"type\": \"token_existed\",\n" +
-                "  \"message\": \"This token existed.\"\n" +
+                "  \"message\": \"This token existed.\",\n" +
+                "  \"time\": \"%date%\"\n" +
                 "}";
         MESSAGE_TOKEN_NOT_FOUND = "{\n" +
                 "  \"code\": 110,\n" +
                 "  \"type\": \"token_not_found\",\n" +
-                "  \"message\": \"Can't find token.\"\n" +
+                "  \"message\": \"Can't find token.\",\n" +
+                "  \"time\": \"%date%\"\n" +
                 "}";
         MESSAGE_TOKEN_VERIFIED = "{\n" +
                 "  \"code\": 200,\n" +
                 "  \"type\": \"token_verified\",\n" +
-                "  \"message\": \"Token verified.\"\n" +
+                "  \"message\": \"Token verified.\",\n" +
+                "  \"time\": \"%date%\"\n" +
+                "}";
+        MESSAGE_TOKEN_ERROR_MACHINE = "{\n" +
+                "  \"code\": 110,\n" +
+                "  \"type\": \"token_machine_error\",\n" +
+                "  \"message\": \"Machine error.\",\n" +
+                "  \"time\": \"%date%\"\n" +
                 "}";
 
         //权限信息
-        MESSAGE_PERMISSION_NO_PERMISSION = "{\n" +
+        MESSAGE_PERMISSION_MISSING_PERMISSION = "{\n" +
                 "  \"code\": 110,\n" +
-                "  \"type\": \"permission_no\",\n" +
-                "  \"message\": \"No permission.\",\n" +
+                "  \"type\": \"permission_missing\",\n" +
+                "  \"message\": \"Missing permission.\",\n" +
                 "  \"time\": \"%date%\"\n" +
                 "}";
 
@@ -183,12 +193,14 @@ public class FileMessageConstant {
                 "  \"code\": 110,\n" +
                 "  \"type\": \"error_need_parameter\",\n" +
                 "  \"parameter\": %parameter%,\n" +
-                "  \"message\": \"Missing parameter.\"\n" +
+                "  \"message\": \"Missing parameter.\",\n" +
+                "  \"time\": \"%date%\"\n" +
                 "}";
         ERROR_PASSWORD_INVALID = "{\n" +
                 "  \"code\": 110,\n" +
                 "  \"type\": \"error_password_invalid\",\n" +
-                "  \"message\": \"Password invalid.\"\n" +
+                "  \"message\": \"Password invalid.\",\n" +
+                "  \"time\": \"%date%\"\n" +
                 "}";
     }
 }
