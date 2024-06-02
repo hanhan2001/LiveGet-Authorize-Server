@@ -134,6 +134,16 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory time(Date date) {
+        this.string = this.string.replace("%time%", DateUtil.dateToString(date, FileConfigConstant.SETTING_DATEFORMAT));
+        return this;
+    }
+
+    public VariableFactory time(String date) {
+        this.string = this.string.replace("%time%", date);
+        return this;
+    }
+
     public VariableFactory save(String save) {
         this.string = this.string.replace("%save%", save);
         return this;
