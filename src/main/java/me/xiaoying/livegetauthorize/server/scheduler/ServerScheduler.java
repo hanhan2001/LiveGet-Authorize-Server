@@ -26,8 +26,6 @@ public class ServerScheduler implements Scheduler {
         this.thread = new Thread(() -> {
             synchronized (this) {
                 while (!this.thread.isInterrupted() && !Thread.currentThread().isInterrupted()) {
-                    System.out.println("---");
-                    System.out.println(123);
                     try {
                         wait(1);
                     } catch (InterruptedException e) {
