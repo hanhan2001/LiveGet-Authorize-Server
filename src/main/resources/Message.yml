@@ -224,5 +224,12 @@ Error:
       "code": 110,
       "type": "error_need_parameter",
       "parameter": %parameter%,
-      "message": "Missing parameter"
+      "message": "Missing parameter."
+    }
+  #系统密码错误
+  PasswordInvalid: |-
+    {
+      "code": 110,
+      "type": "error_password_invalid",
+      "message": "Password invalid."
     }

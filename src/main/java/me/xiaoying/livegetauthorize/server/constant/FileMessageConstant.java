@@ -32,7 +32,8 @@ public class FileMessageConstant {
     public static String MESSAGE_PERMISSION_NO_PERMISSION;
 
     public static String ERROR_NORMAL,
-            ERROR_NEED_PARAMETER;
+            ERROR_NEED_PARAMETER,
+            ERROR_PASSWORD_INVALID;
 
     static {
         MESSAGE_ACCOUNT_LOGIN = "{\n" +
@@ -182,7 +183,12 @@ public class FileMessageConstant {
                 "  \"code\": 110,\n" +
                 "  \"type\": \"error_need_parameter\",\n" +
                 "  \"parameter\": %parameter%,\n" +
-                "  \"message\": \"Missing parameter\"\n" +
+                "  \"message\": \"Missing parameter.\"\n" +
+                "}";
+        ERROR_PASSWORD_INVALID = "{\n" +
+                "  \"code\": 110,\n" +
+                "  \"type\": \"error_password_invalid\",\n" +
+                "  \"message\": \"Password invalid.\"\n" +
                 "}";
     }
 }

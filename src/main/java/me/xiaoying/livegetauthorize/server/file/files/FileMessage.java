@@ -57,5 +57,6 @@ public class FileMessage extends SubFile {
         // 错误信息
         FileMessageConstant.ERROR_NORMAL = this.getString(FileMessageConstant.ERROR_NORMAL, "Error.Normal");
         FileMessageConstant.ERROR_NEED_PARAMETER = this.getString(FileMessageConstant.ERROR_NEED_PARAMETER, "Error.NeedParameter");
+        FileMessageConstant.ERROR_PASSWORD_INVALID = this.getString(FileMessageConstant.ERROR_PASSWORD_INVALID, "Error.PasswordInvalid");
     }
 }
