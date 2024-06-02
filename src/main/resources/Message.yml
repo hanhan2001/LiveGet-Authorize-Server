@@ -103,6 +103,37 @@ Permission:
       "time": "%date%"
     }
 
+#模块
+Module:
+  #模块信息
+  Info: |-
+    {
+      "code": 200,
+      "type": "module_info",
+      "function": "%function%",
+      "object": "%object%",
+      "save": "%save%",
+      "over": "%over%",
+      "owner": "%owner%",
+      "description": "%description%",
+      "identification": "%identification%",
+      "permission": "%permission%"
+    }
+  #模块不存在
+  NotFound: |-
+    {
+      "code": 110,
+      "type": "module_not_found",
+      "message": "Can't find module."
+    }
+  #模块过期
+  Overdue: |-
+    {
+      "code": 110,
+      "type": "module_overdue",
+      "Message": "This module is overdue."
+    }
+
 #授权码
 Token:
   #授权码信息

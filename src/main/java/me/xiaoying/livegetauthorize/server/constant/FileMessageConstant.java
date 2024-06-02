@@ -14,6 +14,12 @@ public class FileMessageConstant {
 
     public static String MESSAGE_DISPLAY_PREVIEW_TITLE;
 
+    // Module
+    public static String MESSAGE_MODULE_INFO,
+            MESSAGE_MODULE_NOT_FOUND,
+            MESSAGE_MODULE_OVERDUE;
+
+    // Permission
     public static String MESSAGE_PERMISSION_NO_PERMISSION;
 
     public static String ERROR_NORMAL;
@@ -78,6 +84,29 @@ public class FileMessageConstant {
                 "  \"type\": \"display_preview_title\",\n" +
                 "  \"message\": \"%title%\",\n" +
                 "  \"time\": \"%date%\"\n" +
+                "}";
+
+        // Module
+        MESSAGE_MODULE_INFO = "{\n" +
+                "  \"code\": 200,\n" +
+                "  \"type\": \"module_info\",\n" +
+                "  \"function\": \"%function%\",\n" +
+                "  \"object\": \"%object%\",\n" +
+                "  \"save\": \"%save%\",\n" +
+                "  \"over\": \"%over%\",\n" +
+                "  \"owner\": \"%owner%\",\n" +
+                "  \"description\": \"%description%\",\n" +
+                "  \"identification\": \"%identification%\",\n" +
+                "  \"permission\": \"%permission%\"\n" +
+                "}";
+        MESSAGE_MODULE_NOT_FOUND = "{\n" +
+                "  \"code\": 110,\n" +
+                "  \"type\": \"module_not_found\",\n" +
+                "  \"message\": \"Can't find module.\"";
+        MESSAGE_MODULE_OVERDUE = "{\n" +
+                "  \"code\": 110,\n" +
+                "  \"type\": \"module_overdue\",\n" +
+                "  \"Message\": \"This module is overdue.\"\n" +
                 "}";
 
         //权限信息

@@ -37,6 +37,11 @@ public class FileMessage extends SubFile {
         // 显示界面
         FileMessageConstant.MESSAGE_DISPLAY_PREVIEW_TITLE = this.getString(FileMessageConstant.MESSAGE_DISPLAY_PREVIEW_TITLE, "Display.Preview.Title");
 
+        // Module
+        FileMessageConstant.MESSAGE_MODULE_INFO = this.getString(FileMessageConstant.MESSAGE_MODULE_INFO, "Module.Info");
+        FileMessageConstant.MESSAGE_MODULE_NOT_FOUND = this.getString(FileMessageConstant.MESSAGE_MODULE_NOT_FOUND, "Module.NotFound");
+        FileMessageConstant.MESSAGE_MODULE_OVERDUE = this.getString(FileMessageConstant.MESSAGE_MODULE_OVERDUE, "Module.Overdue");
+
         // 权限信息
         FileMessageConstant.MESSAGE_PERMISSION_NO_PERMISSION = this.getString(FileMessageConstant.MESSAGE_PERMISSION_NO_PERMISSION, "Permission.NoPermission");
 
