@@ -11,6 +11,7 @@ import me.xiaoying.livegetauthorize.server.constant.FileMessageConstant;
 import me.xiaoying.livegetauthorize.server.factory.VariableFactory;
 import me.xiaoying.livegetauthorize.server.module.ServerToken;
 import me.xiaoying.livegetauthorize.server.utils.RandomUtil;
+import me.xiaoying.livegetauthorize.server.utils.ServerUtil;
 import me.xiaoying.livegetauthorize.server.utils.StringUtil;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +41,7 @@ public class TokenController {
                     .toString();
 
         // 系统密码错误
-        if (password.equalsIgnoreCase(FileConfigConstant.SETTING_PASSWORD_PASSWORD))
+        if (!ServerUtil.getEncryptPassword(password).equalsIgnoreCase(FileConfigConstant.SETTING_PASSWORD_PASSWORD))
             return new VariableFactory(FileMessageConstant.ERROR_PASSWORD_INVALID)
                     .date()
                     .toString();
@@ -68,21 +69,25 @@ public class TokenController {
         if (module.getParent() == null)
             return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_INFO)
                     .token(token1.getToken())
+                    .uuid(token1.getOwner().getUUID())
                     .function(module.getName())
                     .object("default")
                     .save(token1.getSave())
                     .over(token1.getOver())
                     .lastUse(token1.getLastUse())
+                    .machine(((ServerToken) token1).getMachine())
                     .date()
                     .toString();
         else
             return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_INFO)
                     .token(token1.getToken())
+                    .uuid(token1.getOwner().getUUID())
                     .function(module.getParent().getName())
                     .object(module.getName())
                     .save(token1.getSave())
                     .over(token1.getOver())
                     .lastUse(token1.getLastUse())
+                    .machine(((ServerToken) token1).getMachine())
                     .date()
                     .toString();
     }
@@ -106,7 +111,7 @@ public class TokenController {
                     .toString();
 
         // 系统密码错误
-        if (password.equalsIgnoreCase(FileConfigConstant.SETTING_PASSWORD_PASSWORD))
+        if (!ServerUtil.getEncryptPassword(password).equalsIgnoreCase(FileConfigConstant.SETTING_PASSWORD_PASSWORD))
             return new VariableFactory(FileMessageConstant.ERROR_PASSWORD_INVALID)
                     .date()
                     .toString();
