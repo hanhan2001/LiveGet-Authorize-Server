@@ -11,7 +11,7 @@
 其他文档:
 
 - [Web](https://github.com/LeavesCloud/LiveGet-Authorize-Server/blob/master/Web.md)
-- [Token](https://github.com/LeavesCloud/LiveGet-Authorize-Server/blob/master/Token.md)
+- [Interface](https://github.com/LeavesCloud/LiveGet-Authorize-Server/blob/master/Interface.md)
 
 
 
