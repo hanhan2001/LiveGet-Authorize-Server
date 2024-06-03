@@ -59,6 +59,12 @@ public class TokenController {
                     .date()
                     .toString();
 
+        // 判断模块是否过期
+        if (module.overdue())
+            return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_OVERDUE)
+                    .date()
+                    .toString();
+
         TokenManager tokenManager = module.getTokenManager();
         // 授权码不存在
         if (!tokenManager.contains(token))
@@ -129,6 +135,12 @@ public class TokenController {
                     .date()
                     .toString();
 
+        // 判断模块是否过期
+        if (module.overdue())
+            return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_OVERDUE)
+                    .date()
+                    .toString();
+
         TokenManager tokenManager = module.getTokenManager();
         Date save = new Date();
         Date over = ((Date) save.clone());
@@ -160,6 +172,18 @@ public class TokenController {
         Module module = LACore.getServer().getModuleManager().getModuleByIdentification(identification);
         if (module == null)
             return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_NOT_FOUND)
+                    .date()
+                    .toString();
+
+        // 判断授权码是否为子模块授权码
+        if (token.contains("-")) {
+            module = module.getModuleChild(token.split("-")[0]);
+            token = token.split("-")[1];
+        }
+
+        // 判断模块是否过期
+        if (module.overdue())
+            return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_OVERDUE)
                     .date()
                     .toString();
 
