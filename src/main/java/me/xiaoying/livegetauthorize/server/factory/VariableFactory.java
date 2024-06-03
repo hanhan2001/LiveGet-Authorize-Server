@@ -68,6 +68,11 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory machine(String machine) {
+        this.string = this.string.replace("%machine%", machine);
+        return this;
+    }
+
     public VariableFactory name(String name) {
         this.string = this.string.replace("%name%", name);
         return this;
