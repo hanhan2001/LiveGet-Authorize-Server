@@ -91,7 +91,7 @@ public class SimpleTokenManager implements TokenManager {
     public void create(Token token) {
         SqlFactory sqlFactory = Application.getSqlFactory();
         Insert insert = new Insert(((ServerModule) this.getModule()).getTable());
-        insert.insert(token.getToken(), token.getOwner().getUUID(), ((ServerToken) token).getMachine(), token.getDescription(), DateUtil.dateToString(token.getSave(), FileConfigConstant.SETTING_DATEFORMAT), DateUtil.dateToString(token.getOver(), FileConfigConstant.SETTING_DATEFORMAT));
+        insert.insert(token.getToken(), token.getOwner().getUUID(), ((ServerToken) token).getMachine(), token.getDescription(), DateUtil.dateToString(token.getSave(), FileConfigConstant.SETTING_DATEFORMAT), DateUtil.dateToString(token.getOver(), FileConfigConstant.SETTING_DATEFORMAT), DateUtil.dateToString(token.getLastUse(), FileConfigConstant.SETTING_DATEFORMAT));
         sqlFactory.sentence(insert).run();
     }
 
