@@ -159,15 +159,26 @@ public class TokenController {
     public String verify(String token, String machine, String identification) {
         Module module = LACore.getServer().getModuleManager().getModuleByIdentification(identification);
         if (module == null)
-            return FileMessageConstant.MESSAGE_MODULE_NOT_FOUND;
+            return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_NOT_FOUND)
+                    .date()
+                    .toString();
 
         TokenManager tokenManager = module.getTokenManager();
         if (!tokenManager.contains(token))
-            return FileMessageConstant.MESSAGE_TOKEN_NOT_FOUND;
+            return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_NOT_FOUND)
+                    .date()
+                    .toString();
         Token t = tokenManager.getToken(token);
-        if (!t.getToken().equalsIgnoreCase(machine))
-            return FileMessageConstant.MESSAGE_TOKEN_ERROR_MACHINE;
-        return FileMessageConstant.MESSAGE_TOKEN_VERIFIED;
+        ServerToken serverToken = (ServerToken) t;
+        if (StringUtil.isEmpty(serverToken.getMachine()))
+            serverToken.setMachine(machine);
+        else if (!serverToken.getMachine().equalsIgnoreCase(machine))
+            return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_ERROR_MACHINE)
+                    .date()
+                    .toString();
+        return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_VERIFIED)
+                .date()
+                .toString();
     }
 
     @GetMapping("/token/random")
