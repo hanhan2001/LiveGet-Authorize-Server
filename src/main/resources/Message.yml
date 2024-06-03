@@ -152,6 +152,7 @@ Token:
     {
       "code": 200,
       "type": "token_info",
+      "uuid": "%uuid%",
       "token": "%token%",
       "function": "%function%",
       "object": "%object%",

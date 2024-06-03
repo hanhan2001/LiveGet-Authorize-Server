@@ -134,6 +134,7 @@ public class FileMessageConstant {
         MESSAGE_TOKEN_INFO = "{\n" +
                 "  \"code\": 200,\n" +
                 "  \"type\": \"token_info\",\n" +
+                "  \"uuid\": \"%uuid%\",\n" +
                 "  \"token\": \"%token%\",\n" +
                 "  \"function\": \"%function%\",\n" +
                 "  \"object\": \"%object%\",\n" +
