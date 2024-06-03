@@ -165,6 +165,11 @@ public class SimpleModuleManager implements ModuleManager {
     }
 
     @Override
+    public void unregisterModules() {
+        this.knownModule.clear();
+    }
+
+    @Override
     public void unregisterModules(Plugin plugin) {
         Iterator<String> iterator = this.knownModule.keySet().iterator();
         String string;
