@@ -93,6 +93,8 @@ public class SimpleTokenManager implements TokenManager {
         Insert insert = new Insert(((ServerModule) this.getModule()).getTable());
         insert.insert(token.getToken(), token.getOwner().getUUID(), ((ServerToken) token).getMachine(), token.getDescription(), DateUtil.dateToString(token.getSave(), FileConfigConstant.SETTING_DATEFORMAT), DateUtil.dateToString(token.getOver(), FileConfigConstant.SETTING_DATEFORMAT), DateUtil.dateToString(token.getLastUse(), FileConfigConstant.SETTING_DATEFORMAT));
         sqlFactory.sentence(insert).run();
+
+        this.knownToken.put(token.getToken(), token);
     }
 
     @Override
@@ -104,6 +106,8 @@ public class SimpleTokenManager implements TokenManager {
 
         Delete delete = new Delete(((ServerModule) t.getModule()).getTable());
         sqlFactory.sentence(delete).condition(new Condition("token", token, ConditionType.EQUAL)).run();
+
+        this.knownToken.remove(token);
     }
 
     @Override
