@@ -17,14 +17,14 @@ public class FileMessageConstant {
     // Module
     public static String MESSAGE_MODULE_INFO,
             MESSAGE_MODULE_NOT_FOUND,
-            MESSAGE_MODULE_OVERDUE,
+            MESSAGE_MODULE_EXPIRED,
             MESSAGE_MODULE_EXISTED;
 
     // Token
     public static String MESSAGE_TOKEN_INFO,
             MESSAGE_TOKEN_EXISTED,
             MESSAGE_TOKEN_NOT_FOUND,
-            MESSAGE_TOKEN_OVERDUE,
+            MESSAGE_TOKEN_EXPIRED,
             MESSAGE_TOKEN_ERROR_MACHINE,
             MESSAGE_TOKEN_VERIFIED;
 
@@ -117,10 +117,10 @@ public class FileMessageConstant {
                 "  \"message\": \"Can't find module.\",\n" +
                 "  \"time\": \"%date%\"\n" +
                 "}";
-        MESSAGE_MODULE_OVERDUE = "{\n" +
+        MESSAGE_MODULE_EXPIRED = "{\n" +
                 "  \"code\": 110,\n" +
-                "  \"type\": \"module_overdue\",\n" +
-                "  \"Message\": \"This module overdue.\",\n" +
+                "  \"type\": \"module_expired\",\n" +
+                "  \"Message\": \"This module expired.\",\n" +
                 "  \"time\": \"%date%\"\n" +
                 "}";
         MESSAGE_MODULE_EXISTED = "{\n" +
@@ -144,10 +144,10 @@ public class FileMessageConstant {
                 "  \"lastUse\": \"%lastUse%\",\n" +
                 "  \"time\": \"%date%\"\n" +
                 "}";
-        MESSAGE_TOKEN_OVERDUE = "{\n" +
+        MESSAGE_TOKEN_EXPIRED = "{\n" +
                 "  \"code\": 110,\n" +
-                "  \"type\": \"token_overdue\",\n" +
-                "  \"message\": \"This token overdue.\",\n" +
+                "  \"type\": \"token_expired\",\n" +
+                "  \"message\": \"This token expired.\",\n" +
                 "  \"time\": \"%date%\"\n" +
                 "}";
         MESSAGE_TOKEN_EXISTED = "{\n" +

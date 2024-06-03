@@ -61,7 +61,7 @@ public class TokenController {
 
         // 判断模块是否过期
         if (module.overdue())
-            return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_OVERDUE)
+            return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_EXPIRED)
                     .date()
                     .toString();
 
@@ -137,7 +137,7 @@ public class TokenController {
 
         // 判断模块是否过期
         if (module.overdue())
-            return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_OVERDUE)
+            return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_EXPIRED)
                     .date()
                     .toString();
 
@@ -183,7 +183,7 @@ public class TokenController {
 
         // 判断模块是否过期
         if (module.overdue())
-            return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_OVERDUE)
+            return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_EXPIRED)
                     .date()
                     .toString();
 

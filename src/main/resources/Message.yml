@@ -137,11 +137,11 @@ Module:
       "time": "%date%"
     }
   #模块过期
-  Overdue: |-
+  Expired: |-
     {
       "code": 110,
-      "type": "module_overdue",
-      "Message": "This module overdue.",
+      "type": "module_expired",
+      "Message": "This module expired.",
       "time": "%date%"
     }
 
@@ -163,11 +163,11 @@ Token:
       "time": "%date%"
     }
   #授权码过期
-  Overdue: |-
+  Expired: |-
     {
       "code": 110,
-      "type": "token_overdue",
-      "message": "This token overdue.",
+      "type": "token_expired",
+      "message": "This token expired.",
       "time": "%date%"
     }
   #授权码已存在
