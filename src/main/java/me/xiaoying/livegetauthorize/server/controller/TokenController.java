@@ -10,6 +10,7 @@ import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
 import me.xiaoying.livegetauthorize.server.constant.FileMessageConstant;
 import me.xiaoying.livegetauthorize.server.factory.VariableFactory;
 import me.xiaoying.livegetauthorize.server.module.ServerToken;
+import me.xiaoying.livegetauthorize.server.utils.RandomUtil;
 import me.xiaoying.livegetauthorize.server.utils.StringUtil;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -146,5 +147,10 @@ public class TokenController {
         if (!t.getToken().equalsIgnoreCase(machine))
             return FileMessageConstant.MESSAGE_TOKEN_ERROR_MACHINE;
         return FileMessageConstant.MESSAGE_TOKEN_VERIFIED;
+    }
+
+    @GetMapping("/token/random")
+    public String random() {
+        return RandomUtil.getCharAndNumr(24);
     }
 }
