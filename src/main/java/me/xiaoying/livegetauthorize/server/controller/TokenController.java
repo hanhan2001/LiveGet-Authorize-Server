@@ -194,13 +194,13 @@ public class TokenController {
                     .toString();
 
         ServerToken serverToken = (ServerToken) tokenManager.getToken(token);
-        serverToken.updateLastUse();
         if (StringUtil.isEmpty(serverToken.getMachine()))
             serverToken.setMachine(machine);
         else if (!serverToken.getMachine().equalsIgnoreCase(machine))
             return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_ERROR_MACHINE)
                     .date()
                     .toString();
+        serverToken.updateLastUse();
         return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_VERIFIED)
                 .date()
                 .toString();
