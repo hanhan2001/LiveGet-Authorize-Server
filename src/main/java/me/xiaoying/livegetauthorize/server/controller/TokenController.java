@@ -89,70 +89,65 @@ public class TokenController {
 
     @GetMapping("/token/create")
     public String create(String token, String function, String object, String qq, String time, String password) {
-        try {
-            List<String> parameters = new ArrayList<>();
-            if (StringUtil.isEmpty(token))
-                parameters.add("token");
-            if (StringUtil.isEmpty(function))
-                parameters.add("function");
-            if (StringUtil.isEmpty(object))
-                parameters.add("object");
-            if (StringUtil.isEmpty(password))
-                parameters.add("password");
+        List<String> parameters = new ArrayList<>();
+        if (StringUtil.isEmpty(token))
+            parameters.add("token");
+        if (StringUtil.isEmpty(function))
+            parameters.add("function");
+        if (StringUtil.isEmpty(object))
+            parameters.add("object");
+        if (StringUtil.isEmpty(password))
+            parameters.add("password");
 
-            if (!parameters.isEmpty())
-                return new VariableFactory(FileMessageConstant.ERROR_NEED_PARAMETER)
-                        .parameter(parameters)
-                        .date()
-                        .toString();
-
-            // 系统密码错误
-            if (password.equalsIgnoreCase(FileConfigConstant.SETTING_PASSWORD_PASSWORD))
-                return new VariableFactory(FileMessageConstant.ERROR_PASSWORD_INVALID)
-                        .date()
-                        .toString();
-
-            Module module = null;
-            if (!object.equalsIgnoreCase("default")) {
-                Module m = LACore.getServer().getModuleManager().getModule(function);
-                if (m != null) module = m.getModuleChild(object);
-            } else
-                module = LACore.getServer().getModuleManager().getModule(function);
-
-            // 模块不存在
-            if (module == null)
-                return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_NOT_FOUND)
-                        .date()
-                        .toString();
-
-            TokenManager tokenManager = module.getTokenManager();
-            Date save = new Date();
-            Date over = ((Date) save.clone());
-            if (!StringUtil.isEmpty(time))
-                over.setTime(save.getTime() + Long.parseLong(time) * 1000L);
-            else
-                over.setTime(save.getTime() + 999999999999999999L);
-
-            User user = Application.getUserManager().getUser(Long.parseLong(qq));
-
-            Token token1 = new ServerToken(token, "", "", save, over, save, user, module);
-            tokenManager.create(token1);
-
-            return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_INFO)
-                    .uuid(user.getUUID())
-                    .token(token1.getToken())
-                    .function(function)
-                    .object(object)
-                    .save(save)
-                    .over(over)
-                    .lastUse(save)
-                    .machine("未绑定")
+        if (!parameters.isEmpty())
+            return new VariableFactory(FileMessageConstant.ERROR_NEED_PARAMETER)
+                    .parameter(parameters)
                     .date()
                     .toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+
+        // 系统密码错误
+        if (password.equalsIgnoreCase(FileConfigConstant.SETTING_PASSWORD_PASSWORD))
+            return new VariableFactory(FileMessageConstant.ERROR_PASSWORD_INVALID)
+                    .date()
+                    .toString();
+
+        Module module = null;
+        if (!object.equalsIgnoreCase("default")) {
+            Module m = LACore.getServer().getModuleManager().getModule(function);
+            if (m != null) module = m.getModuleChild(object);
+        } else
+            module = LACore.getServer().getModuleManager().getModule(function);
+
+        // 模块不存在
+        if (module == null)
+            return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_NOT_FOUND)
+                    .date()
+                    .toString();
+
+        TokenManager tokenManager = module.getTokenManager();
+        Date save = new Date();
+        Date over = ((Date) save.clone());
+        if (!StringUtil.isEmpty(time))
+            over.setTime(save.getTime() + Long.parseLong(time) * 1000L);
+        else
+            over.setTime(save.getTime() + 999999999999999999L);
+
+        User user = Application.getUserManager().getUser(Long.parseLong(qq));
+
+        Token token1 = new ServerToken(token, "", "", save, over, save, user, module);
+        tokenManager.create(token1);
+
+        return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_INFO)
+                .uuid(user.getUUID())
+                .token(token1.getToken())
+                .function(function)
+                .object(object)
+                .save(save)
+                .over(over)
+                .lastUse(save)
+                .machine("未绑定")
+                .date()
+                .toString();
     }
 
     @GetMapping("/token/verify")
