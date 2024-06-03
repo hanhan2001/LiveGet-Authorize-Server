@@ -1,17 +1,21 @@
 package me.xiaoying.livegetauthorize.server.controller;
 
 import me.xiaoying.livegetauthorize.core.LACore;
+import me.xiaoying.livegetauthorize.core.entity.User;
 import me.xiaoying.livegetauthorize.core.module.Module;
 import me.xiaoying.livegetauthorize.core.module.Token;
 import me.xiaoying.livegetauthorize.core.module.TokenManager;
+import me.xiaoying.livegetauthorize.server.Application;
 import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
 import me.xiaoying.livegetauthorize.server.constant.FileMessageConstant;
 import me.xiaoying.livegetauthorize.server.factory.VariableFactory;
+import me.xiaoying.livegetauthorize.server.module.ServerToken;
 import me.xiaoying.livegetauthorize.server.utils.StringUtil;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -45,6 +49,7 @@ public class TokenController {
         // 模块不存在
         if (module == null)
             return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_NOT_FOUND).date().toString();
+
         TokenManager tokenManager = module.getTokenManager();
         // 授权码不存在
         if (!tokenManager.contains(token))
@@ -70,6 +75,62 @@ public class TokenController {
                     .lastUse(token1.getLastUse())
                     .date()
                     .toString();
+    }
+
+    @GetMapping("/token/create")
+    public String create(String token, String function, String object, String qq, String time, String password) {
+        List<String> parameters = new ArrayList<>();
+        if (StringUtil.isEmpty(token))
+            parameters.add("token");
+        if (StringUtil.isEmpty(function))
+            parameters.add("function");
+        if (StringUtil.isEmpty(object))
+            parameters.add("object");
+        if (StringUtil.isEmpty(password))
+            parameters.add("password");
+
+        if (!parameters.isEmpty())
+            return new VariableFactory(FileMessageConstant.ERROR_NEED_PARAMETER).parameter(parameters).toString();
+
+        // 系统密码错误
+        if (password.equalsIgnoreCase(FileConfigConstant.SETTING_PASSWORD_PASSWORD))
+            return new VariableFactory(FileMessageConstant.ERROR_PASSWORD_INVALID).date().toString();
+
+        Module module = null;
+        if (!object.equalsIgnoreCase("default")) {
+            Module m = LACore.getServer().getModuleManager().getModule(function);
+            if (m != null) module = m.getModuleChild(object);
+        } else
+            module = LACore.getServer().getModuleManager().getModule(function);
+
+        // 模块不存在
+        if (module == null)
+            return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_NOT_FOUND).date().toString();
+
+        TokenManager tokenManager = module.getTokenManager();
+        Date save = new Date();
+        Date over = ((Date) save.clone());
+        if (!StringUtil.isEmpty(time))
+            over.setTime(save.getTime() + Long.parseLong(time) * 1000L);
+        else
+            over.setTime(save.getTime() + 999999999999999999L);
+
+        User user = Application.getUserManager().getUser(Long.parseLong(qq));
+
+        Token token1 = new ServerToken(token, "", "", save, over, save, user, module);
+        tokenManager.create(token1);
+
+        return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_INFO)
+                .uuid(user.getUUID())
+                .token(token1.getToken())
+                .function(function)
+                .object(object)
+                .save(save)
+                .over(over)
+                .lastUse(save)
+                .machine("未绑定")
+                .date()
+                .toString();
     }
 
     @GetMapping("/token/verify")
