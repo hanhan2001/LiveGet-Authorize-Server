@@ -192,8 +192,9 @@ public class TokenController {
             return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_NOT_FOUND)
                     .date()
                     .toString();
-        Token t = tokenManager.getToken(token);
-        ServerToken serverToken = (ServerToken) t;
+
+        ServerToken serverToken = (ServerToken) tokenManager.getToken(token);
+        serverToken.updateLastUse();
         if (StringUtil.isEmpty(serverToken.getMachine()))
             serverToken.setMachine(machine);
         else if (!serverToken.getMachine().equalsIgnoreCase(machine))
