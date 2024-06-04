@@ -436,6 +436,7 @@ public class TokenController {
         // 设置返回信息
         String result = new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_INFO)
                 .token(serverToken.getToken())
+                .uuid(serverToken.getOwner().getUUID())
                 .save(serverToken.getSave())
                 .over(serverToken.getOver())
                 .lastUse(serverToken.getLastUse())
