@@ -42,6 +42,7 @@ public class FileMessage extends SubFile {
         FileMessageConstant.MESSAGE_MODULE_NOT_FOUND = this.getString(FileMessageConstant.MESSAGE_MODULE_NOT_FOUND, "Module.NotFound");
         FileMessageConstant.MESSAGE_MODULE_EXPIRED = this.getString(FileMessageConstant.MESSAGE_MODULE_EXPIRED, "Module.Expired");
         FileMessageConstant.MESSAGE_MODULE_EXISTED = this.getString(FileMessageConstant.MESSAGE_MODULE_EXISTED, "Module.Existed");
+        FileMessageConstant.MESSAGE_MODULE_DELETE = this.getString(FileMessageConstant.MESSAGE_MODULE_DELETE, "Module.Delete");
 
         // Token
         FileMessageConstant.MESSAGE_TOKEN_INFO = this.getString(FileMessageConstant.MESSAGE_TOKEN_INFO, "Token.Info");
@@ -50,6 +51,7 @@ public class FileMessage extends SubFile {
         FileMessageConstant.MESSAGE_TOKEN_EXISTED = this.getString(FileMessageConstant.MESSAGE_TOKEN_EXISTED, "Token.Existed");
         FileMessageConstant.MESSAGE_TOKEN_ERROR_MACHINE = this.getString(FileMessageConstant.MESSAGE_TOKEN_ERROR_MACHINE, "Token.ErrorMachine");
         FileMessageConstant.MESSAGE_TOKEN_VERIFIED = this.getString(FileMessageConstant.MESSAGE_TOKEN_VERIFIED, "Token.Verified");
+        FileMessageConstant.MESSAGE_TOKEN_DELETE = this.getString(FileMessageConstant.MESSAGE_TOKEN_DELETE, "Token.Delete");
 
         // 权限信息
         FileMessageConstant.MESSAGE_PERMISSION_MISSING_PERMISSION = this.getString(FileMessageConstant.MESSAGE_PERMISSION_MISSING_PERMISSION, "Permission.MissingPermission");

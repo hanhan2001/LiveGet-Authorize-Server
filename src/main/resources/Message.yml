@@ -144,6 +144,16 @@ Module:
       "Message": "This module expired.",
       "time": "%date%"
     }
+  #删除模块
+  Deleted: |-
+    {
+      "code": 200,
+      "type": "module_delete",
+      "function": "%function%",
+      "object": "%object%",
+      "uuid": "%uuid%",
+      "message": "Deleted module."
+    }
 
 #授权码
 Token:
@@ -201,6 +211,16 @@ Token:
       "type": "token_verified",
       "message": "Token verified.",
       "time": "%date%"
+    }
+  #删除授权码
+  Delete: |-
+    {
+      "code": 200,
+      "type": "token_delete",
+      "token": "%token%",
+      "function": "%function%",
+      "object": "%object%",
+      "message": "Deleted token."
     }
   #授权码列表
   List: |-

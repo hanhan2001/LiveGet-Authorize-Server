@@ -18,7 +18,8 @@ public class FileMessageConstant {
     public static String MESSAGE_MODULE_INFO,
             MESSAGE_MODULE_NOT_FOUND,
             MESSAGE_MODULE_EXPIRED,
-            MESSAGE_MODULE_EXISTED;
+            MESSAGE_MODULE_EXISTED,
+            MESSAGE_MODULE_DELETE;
 
     // Token
     public static String MESSAGE_TOKEN_INFO,
@@ -26,7 +27,8 @@ public class FileMessageConstant {
             MESSAGE_TOKEN_NOT_FOUND,
             MESSAGE_TOKEN_EXPIRED,
             MESSAGE_TOKEN_ERROR_MACHINE,
-            MESSAGE_TOKEN_VERIFIED;
+            MESSAGE_TOKEN_VERIFIED,
+            MESSAGE_TOKEN_DELETE;
 
     // Permission
     public static String MESSAGE_PERMISSION_MISSING_PERMISSION;
@@ -129,6 +131,14 @@ public class FileMessageConstant {
                 "  \"message\": \"This module existed.\",\n" +
                 "  \"time\": \"%date%\"\n" +
                 "}";
+        MESSAGE_MODULE_DELETE = "{\n" +
+                "  \"code\": 200,\n" +
+                "  \"type\": \"module_delete\",\n" +
+                "  \"function\": \"%function%\",\n" +
+                "  \"object\": \"%object%\",\n" +
+                "  \"uuid\": \"%uuid%\",\n" +
+                "  \"message\": \"Deleted module.\"\n" +
+                "}";
 
         // Token
         MESSAGE_TOKEN_INFO = "{\n" +
@@ -173,6 +183,14 @@ public class FileMessageConstant {
                 "  \"type\": \"token_machine_error\",\n" +
                 "  \"message\": \"Machine error.\",\n" +
                 "  \"time\": \"%date%\"\n" +
+                "}";
+        MESSAGE_TOKEN_DELETE = "{\n" +
+                "  \"code\": 200,\n" +
+                "  \"type\": \"token_delete\",\n" +
+                "  \"token\": \"%token%\",\n" +
+                "  \"function\": \"%function%\",\n" +
+                "  \"object\": \"%object%\",\n" +
+                "  \"message\": \"Deleted token.\"\n" +
                 "}";
 
         //权限信息
