@@ -46,10 +46,11 @@ public class TokenController {
                     .date()
                     .toString();
 
-        Module module = null;
+        // 获取模块
+        Module module;
         if (!object.equalsIgnoreCase("default")) {
-            Module m = LACore.getServer().getModuleManager().getModule(function);
-            if (m != null) module = m.getModuleChild(object);
+            module = LACore.getServer().getModuleManager().getModule(function);
+            if (module != null) module = module.getModuleChild(object);
         } else
             module = LACore.getServer().getModuleManager().getModule(function);
 
@@ -122,14 +123,15 @@ public class TokenController {
                     .date()
                     .toString();
 
-        Module module = null;
+        // 获取模块
+        Module module;
         if (!object.equalsIgnoreCase("default")) {
-            Module m = LACore.getServer().getModuleManager().getModule(function);
-            if (m != null) module = m.getModuleChild(object);
+            module = LACore.getServer().getModuleManager().getModule(function);
+            if (module != null) module = module.getModuleChild(object);
         } else
             module = LACore.getServer().getModuleManager().getModule(function);
 
-        // 模块不存在
+        // 判断模块是否存在
         if (module == null)
             return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_NOT_FOUND)
                     .date()
@@ -180,10 +182,10 @@ public class TokenController {
             parameters.add("token");
         if (StringUtil.isEmpty(function))
             parameters.add("function");
-        if (StringUtil.isEmpty(object))
-            parameters.add("object");
         if (StringUtil.isEmpty(password))
             parameters.add("password");
+        if (StringUtil.isEmpty(object))
+            object = "default";
 
         if (!parameters.isEmpty())
             return new VariableFactory(FileMessageConstant.ERROR_NEED_PARAMETER)
@@ -197,20 +199,19 @@ public class TokenController {
                     .date()
                     .toString();
 
-        Module module = LACore.getServer().getModuleManager().getModule(function);
+        // 获取模块
+        Module module;
+        if (!object.equalsIgnoreCase("default")) {
+            module = LACore.getServer().getModuleManager().getModule(function);
+            if (module != null) module = module.getModuleChild(object);
+        } else
+            module = LACore.getServer().getModuleManager().getModule(function);
+
+        // 判断模块是否存在
         if (module == null)
             return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_NOT_FOUND)
                     .date()
                     .toString();
-
-        // 判断授权码是否为子模块授权码
-        if (token.contains("-")) {
-            module = module.getModuleChild(token.split("-")[0]);
-            if (module == null) return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_NOT_FOUND)
-                    .date()
-                    .toString();
-            token = token.split("-")[1];
-        }
 
         // 判断模块是否过期
         if (module.expire())
@@ -268,6 +269,10 @@ public class TokenController {
         // 判断授权码是否为子模块授权码
         if (token.contains("-")) {
             module = module.getModuleChild(token.split("-")[0]);
+            if (module == null)
+                return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_NOT_FOUND)
+                        .date()
+                        .toString();
             token = token.split("-")[1];
         }
 
@@ -294,6 +299,83 @@ public class TokenController {
         return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_VERIFIED)
                 .date()
                 .toString();
+    }
+
+    @GetMapping("/token/setMachine")
+    public String setMachine(String token, String function, String object, String machine, String password) {
+        List<String> parameters = new ArrayList<>();
+        if (StringUtil.isEmpty(token))
+            parameters.add("token");
+        if (StringUtil.isEmpty(function))
+            parameters.add("function");
+        if (StringUtil.isEmpty(password))
+            parameters.add("password");
+        if (StringUtil.isEmpty(object))
+            object = "default";
+        if (StringUtil.isEmpty(machine))
+            machine = "";
+
+        if (!parameters.isEmpty())
+            return new VariableFactory(FileMessageConstant.ERROR_NEED_PARAMETER)
+                    .parameter(parameters)
+                    .date()
+                    .toString();
+
+        // 系统密码错误
+        if (!ServerUtil.getEncryptPassword(password).equalsIgnoreCase(FileConfigConstant.SETTING_PASSWORD_PASSWORD))
+            return new VariableFactory(FileMessageConstant.ERROR_PASSWORD_INVALID)
+                    .date()
+                    .toString();
+
+        // 获取模块
+        Module module;
+        if (!object.equalsIgnoreCase("default")) {
+            module = LACore.getServer().getModuleManager().getModule(function);
+            if (module != null) module = module.getModuleChild(object);
+        } else
+            module = LACore.getServer().getModuleManager().getModule(function);
+
+
+        // 判断模块是否存在
+        if (module == null)
+            return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_NOT_FOUND)
+                    .date()
+                    .toString();
+
+        TokenManager tokenManager = module.getTokenManager();
+        // 判断授权码是否存在
+        if (!tokenManager.contains(token))
+            return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_NOT_FOUND)
+                    .date()
+                    .toString();
+
+        ServerToken serverToken = (ServerToken) tokenManager.getToken(token);
+        serverToken.setMachine(machine);
+
+        if (module.getParent() == null)
+            return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_INFO)
+                    .token(serverToken.getToken())
+                    .uuid(serverToken.getOwner().getUUID())
+                    .function(module.getName())
+                    .object("default")
+                    .save(serverToken.getSave())
+                    .over(serverToken.getOver())
+                    .lastUse(serverToken.getLastUse())
+                    .machine(serverToken.getMachine())
+                    .date()
+                    .toString();
+        else
+            return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_INFO)
+                    .token(serverToken.getToken())
+                    .uuid(serverToken.getOwner().getUUID())
+                    .function(module.getParent().getName())
+                    .object(module.getName())
+                    .save(serverToken.getSave())
+                    .over(serverToken.getOver())
+                    .lastUse(serverToken.getLastUse())
+                    .machine(serverToken.getMachine())
+                    .date()
+                    .toString();
     }
 
     @GetMapping("/token/random")
