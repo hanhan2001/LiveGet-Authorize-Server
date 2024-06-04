@@ -167,6 +167,76 @@ public class TokenController {
                 .toString();
     }
 
+    @GetMapping("/token/delete")
+    public String delete(String token, String function, String object, String password) {
+        List<String> parameters = new ArrayList<>();
+        if (StringUtil.isEmpty(token))
+            parameters.add("token");
+        if (StringUtil.isEmpty(function))
+            parameters.add("function");
+        if (StringUtil.isEmpty(object))
+            parameters.add("object");
+        if (StringUtil.isEmpty(password))
+            parameters.add("password");
+
+        if (!parameters.isEmpty())
+            return new VariableFactory(FileMessageConstant.ERROR_NEED_PARAMETER)
+                    .parameter(parameters)
+                    .date()
+                    .toString();
+
+        // 系统密码错误
+        if (!ServerUtil.getEncryptPassword(password).equalsIgnoreCase(FileConfigConstant.SETTING_PASSWORD_PASSWORD))
+            return new VariableFactory(FileMessageConstant.ERROR_PASSWORD_INVALID)
+                    .date()
+                    .toString();
+
+        Module module = LACore.getServer().getModuleManager().getModule(function);
+        if (module == null)
+            return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_NOT_FOUND)
+                    .date()
+                    .toString();
+
+        // 判断授权码是否为子模块授权码
+        if (token.contains("-")) {
+            module = module.getModuleChild(token.split("-")[0]);
+            if (module == null) return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_NOT_FOUND)
+                    .date()
+                    .toString();
+            token = token.split("-")[1];
+        }
+
+        // 判断模块是否过期
+        if (module.expire())
+            return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_EXPIRED)
+                    .date()
+                    .toString();
+
+        TokenManager tokenManager = module.getTokenManager();
+        if (!tokenManager.contains(token))
+            return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_NOT_FOUND)
+                    .date()
+                    .toString();
+
+        Token token1 = tokenManager.getToken(token);
+        tokenManager.delete(token);
+
+        if (token1.getModule().getParent() == null)
+            return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_DELETE)
+                    .token(token)
+                    .function(token1.getModule().getName())
+                    .object("default")
+                    .date()
+                    .toString();
+        else
+            return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_DELETE)
+                    .token(token)
+                    .function(token1.getModule().getParent().getName())
+                    .object(token1.getModule().getName())
+                    .date()
+                    .toString();
+    }
+
     @GetMapping("/token/verify")
     public String verify(String token, String machine, String identification) {
         List<String> parameters = new ArrayList<>();
