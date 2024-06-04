@@ -7,6 +7,7 @@ import me.xiaoying.livegetauthorize.core.plugin.JavaPluginLoader;
 import me.xiaoying.livegetauthorize.core.plugin.Plugin;
 import me.xiaoying.livegetauthorize.core.server.Server;
 import me.xiaoying.livegetauthorize.server.command.*;
+import me.xiaoying.livegetauthorize.server.command.module.ModuleCommand;
 import me.xiaoying.livegetauthorize.server.constant.FileConfigConstant;
 import me.xiaoying.livegetauthorize.server.file.FileService;
 import me.xiaoying.livegetauthorize.server.file.files.FileConfig;
@@ -113,6 +114,7 @@ public class Application {
         LACore.getServer().getCommandManager().registerCommand("authorizecore", new PluginCommand("plugins", "Get server loaded plugins", "/pl", Collections.singletonList("pl")));
         LACore.getServer().getCommandManager().registerCommand("authorizecore", new ReloadCommand("reload", "Reload server", "/reload", null));
         LACore.getServer().getCommandManager().registerCommand("authorizecore", new JwtCommand("jwt", "create new jwt", "/jwt", null));
+        LACore.getServer().getCommandManager().registerCommand("authorizecore", new ModuleCommand("module"));
 
         // register shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
