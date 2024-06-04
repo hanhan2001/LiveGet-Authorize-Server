@@ -89,6 +89,10 @@ public class ServerToken implements Token {
     @Override
     public void setSave(Date date) {
         this.save = date;
+        SqlFactory sqlFactory = Application.getSqlFactory();
+        Update update = new Update(((ServerModule) this.getModule()).getTable());
+        update.set("save", DateUtil.dateToString(date, FileConfigConstant.SETTING_DATEFORMAT));
+        sqlFactory.sentence(update).condition(new Condition("token", this.getToken(), ConditionType.EQUAL)).run();
     }
 
     @Override
@@ -99,6 +103,10 @@ public class ServerToken implements Token {
     @Override
     public void setOver(Date date) {
         this.over = date;
+        SqlFactory sqlFactory = Application.getSqlFactory();
+        Update update = new Update(((ServerModule) this.getModule()).getTable());
+        update.set("over", DateUtil.dateToString(date, FileConfigConstant.SETTING_DATEFORMAT));
+        sqlFactory.sentence(update).condition(new Condition("token", this.getToken(), ConditionType.EQUAL)).run();
     }
 
     @Override
