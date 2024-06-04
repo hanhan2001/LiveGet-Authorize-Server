@@ -152,7 +152,8 @@ Module:
       "function": "%function%",
       "object": "%object%",
       "uuid": "%uuid%",
-      "message": "Deleted module."
+      "message": "Deleted module.",
+      "time": "%date%"
     }
 
 #授权码
@@ -220,7 +221,8 @@ Token:
       "token": "%token%",
       "function": "%function%",
       "object": "%object%",
-      "message": "Deleted token."
+      "message": "Deleted token.",
+      "time": "%date%"
     }
   #授权码列表
   List: |-

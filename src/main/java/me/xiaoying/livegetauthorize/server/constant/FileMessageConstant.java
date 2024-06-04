@@ -137,7 +137,8 @@ public class FileMessageConstant {
                 "  \"function\": \"%function%\",\n" +
                 "  \"object\": \"%object%\",\n" +
                 "  \"uuid\": \"%uuid%\",\n" +
-                "  \"message\": \"Deleted module.\"\n" +
+                "  \"message\": \"Deleted module.\",\n" +
+                "  \"time\": \"%date%\"\n" +
                 "}";
 
         // Token
@@ -190,7 +191,8 @@ public class FileMessageConstant {
                 "  \"token\": \"%token%\",\n" +
                 "  \"function\": \"%function%\",\n" +
                 "  \"object\": \"%object%\",\n" +
-                "  \"message\": \"Deleted token.\"\n" +
+                "  \"message\": \"Deleted token.\",\n" +
+                "  \"time\": \"%date%\"\n" +
                 "}";
 
         //权限信息
