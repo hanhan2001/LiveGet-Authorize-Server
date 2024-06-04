@@ -183,6 +183,7 @@ public class SimpleModuleManager implements ModuleManager {
 
     @Override
     public Module getModule(String function) {
+        function = function.toLowerCase(Locale.ROOT);
         if (this.knownModule.containsKey(function))
             return this.knownModule.get(function);
         if (function.contains(":"))
