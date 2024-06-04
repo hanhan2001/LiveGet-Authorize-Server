@@ -130,7 +130,7 @@ public class ServerToken implements Token {
     }
 
     @Override
-    public boolean overdue() {
+    public boolean expire() {
         if (this.save == null || this.over == null)
             return false;
 
