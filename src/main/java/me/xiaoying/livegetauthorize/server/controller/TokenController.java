@@ -169,6 +169,20 @@ public class TokenController {
 
     @GetMapping("/token/verify")
     public String verify(String token, String machine, String identification) {
+        List<String> parameters = new ArrayList<>();
+        if (StringUtil.isEmpty(token))
+            parameters.add("token");
+        if (StringUtil.isEmpty(machine))
+            parameters.add("machine");
+        if (StringUtil.isEmpty(identification))
+            parameters.add("identification");
+
+        if (!parameters.isEmpty())
+            return new VariableFactory(FileMessageConstant.ERROR_NEED_PARAMETER)
+                    .parameter(parameters)
+                    .date()
+                    .toString();
+
         Module module = LACore.getServer().getModuleManager().getModuleByIdentification(identification);
         if (module == null)
             return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_NOT_FOUND)
