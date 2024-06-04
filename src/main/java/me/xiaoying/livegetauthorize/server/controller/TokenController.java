@@ -385,6 +385,8 @@ public class TokenController {
             parameters.add("function");
         if (StringUtil.isEmpty(password))
             parameters.add("password");
+        if (StringUtil.isEmpty(time))
+            parameters.add("time");
         if (StringUtil.isEmpty(object))
             object = "default";
 
