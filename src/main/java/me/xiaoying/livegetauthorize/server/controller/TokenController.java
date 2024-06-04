@@ -151,6 +151,12 @@ public class TokenController {
 
         User user = Application.getUserManager().getUser(Long.parseLong(qq));
 
+        // 判断是否已存在授权码
+        if (tokenManager.contains(token))
+            return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_EXISTED)
+                    .date()
+                    .toString();
+
         Token token1 = new ServerToken(token, "", "", save, over, save, user, module);
         tokenManager.create(token1);
 
