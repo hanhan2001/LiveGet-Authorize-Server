@@ -154,6 +154,10 @@ public class TokenController {
 
         User user = Application.getUserManager().getUser(Long.parseLong(qq));
 
+        // 若用户不存在则创建一个新的用户
+        if (user == null)
+            user = Application.getUserManager().createUser(Long.parseLong(qq), qq + "@qq.com", "");
+
         // 判断是否已存在授权码
         if (tokenManager.contains(token))
             return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_EXISTED)
