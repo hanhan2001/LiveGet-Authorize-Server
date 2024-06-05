@@ -247,59 +247,64 @@ public class TokenController {
 
     @GetMapping("/token/verify")
     public String verify(String token, String machine, String identification) {
-        List<String> parameters = new ArrayList<>();
-        if (StringUtil.isEmpty(token))
-            parameters.add("token");
-        if (StringUtil.isEmpty(machine))
-            parameters.add("machine");
-        if (StringUtil.isEmpty(identification))
-            parameters.add("identification");
+        try {
+            List<String> parameters = new ArrayList<>();
+            if (StringUtil.isEmpty(token))
+                parameters.add("token");
+            if (StringUtil.isEmpty(machine))
+                parameters.add("machine");
+            if (StringUtil.isEmpty(identification))
+                parameters.add("identification");
 
-        if (!parameters.isEmpty())
-            return new VariableFactory(FileMessageConstant.ERROR_NEED_PARAMETER)
-                    .parameter(parameters)
-                    .date()
-                    .toString();
+            if (!parameters.isEmpty())
+                return new VariableFactory(FileMessageConstant.ERROR_NEED_PARAMETER)
+                        .parameter(parameters)
+                        .date()
+                        .toString();
 
-        Module module = LACore.getServer().getModuleManager().getModuleByIdentification(identification);
-        if (module == null)
-            return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_NOT_FOUND)
-                    .date()
-                    .toString();
-
-        // 判断授权码是否为子模块授权码
-        if (token.contains("-")) {
-            module = module.getModuleChild(token.split("-")[0]);
+            Module module = LACore.getServer().getModuleManager().getModuleByIdentification(identification);
             if (module == null)
                 return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_NOT_FOUND)
                         .date()
                         .toString();
-            token = token.split("-")[1];
+
+            // 判断授权码是否为子模块授权码
+            if (token.contains("-")) {
+                module = module.getModuleChild(token.split("-")[0]);
+                if (module == null)
+                    return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_NOT_FOUND)
+                            .date()
+                            .toString();
+                token = token.split("-")[1];
+            }
+
+            // 判断模块是否过期
+            if (module.expire())
+                return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_EXPIRED)
+                        .date()
+                        .toString();
+
+            TokenManager tokenManager = module.getTokenManager();
+            if (!tokenManager.contains(token))
+                return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_NOT_FOUND)
+                        .date()
+                        .toString();
+
+            ServerToken serverToken = (ServerToken) tokenManager.getToken(token);
+            if (StringUtil.isEmpty(serverToken.getMachine()))
+                serverToken.setMachine(machine);
+            else if (!serverToken.getMachine().equalsIgnoreCase(machine))
+                return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_ERROR_MACHINE)
+                        .date()
+                        .toString();
+            serverToken.updateLastUse();
+            return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_VERIFIED)
+                    .date()
+                    .toString();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        // 判断模块是否过期
-        if (module.expire())
-            return new VariableFactory(FileMessageConstant.MESSAGE_MODULE_EXPIRED)
-                    .date()
-                    .toString();
-
-        TokenManager tokenManager = module.getTokenManager();
-        if (!tokenManager.contains(token))
-            return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_NOT_FOUND)
-                    .date()
-                    .toString();
-
-        ServerToken serverToken = (ServerToken) tokenManager.getToken(token);
-        if (StringUtil.isEmpty(serverToken.getMachine()))
-            serverToken.setMachine(machine);
-        else if (!serverToken.getMachine().equalsIgnoreCase(machine))
-            return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_ERROR_MACHINE)
-                    .date()
-                    .toString();
-        serverToken.updateLastUse();
-        return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_VERIFIED)
-                .date()
-                .toString();
+        return null;
     }
 
     @GetMapping("/token/setMachine")

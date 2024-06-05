@@ -68,22 +68,22 @@ public class SimpleModuleManager implements ModuleManager {
             Module m = null;
             switch (split.length) {
                 case 1:
-                    m = new ServerModule(null, split[0], description, identification, permission);
+                    m = new ServerModule(null, split[0], description, identification, permission, null, null, module);
                     break;
                 case 2:
-                    m = new ServerModule(Application.getUserManager().getUserByUUID(split[1]), split[0], description, identification, permission);
+                    m = new ServerModule(Application.getUserManager().getUserByUUID(split[1]), split[0], description, identification, permission, null, null, module);
                     break;
                 case 3: {
                     Date save = DateUtil.stringToDate(split[1], FileConfigConstant.SETTING_DATEFORMAT);
                     Date over = DateUtil.stringToDate(split[2], FileConfigConstant.SETTING_DATEFORMAT);
-                    m = new ServerModule(null, split[0], description, identification, permission, save, over);
+                    m = new ServerModule(null, split[0], description, identification, permission, save, over, module);
                     break;
                 }
                 case 4: {
                     User user = Application.getUserManager().getUser(split[1]);
-                    Date save = DateUtil.stringToDate(split[1], FileConfigConstant.SETTING_DATEFORMAT);
-                    Date over = DateUtil.stringToDate(split[2], FileConfigConstant.SETTING_DATEFORMAT);
-                    m = new ServerModule(user, split[0], description, identification, permission, save, over);
+                    Date save = DateUtil.stringToDate(split[2], FileConfigConstant.SETTING_DATEFORMAT);
+                    Date over = DateUtil.stringToDate(split[3], FileConfigConstant.SETTING_DATEFORMAT);
+                    m = new ServerModule(user, split[0], description, identification, permission, save, over, module);
                     break;
                 }
             }
