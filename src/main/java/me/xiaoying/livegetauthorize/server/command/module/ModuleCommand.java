@@ -17,6 +17,7 @@ public class ModuleCommand extends Command {
     public ModuleCommand(String name) {
         super(name);
         this.registerCommand(new ModuleListCommand());
+        this.registerCommand(new ModuleChildCommand());
     }
 
     private void registerCommand(SubCommand subCommand) {

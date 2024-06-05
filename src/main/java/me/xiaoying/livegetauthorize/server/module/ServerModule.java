@@ -1,5 +1,7 @@
 package me.xiaoying.livegetauthorize.server.module;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import me.xiaoying.livegetauthorize.core.NamespacedKey;
 import me.xiaoying.livegetauthorize.core.entity.User;
 import me.xiaoying.livegetauthorize.core.module.Module;
@@ -264,7 +266,8 @@ public class ServerModule implements Module {
 
             stringBuilder.append(this.knownModule.get(s).toString());
         }
-        return null;
+
+        return "[" + stringBuilder + "]";
     }
 
     /**
@@ -292,19 +295,16 @@ public class ServerModule implements Module {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        stringBuilder.append(this.name);
-        // name
-        // name~owner
-        // name~save~over
-        // name~owner~save~over
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("name", this.name);
         if (this.owner != null)
-            stringBuilder.append("~").append(this.owner.getUUID());
-        if (this.save != null && this.over != null)
-            stringBuilder.append("~").append(DateUtil.dateToString(this.save, FileConfigConstant.SETTING_DATEFORMAT)).append("~").append(DateUtil.dateToString(this.over, FileConfigConstant.SETTING_DATEFORMAT));
+            jsonObject.put("owner", this.owner.getUUID());
+        if (this.save != null && this.over != null) {
+            jsonObject.put("save", DateUtil.dateToString(this.save, FileConfigConstant.SETTING_DATEFORMAT));
+            jsonObject.put("over", DateUtil.dateToString(this.over, FileConfigConstant.SETTING_DATEFORMAT));
+        }
 
-        return stringBuilder.toString();
+        return jsonObject.toString();
     }
 
     public String getTable() {

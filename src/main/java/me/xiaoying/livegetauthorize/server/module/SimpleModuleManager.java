@@ -1,5 +1,7 @@
 package me.xiaoying.livegetauthorize.server.module;
 
+import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONObject;
 import me.xiaoying.livegetauthorize.core.LACore;
 import me.xiaoying.livegetauthorize.core.NamespacedKey;
 import me.xiaoying.livegetauthorize.core.entity.User;
@@ -63,42 +65,28 @@ public class SimpleModuleManager implements ModuleManager {
         String description = module.getDescription();
         String identification = module.getIdentification();
         String permission = module.getPermission();
-        for (String s : string.split(",")) {
-            String[] split = s.replace(" ", "").split("~");
-            Module m = null;
-            switch (split.length) {
-                case 1:
-                    m = new ServerModule(null, split[0], description, identification, permission, null, null, module);
-                    break;
-                case 2:
-                    m = new ServerModule(Application.getUserManager().getUserByUUID(split[1]), split[0], description, identification, permission, null, null, module);
-                    break;
-                case 3: {
-                    Date save = DateUtil.stringToDate(split[1], FileConfigConstant.SETTING_DATEFORMAT);
-                    Date over = DateUtil.stringToDate(split[2], FileConfigConstant.SETTING_DATEFORMAT);
-                    m = new ServerModule(null, split[0], description, identification, permission, save, over, module);
-                    break;
-                }
-                case 4: {
-                    User user = Application.getUserManager().getUser(split[1]);
-                    Date save = DateUtil.stringToDate(split[2], FileConfigConstant.SETTING_DATEFORMAT);
-                    Date over = DateUtil.stringToDate(split[3], FileConfigConstant.SETTING_DATEFORMAT);
-                    m = new ServerModule(user, split[0], description, identification, permission, save, over, module);
-                    break;
-                }
+
+        JSONArray jsonArray = JSONArray.of(string);
+
+        for (Object o : jsonArray.getJSONArray(0)) {
+            String name;
+            User owner = null;
+            Date save = null, over = null;
+            JSONObject jsonObject = (JSONObject) o;
+            name = jsonObject.getString("name");
+            if (!StringUtil.isEmpty(jsonObject.getString("owner")))
+                owner = Application.getUserManager().getUserByUUID(jsonObject.getString("owner"));
+            if (!StringUtil.isEmpty(jsonObject.getString("save")) && !StringUtil.isEmpty(jsonObject.getString("over"))) {
+                save = DateUtil.stringToDate(jsonObject.getString("save"), FileConfigConstant.SETTING_DATEFORMAT);
+                over = DateUtil.stringToDate(jsonObject.getString("over"), FileConfigConstant.SETTING_DATEFORMAT);
             }
-
-            if (m == null)
-                continue;
-
+            ServerModule m = new ServerModule(owner, name, description, identification, permission, save, over, module);
             ((ServerModule) module).registerChild(m);
         }
     }
 
     public void create(Module module) {
         // module
-//        // | function | description | child | identification | permission |
-//        // | minecraft | Any | 764932129~user~2024/05/31-10:10:47~2024/05/31-15:10:47,730521870 | Any | Any |
         if (module.getParent() != null) {
             SqlFactory sqlFactory = Application.getSqlFactory();
             Insert insert = new Insert(((ServerModule) module).getTable());
