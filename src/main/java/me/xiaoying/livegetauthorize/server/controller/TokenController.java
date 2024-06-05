@@ -257,7 +257,7 @@ public class TokenController {
         if (StringUtil.isEmpty(machine))
             parameters.add("machine");
         if (StringUtil.isEmpty(identification))
-            parameters.add("identification");
+            identification = "fac09b4854594c43734e2093d8a5d193b4149a3022b5b53b4f9c06653d006784";
 
         if (!parameters.isEmpty())
             return new VariableFactory(FileMessageConstant.ERROR_NEED_PARAMETER)
