@@ -294,6 +294,12 @@ public class TokenController {
                     .toString();
 
         ServerToken serverToken = (ServerToken) tokenManager.getToken(token);
+        // 判断授权码是否过期
+        if (serverToken.expire())
+            return new VariableFactory(FileMessageConstant.MESSAGE_TOKEN_EXPIRED)
+                    .date()
+                    .toString();
+
         if (StringUtil.isEmpty(serverToken.getMachine()))
             serverToken.setMachine(machine);
         else if (!serverToken.getMachine().equalsIgnoreCase(machine))
