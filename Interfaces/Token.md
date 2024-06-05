@@ -82,8 +82,8 @@
 // 模块过期
 {
   "code": 110,
-  "type": "module_overdue",
-  "Message": "This module overdue.",
+  "type": "module_expired",
+  "Message": "This module expired.",
   "time": "%date%"
 }
 ```
@@ -167,8 +167,8 @@
 // 模块过期
 {
   "code": 110,
-  "type": "module_overdue",
-  "Message": "This module overdue.",
+  "type": "module_expired",
+  "Message": "This module expired.",
   "time": "%date%"
 }
 ```
@@ -248,8 +248,8 @@
 // 模块过期
 {
   "code": 110,
-  "type": "module_overdue",
-  "Message": "This module overdue.",
+  "type": "module_expired",
+  "Message": "This module expired.",
   "time": "%date%"
 }
 ```
@@ -325,6 +325,16 @@
 ```
 
 ```json
+// 授权码过期
+{
+  "code": 110,
+  "type": "token_expired",
+  "message": "This token expired.",
+  "time": "%date%"
+}
+```
+
+```json
 // 模块不存在
 {
   "code": 110,
@@ -337,8 +347,8 @@
 // 模块过期
 {
   "code": 110,
-  "type": "module_overdue",
-  "Message": "This module overdue.",
+  "type": "module_expired",
+  "Message": "This module expired.",
   "time": "%date%"
 }
 ```
